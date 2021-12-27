@@ -3,10 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.4",
+    "prettier": "^2.5.1",
     "react": "16.11.0",
     "react-dom": "16.11.0",
+    "react-router": "^6.2.1",
+    "react-router-dom": "^6.2.1",
     "react-scripts": "3.2.0",
     "web3": "1.2.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./src/*.js": "prettier --config .prettierrc 'src/**/*.js' --write"
   },
   "scripts": {
     "start": "react-scripts start",

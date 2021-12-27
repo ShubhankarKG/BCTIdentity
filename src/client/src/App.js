@@ -12,7 +12,6 @@ const App = () => {
 
   useEffect(() => {
     const connect = async () => {
-
       try {
         // Get network provider and web3 instance.
         const web3 = await getWeb3();
@@ -25,7 +24,7 @@ const App = () => {
         const deployedNetwork = SimpleStorageContract.networks[networkId];
         const instance = new web3.eth.Contract(
           SimpleStorageContract.abi,
-          deployedNetwork && deployedNetwork.address,
+          deployedNetwork && deployedNetwork.address
         );
 
         // Set web3, accounts, and contract to the state, and then proceed with an
@@ -34,11 +33,11 @@ const App = () => {
         setAccounts(accounts);
         setContract(instance);
       } catch (error) {
-          // Catch any errors for any of the above operations.
-          alert(
-            `Failed to load web3, accounts, or contract. Check console for details.`,
-          );
-          console.error(error);
+        // Catch any errors for any of the above operations.
+        alert(
+          `Failed to load web3, accounts, or contract. Check console for details.`
+        );
+        console.error(error);
       }
     };
 
@@ -48,13 +47,12 @@ const App = () => {
   useEffect(() => {
     if (web3 && accounts && contract) {
       const runExample = async () => {
-
         // Stores a given value, 5 by default.
         await contract.methods.set(5).send({ from: accounts[0] });
-    
+
         // Get the value from the contract to prove it worked.
         const response = await contract.methods.get().call();
-    
+
         // Update state with the result.
         setStorageValue(response);
       };
@@ -71,8 +69,8 @@ const App = () => {
       <p>Your Truffle Box is installed and ready.</p>
       <h2>Smart Contract Example</h2>
       <p>
-        If your contracts compiled and migrated successfully, below will show
-        a stored value of 5 (by default).
+        If your contracts compiled and migrated successfully, below will show a
+        stored value of 5 (by default).
       </p>
       <p>
         Try changing the value stored on <strong>line 42</strong> of App.js.
@@ -80,6 +78,6 @@ const App = () => {
       <div>The stored value is: {storageValue}</div>
     </div>
   );
-}
+};
 
 export default App;

@@ -25,6 +25,7 @@ import ipfs from "../ipfs";
 import { Redirect } from "react-router-dom";
 import fire from "../Fire";
 import { getAuth } from "firebase/auth";
+import { child, getDatabase, ref, set } from "firebase/database";
 
 class UploadPage extends Component {
   state = {
@@ -68,18 +69,18 @@ class UploadPage extends Component {
 
     console.log(contract);
 
-    await contract.methods
-      .updateProf(
-        this.state.name,
-        this.state.profilepic,
-        accounts[0],
-        this.state.phoneno,
-        this.state.semail
-      )
-      .send({ from: accounts[0] });
+    // await contract.methods
+    //   .updateProf(
+    //     this.state.name,
+    //     this.state.profilepic,
+    //     accounts[0],
+    //     this.state.phoneno,
+    //     this.state.semail
+    //   )
+    //   .send({ from: accounts[0] });
 
-    const response = await contract.methods.getProfile(accounts[0]).call();
-    console.log(response[0] + "updated");
+    // const response = await contract.methods.getProfile(accounts[0]).call();
+    // console.log(response[0] + "updated");
     {
       this.firebaseset();
     }
@@ -90,42 +91,12 @@ class UploadPage extends Component {
   firebaseset = () => {
     try {
       const { accounts, contract } = this.props;
-
-      fire
-        .database()
-        .ref()
-        .child("List")
-        .child(accounts[0])
-        .set(this.state.email);
-
-      fire
-        .database()
-        .ref()
-        .child("UID")
-        .child(accounts[0])
-        .child("name")
-        .set(this.state.name);
-      fire
-        .database()
-        .ref()
-        .child("UID")
-        .child(accounts[0])
-        .child("email")
-        .set(this.state.email);
-      fire
-        .database()
-        .ref()
-        .child("UID")
-        .child(accounts[0])
-        .child("phone")
-        .set(this.state.phoneno);
-      fire
-        .database()
-        .ref()
-        .child("UID")
-        .child(accounts[0])
-        .child("profilepic")
-        .set(this.state.profilepic);
+      const dbRef = ref(getDatabase());
+      set(child(child(dbRef, "List"), accounts[0]), this.state.email);
+      set(child(child(child(dbRef, "UID"), accounts[0]), "name"), this.state.name);
+      set(child(child(child(dbRef, "UID"), accounts[0]), "email"), this.state.email);
+      set(child(child(child(dbRef, "UID"), accounts[0]), "phone"), this.state.phoneno);
+      set(child(child(child(dbRef, "UID"), accounts[0]), "profilepic"), this.state.profilepic);
     } catch (fipu) {}
   };
   ClickOpenGetProfile = async () => {
@@ -168,7 +139,7 @@ class UploadPage extends Component {
   };
   componentDidMount = async () => {
     var e = getAuth().currentUser;
-    this.setState({ email: e.email });
+    this.setState({...this.state, name: e.displayName, email: e.email, profileUrl: e.photoURL});
     console.log(e);
   };
   render() {
@@ -214,20 +185,16 @@ class UploadPage extends Component {
             <Typography style={{ marginTop: "15px" }}>
               Upload a picture
             </Typography>
-            <Grid container justify="center">
+            <Grid container justifyContent="center">
               <img
-                src={`https://gateway.ipfs.io/ipfs/${this.state.profilepic}`}
+                src={this.state.profileUrl}
                 alt="Your Profile Pic Here"
                 style={{ margin: "20px", height: "250px", width: "250px" }}
               />
             </Grid>
-            <Button disabled={this.disable()}>
-              Browse <input onChange={this.captureFile} type="file" />{" "}
-            </Button>
+            <label htmlFor="fileUpload">Upload Your Document</label>
+            <input id="fileUpload" onChange={this.captureFile} type="file" />{" "}
             {/* <Button>Upload </Button> */}
-            <Button onClick={this.handleClose.bind(this)} color="primary">
-              Cancel
-            </Button>
             <Button onClick={this.updateProfile.bind(this)} color="primary">
               Create
             </Button>

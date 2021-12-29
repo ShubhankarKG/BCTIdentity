@@ -1,83 +1,402 @@
-import React, { useEffect, useState } from "react";
+import React, { Component } from "react";
 import SimpleStorageContract from "./contracts/SimpleStorage.json";
-import getWeb3 from "./getWeb3";
 
-import "./App.css";
+// import DabContract from "./contracts/Dab.json";
+import {child, getDatabase, ref, set} from "firebase/database";
+import getWeb3 from "./utils/getWeb3";
+import MultiSig from "./Student/MultiSig.jsx";
+import Upload from "./Student/Upload.jsx";
 
-const App = () => {
-  const [storageValue, setStorageValue] = useState(0);
-  const [web3, setWeb3] = useState(null);
-  const [accounts, setAccounts] = useState(null);
-  const [contract, setContract] = useState(null);
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch,
+  BrowserRouter
+} from "react-router-dom";
+import NewRequest from "./Institute/NewRequest.jsx";
+import MyRequest from "./Student/MyRequest.jsx";
+import Routes from "./Routes/Routes.jsx";
+import InstRoutes from "./Routes/InstRoutes";
+import MyRequestInst from "./Institute/MyRequestInst.jsx";
+import MyProfile from "./Student/MyProfile.jsx";
+import MyInstitute from "./Institute/MyInstitute.jsx";
+import MultiSigCreationInst from "./Institute/MultiSigCreationInst.jsx";
+import MultiSigCreationStud from "./Student/MultiSigCreationStud";
+import UpdateProfile from "./Student/UpdateProfile.jsx";
+import StudentDashBoard from "./Student/StudentDashBoard.jsx";
+import ChangeInstitute from "./Student/ChangeInstitute.jsx";
+import Inst from "./Institute/InstChangeApprovalbyInst";
+import ApproveUpload from "./Institute/ApproveUpload.jsx";
+import InstChangeApprovalbyInst from "./Institute/InstChangeApprovalbyInst";
+import ChangeOwnershipApprovalbyInst from "./Institute/ChangeOwnershipApprovalbyInst";
+import InstituteDashBoard from "./Institute/InsituteDashBoard.jsx";
+import Dash from "./Institute/Dash.jsx";
+import Login from "./Login/Login.jsx";
+import UpdateProf from "./Student/UpdateProfile2.jsx";
+import fire from "./Fire";
+import SignUpGoogle from "./Auth/SignUpG.jsx";
+import SignUpGoogleI from "./Auth/SignUpI";
+import OtpI from "./Login/OtpI.jsx";
+import OtpS from "./Login/OtpS.jsx";
+import Particles from "react-tsparticles";
 
-  useEffect(() => {
-    const connect = async () => {
-      try {
-        // Get network provider and web3 instance.
-        const web3 = await getWeb3();
-
-        // Use web3 to get the user's accounts.
-        const accounts = await web3.eth.getAccounts();
-
-        // Get the contract instance.
-        const networkId = await web3.eth.net.getId();
-        const deployedNetwork = SimpleStorageContract.networks[networkId];
-        const instance = new web3.eth.Contract(
-          SimpleStorageContract.abi,
-          deployedNetwork && deployedNetwork.address
-        );
-
-        // Set web3, accounts, and contract to the state, and then proceed with an
-        // example of interacting with the contract's methods.
-        setWeb3(web3);
-        setAccounts(accounts);
-        setContract(instance);
-      } catch (error) {
-        // Catch any errors for any of the above operations.
-        alert(
-          `Failed to load web3, accounts, or contract. Check console for details.`
-        );
-        console.error(error);
-      }
-    };
-
-    connect();
-  }, [accounts]);
-
-  useEffect(() => {
-    if (web3 && accounts && contract) {
-      const runExample = async () => {
-        // Stores a given value, 5 by default.
-        await contract.methods.set(5).send({ from: accounts[0] });
-
-        // Get the value from the contract to prove it worked.
-        const response = await contract.methods.get().call();
-
-        // Update state with the result.
-        setStorageValue(response);
-      };
-      runExample();
-    }
-  }, [contract, accounts, web3]);
-
-  if (!web3) {
-    return <div>Loading Web3, accounts, and contract...</div>;
-  }
-  return (
-    <div className="App">
-      <h1>Good to Go!</h1>
-      <p>Your Truffle Box is installed and ready.</p>
-      <h2>Smart Contract Example</h2>
-      <p>
-        If your contracts compiled and migrated successfully, below will show a
-        stored value of 5 (by default).
-      </p>
-      <p>
-        Try changing the value stored on <strong>line 42</strong> of App.js.
-      </p>
-      <div>The stored value is: {storageValue}</div>
-    </div>
-  );
+const particleOpt = {
+  background: {
+    color: {
+      value: "#0d47a1",
+    },
+  },
+  fpsLimit: 60,
+  interactivity: {
+    events: {
+      onClick: {
+        enable: true,
+        mode: "push",
+      },
+      onHover: {
+        enable: true,
+        mode: "repulse",
+      },
+      resize: true,
+    },
+    modes: {
+      bubble: {
+        distance: 400,
+        duration: 2,
+        opacity: 0.8,
+        size: 40,
+      },
+      push: {
+        quantity: 4,
+      },
+      repulse: {
+        distance: 200,
+        duration: 0.4,
+      },
+    },
+  },
+  particles: {
+    color: {
+      value: "#ffffff",
+    },
+    links: {
+      color: "#ffffff",
+      distance: 150,
+      enable: true,
+      opacity: 0.5,
+      width: 1,
+    },
+    collisions: {
+      enable: true,
+    },
+    move: {
+      direction: "none",
+      enable: true,
+      outMode: "bounce",
+      random: false,
+      speed: 3,
+      straight: false,
+    },
+    number: {
+      density: {
+        enable: true,
+        area: 800,
+      },
+      value: 80,
+    },
+    opacity: {
+      value: 0.5,
+    },
+    shape: {
+      type: "circle",
+    },
+    size: {
+      random: true,
+      value: 5,
+    },
+  },
+  detectRetina: true,
 };
+
+const particlesInit = (main) => {
+  console.log(main);
+
+  // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
+};
+
+const particlesLoaded = (container) => {
+  console.log(container);
+};
+
+// import ChangeOwnershipbyStud from "./Student/ChangeOwnershipbyStud";
+class App extends Component {
+  state = {
+    storageValue: 0,
+    web3: null,
+    accounts: null,
+    contract: null,
+    student: { pendinguploads: ["ssc", "hsc"] }
+  };
+  OnK = () => {};
+
+  componentDidMount = async () => {
+    try {
+      const dbRef = ref(getDatabase());
+      set(child(dbRef, "jjA"), "A");
+      this.OnK();
+      // Get network provider and web3 instance.
+      const web3 = await getWeb3();
+
+      // Use web3 to get the user's accounts.
+      const accounts = await web3.eth.getAccounts();
+
+      // Get the contract instance.
+      const networkId = await web3.eth.net.getId();
+      const deployedNetwork = SimpleStorageContract.networks[networkId];
+      const instance = new web3.eth.Contract(
+        SimpleStorageContract.abi,
+        deployedNetwork && deployedNetwork.address
+      );
+
+      // Set web3, accounts, and contract to the state, and then proceed with an
+      // example of interacting with the contract's methods.
+      this.setState({ web3, accounts, contract: instance }, this.runExample);
+    } catch (error) {
+      // Catch any errors for any of the above operations.
+      alert(
+        `Failed to load web3, accounts, or contract. Check console for details.`
+      );
+      console.error(error);
+    }
+  };
+
+  runExample = async () => {
+    const web3 = await getWeb3();
+
+    // Use web3 to get the user's accounts.
+    const y = await web3.eth;
+
+    // // Stores a given value, 5 by default.
+    // await contract.methods.set(120).send({ from: accounts[0] });
+
+    // // // Get the value from the contract to prove it worked.
+
+    // // Update state with the result.
+
+    // await contract.methods
+    //   .createNewMultiSigbyUser(accounts[0])
+    //   .send({ from: accounts[0] });
+
+    // await contract.methods.uploadAadhar("PURE").send({ from: accounts[0] });
+
+    // var res = await contract.methods.getAadhar().call();
+  };
+
+  render() {
+    if (!this.state.web3) {
+      return <div>Loading Web3, accounts, and contract...</div>;
+    }
+    return (
+      <div className="App">
+        <BrowserRouter>
+          <div>
+            {" "}
+            <Switch>
+              <Route
+                path="/login"
+                component={() => (
+                  <Login
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />{" "}
+              <Route
+                path="/CreateStudMultisig"
+                component={() => (
+                  <MultiSigCreationStud
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />
+              <Route
+                path="/GoogleLoginS"
+                component={() => (
+                  <SignUpGoogle
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />
+              <Route
+                path="/GoogleLoginI"
+                component={() => (
+                  <SignUpGoogleI
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />
+              <Route
+                path="/OtpI"
+                component={() => (
+                  <OtpI
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />
+              <Route
+                path="/OtpS"
+                component={() => (
+                  <OtpS
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />
+              <Route
+                path="/CreateInstMultisig"
+                component={() => (
+                  <MultiSigCreationInst
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />
+              {/* <Route
+                path="/upload"
+                component={() => (
+                  <Upload
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />{" "} */}
+              <Route
+                path="/MyProfileStud"
+                component={() => (
+                  <MyProfile
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />{" "}
+              <Route
+                path="/MyProfileInst"
+                component={() => (
+                  <MyInstitute
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />
+              <Route
+                path="/createstud"
+                component={() => (
+                  <UpdateProfile
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />
+              <Route
+                path="/createinst"
+                component={() => (
+                  <UpdateProf
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />
+              <Route
+                path="/StudentDashBoard"
+                component={() => (
+                  <StudentDashBoard
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />
+              <Route
+                path="/InstituteDashBoard"
+                component={() => (
+                  <InstituteDashBoard
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />
+              <Route
+                path="/dd"
+                component={() => (
+                  <Dash
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />
+              {/* <Route
+                path="/chnageinst"
+                component={() => (
+                  <ChangeInstitute
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />
+              <Route
+                path="/instchangeapp"
+                component={() => (
+                  <InstChangeApprovalbyInst
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  /> }
+              )}{" "}
+              {/* <Route
+                path="/new"
+                component={() => (
+                  <NewRequest
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />{" "}
+              <Route
+                path="/my"
+                component={() => (
+                  <MyRequest
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />{" "}
+              <Route
+                path="/myi"
+                component={() => (
+                  <MyRequestInst
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />{" "}
+              */}{" "}
+            </Switch>{" "}
+            {/* <Routes />
+            <InstRoutes /> */}
+          </div>
+        </BrowserRouter>
+        {/* <Particles
+          id="tsparticles"
+          init={particlesInit}
+          loaded={particlesLoaded}
+          options={particleOpt}
+        /> */}
+      </div>
+    );
+  }
+}
 
 export default App;

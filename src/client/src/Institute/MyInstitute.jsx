@@ -125,7 +125,7 @@ class MyInstitute extends React.Component {
     return (
       <div>
         <AppBar position="static">
-          <Toolbar>
+          <Toolbar style={{backgroundColor:"#242424"}}>
             <IconButton
               className={classes.menuButton}
               color="inherit"
@@ -134,7 +134,7 @@ class MyInstitute extends React.Component {
             >
               <ArrowBackSharp />
             </IconButton>
-            <Typography variant="h6" color="inherit" className={classes.grow}>
+            <Typography variant="h6"  className={classes.grow}>
               My Profile
             </Typography>
 

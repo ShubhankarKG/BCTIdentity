@@ -41,7 +41,7 @@ class FreeAccess extends Component {
           <Grid item md={2} />
           <Grid item md={3} style={{ margin: "5%" }}>
             <Card style={{ padding: "25px", width: "500px" }}>
-              <Typography variant="h4" color="primary">
+              <Typography variant="h4" color="#242424">
                 Free Access
               </Typography>
               <TextField
@@ -64,8 +64,8 @@ class FreeAccess extends Component {
               <Button
                 onClick={this.submit}
                 variant="outlined"
-                color="primary"
-                style={{ marginLeft: "25%", marginTop: "10%" }}
+                            color="secondary"
+                            style={{  marginTop: "25px" ,backgroundColor:"black",color:"white"}}
               >
                 Request
               </Button>

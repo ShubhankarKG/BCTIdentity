@@ -109,7 +109,7 @@ class MyProfile extends React.Component {
 
     return (
       <div>
-        <AppBar position="static">
+        <AppBar position="static" style={{backgroundColor:"black"}}>
           <Toolbar>
             <IconButton
               className={classes.menuButton}
@@ -169,7 +169,7 @@ class MyProfile extends React.Component {
               <Grid container>
                 <Grid item md={1}>
                   <Avatar
-                    style={{ backgroundColor: "#3F51B5", padding: "10px" }}
+                    style={{ backgroundColor: "#242424", padding: "10px" }}
                   >
                     <MailIcon />
                   </Avatar>
@@ -211,7 +211,7 @@ class MyProfile extends React.Component {
               <Grid container>
                 <Grid item md={1}>
                   <Avatar
-                    style={{ backgroundColor: "#3F51B5", padding: "10px" }}
+                    style={{ backgroundColor: "#242424", padding: "10px" }}
                   >
                     <Lock />
                   </Avatar>

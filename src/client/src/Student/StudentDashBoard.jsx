@@ -47,6 +47,7 @@ import GiveAccessTo from "./GiveAccessTo";
 import FreeAccess from "./FreeAccess";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import PastHistory from "./PastHistory";
+import Navbar from "../CommonComponents/Navbar";
 
 class StudentDashBoard extends Component {
   constructor(props) {
@@ -108,14 +109,11 @@ class StudentDashBoard extends Component {
           <div>
             <Grid container justifyContent="flex-start">
               <Grid item md={12}>
-                <TopNav
-                  accounts={this.props.accounts}
-                  contract={this.props.contract}
-                />
+               <Navbar/>
               </Grid>
-              <Grid item md={12} style={{ padding: "40px" }}>
+              {/* <Grid item md={12} style={{ padding: "40px" }}>
                 {" "}
-              </Grid>
+              </Grid> */}
               <Grid
                 item
                 md={2}
@@ -137,7 +135,7 @@ class StudentDashBoard extends Component {
                         variant="h4"
                         style={{
                           padding: "20px",
-                          color: "#3F51B5",
+                          color: "#242424",
                           textAlign: "center"
                         }}
                       >
@@ -164,21 +162,21 @@ class StudentDashBoard extends Component {
                         <Grid item md={8}>
                           <Typography
                             variant="h5"
-                            style={{ textAlign: "center" }}
+                            style={{ textAlign: "center", color: "#242424", }}
                           >
                             {this.state.name}
                             <br />
                           </Typography>
                           <Typography
                             variant="subtitle2"
-                            style={{ textAlign: "center" }}
+                            style={{ textAlign: "center",color: "#242424" }}
                           >
                             My Address :<br />
                             {this.state.owner1.substring(0, 8) + ".."}
                           </Typography>
                           <Typography
                             variant="subtitle2"
-                            style={{ textAlign: "center" }}
+                            style={{ textAlign: "center" ,color: "#242424"}}
                           >
                             Current Intitute/Organization :{" "}
                             {this.state.owner2.substring(0, 8) + ".."}
@@ -190,10 +188,10 @@ class StudentDashBoard extends Component {
                           <Button
                             variant="outlined"
                             color="secondary"
-                            style={{ marginTop: "25px" }}
+                            style={{  marginTop: "25px" ,backgroundColor:"black",color:"white"}}
                           >
                             <a
-                              style={{ textDecoration: "none" }}
+                              style={{ textDecoration: "none" ,color:"white" }}
                               href="/MyProfileStud"
                             >
                               View Profile
@@ -210,14 +208,14 @@ class StudentDashBoard extends Component {
                       <ListItem
                         button
                         onClick={this.showDocs.bind(this)}
-                        style={{ width: "300px", color: "#3F51B5" }}
+                        style={{ width: "300px", color: "#242424" }}
                       >
                         <ListItemAvatar>
                           <FolderIcon />
                         </ListItemAvatar>
                         <ListItemText>
                           <Link style={{ textDecoration: "none" }} to="/mydocs">
-                            <Typography variant="h6">My Documents</Typography>
+                            <Typography variant="h6" style={{color:"#242424"}}>My Documents</Typography>
                           </Link>
                         </ListItemText>
                       </ListItem>
@@ -291,7 +289,7 @@ class StudentDashBoard extends Component {
                       </ListItem> */}
                       <ListItem
                         button
-                        style={{ width: "300px", color: "#3F51B5" }}
+                        style={{ width: "300px", color: "#242424" }}
                       >
                         <ListItemAvatar>
                           <FolderIcon />
@@ -301,13 +299,13 @@ class StudentDashBoard extends Component {
                             style={{ textDecoration: "none" }}
                             to="/giveaccess"
                           >
-                            <Typography variant="h6">Give Access</Typography>
+                            <Typography variant="h6" style={{color:"#242424"}}>Give Access</Typography>
                           </Link>
                         </ListItemText>
                       </ListItem>
                       <ListItem
                         button
-                        style={{ width: "300px", color: "#3F51B5" }}
+                        style={{ width: "300px", color: "#242424" }}
                       >
                         <ListItemAvatar>
                           <AssignmentIcon />
@@ -317,20 +315,20 @@ class StudentDashBoard extends Component {
                             to="/FreeAccess"
                             style={{ textDecoration: "none" }}
                           >
-                            <Typography variant="h6">Free Access</Typography>
+                            <Typography variant="h6" style={{color:"#242424"}}>Free Access</Typography>
                           </Link>
                         </ListItemText>
                       </ListItem>
                       <ListItem
                         button
-                        style={{ width: "300px", color: "#3F51B5" }}
+                        style={{ width: "300px", color: "#242424" }}
                       >
                         <ListItemAvatar>
                           <FolderIcon />
                         </ListItemAvatar>
                         <ListItemText>
                           <Link style={{ textDecoration: "none" }} to="/chinst">
-                            <Typography variant="h6">
+                            <Typography variant="h6" style={{color:"#242424"}}>
                               Change Institute
                             </Typography>
                           </Link>
@@ -459,7 +457,7 @@ class StudentDashBoard extends Component {
                 <Card style={{ margin: "15px" }}>
                   <Typography
                     variant="h4"
-                    style={{ padding: "10px", color: "#3F51B5" }}
+                    style={{ padding: "10px", color: "#2f2f2f" }}
                   >
                     Notifications
                     <Typography variant="caption" style={{ marginLeft: "5px" }}>

@@ -42,6 +42,7 @@ import LinkedAccount from "./LinkedAccounts";
 import RequestAccess from "./RequestAccess";
 import Access from "./Access";
 import OtpAccess from "./OtpAccess";
+import Navbar from "../CommonComponents/Navbar";
 
 class InstituteDashBoard extends Component {
   constructor(props) {
@@ -119,19 +120,17 @@ class InstituteDashBoard extends Component {
           <div>
             <Grid container>
               <Grid item md={12}>
-                <TopNav
-                  accounts={this.props.accounts}
-                  contract={this.props.contract}
-                />
+                <Navbar/>
               </Grid>
-              <Grid item md={12} style={{ padding: "40px" }}>
+              {/* <Grid item md={12} style={{ padding: "40px" }}>
                 {" "}
-              </Grid>
+              </Grid> */}
               <Grid
                 item
-                md={3}
+                md={2}
                 style={{
-                  padding: "15px"
+                  height: "100vh",
+                  zIndex: "1"
                 }}
               >
                 <Card style={{ width: "300px", height: "1000px" }}>
@@ -139,7 +138,7 @@ class InstituteDashBoard extends Component {
                     <Grid container>
                       <Typography
                         variant="h4"
-                        style={{ padding: "20px", color: "#3F51B5" }}
+                        style={{ padding: "20px", color: "#242424" }}
                       >
                         Institute Profile
                         <br />
@@ -189,11 +188,12 @@ class InstituteDashBoard extends Component {
                           <Button
                             variant="outlined"
                             color="secondary"
-                            style={{ marginTop: "25px" }}
+                            style={{  marginTop: "25px" ,backgroundColor:"black",color:"white"}}
+              
                           >
                             <a
                               href="/MyProfileInst"
-                              style={{ textDecoration: "none" }}
+                              style={{ textDecoration: "none",color:"white" }}
                             >
                               View Profile
                             </a>
@@ -217,7 +217,7 @@ class InstituteDashBoard extends Component {
                       <ListItem
                         button
                         onClick={this.showDocs.bind(this)}
-                        style={{ width: "300px", color: "#3F51B5" }}
+                        style={{ width: "300px", color: "#242424" }}
                       >
                         <ListItemAvatar>
                           <FolderIcon />
@@ -260,13 +260,13 @@ class InstituteDashBoard extends Component {
                       <ListItem
                         button
                         onClick={this.showDocs.bind(this)}
-                        style={{ width: "300px", color: "#3F51B5" }}
+                        style={{ width: "300px", color: "#242424" }}
                       >
                         <ListItemAvatar>
                           <FolderIcon />
                         </ListItemAvatar>
                         <ListItemText>
-                          <Typography variant="h6">
+                          <Typography variant="h6" style={{color:"#242424"}}>
                             <Link
                               to="/InstituteDashBoard/acc"
                               style={{ textDecoration: "none", color: "black" }}
@@ -279,7 +279,7 @@ class InstituteDashBoard extends Component {
 
                       <ListItem
                         button
-                        style={{ width: "300px", color: "#3F51B5" }}
+                        style={{ width: "300px", color: "#242424" }}
                       >
                         <ListItemAvatar>
                           <AssignmentIcon />
@@ -289,7 +289,7 @@ class InstituteDashBoard extends Component {
                             to="/InstituteDashBoard/UploadApp"
                             style={{ textDecoration: "none" }}
                           >
-                            <Typography variant="h6">
+                            <Typography variant="h6" style={{color:"#242424"}}>
                               Pending Approvals
                             </Typography>
                           </Link>
@@ -297,7 +297,7 @@ class InstituteDashBoard extends Component {
                       </ListItem>
                       <ListItem
                         button
-                        style={{ width: "300px", color: "#3F51B5" }}
+                        style={{ width: "300px", color: "#242424" }}
                       >
                         <ListItemAvatar>
                           <AssignmentIcon />
@@ -307,7 +307,7 @@ class InstituteDashBoard extends Component {
                             to="/InstituteDashBoard/ChangeOwnershipApprovalbyInst"
                             style={{ textDecoration: "none" }}
                           >
-                            <Typography variant="h6">
+                            <Typography variant="h6" style={{color:"#2f2f2f"}}>
                               Change Institute Approvals
                             </Typography>
                           </Link>

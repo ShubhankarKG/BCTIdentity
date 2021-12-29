@@ -53,7 +53,7 @@ class ChangeInst extends Component {
           <Grid item md={2} />
           <Grid item md={4}>
             <Card style={{ margin: "50px", padding: "25px", width: "500px" }}>
-              <Typography variant="h4" style={{ color: "#303F9F" }}>
+              <Typography variant="h4" style={{ color: "#242424" }}>
                 Transfer of Ownership
               </Typography>
               <br />
@@ -75,9 +75,10 @@ class ChangeInst extends Component {
               />{" "}
               <br />
               <Button
-                variant="outlined"
-                color="primary"
-                style={{ marginRight: "25px" }}
+                 variant="outlined"
+                            color="secondary"
+                            style={{  marginTop: "25px" ,backgroundColor:"black",color:"white"}}
+              
                 onClick={this.getnewInst.bind(this)}
               >
                 Next
@@ -98,7 +99,7 @@ class ChangeInst extends Component {
                         width: "500px"
                       }}
                     >
-                      <Typography variant="h4" style={{ color: "#303F9F" }}>
+                      <Typography variant="h4" style={{ color: "#242424" }}>
                         Transfer of Ownership
                       </Typography>
                       <br />

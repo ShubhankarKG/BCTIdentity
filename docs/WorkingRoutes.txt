@@ -1,4 +1,10 @@
 /GoogleLoginS
 /login
 /OtpS
+/createstud
 /CreateStudMultisig
+/StudentDashboard
+/CreateStudMultisig
+All routes under /StudentDashboard
+/GoogleLoginI
+/OtpI

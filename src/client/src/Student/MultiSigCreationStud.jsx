@@ -30,18 +30,24 @@ class MultiSigCreationStud extends Component {
   created = async () => {
     const { accounts, contract } = this.props;
 
-    console.log(contract);
+    console.log(accounts);
 
-    await contract.methods
-      .createNewMultiSigUser(this.state.InstAdd)
-      .send({ from: accounts[0] });
-    const response = await contract.methods.getOwners(accounts[0]).call();
-
-    await this.setState({ owner1: response[0] });
-    await this.setState({ owner2: response[1] });
-    console.log("owner:Student:" + response[0]);
-    console.log("owner:Institute:" + response[1]);
-    this.setState({ trig: true });
+    try {
+      await contract.methods
+        .createNewMultiSigUser(this.state.InstAdd)
+        .send({ from: accounts[0], gas: 2100000 });
+      const response = await contract.methods.getOwners(accounts[0]);
+      console.log(response);
+  
+      this.setState({ owner1: response[0] });
+      this.setState({ owner2: response[1] });
+      console.log("owner:Student:" + response[0]);
+      console.log("owner:Institute:" + response[1]);
+      this.setState({ trig: true });
+    }
+    catch (error) {
+      console.log(error);
+    }
   };
 
   handleChange = name => event => {

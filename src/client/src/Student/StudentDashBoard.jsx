@@ -99,20 +99,14 @@ class StudentDashBoard extends Component {
   }
   componentDidMount = async () => {
     await this.profile();
-    await this.disp();
   };
-  disp = () => {
-    // <MyDocuments
-    //   accounts={this.props.accounts}
-    //   contract={this.props.contract}
-    // />
-  };
+
   render() {
     return (
       <BrowserRouter>
         <div>
           <div>
-            <Grid container justify="flex-start">
+            <Grid container justifyContent="flex-start">
               <Grid item md={12}>
                 <TopNav
                   accounts={this.props.accounts}
@@ -191,7 +185,7 @@ class StudentDashBoard extends Component {
                           </Typography>
                         </Grid>
 
-                        <Grid container justify="center">
+                        <Grid container justifyContent="center">
                           <br />
                           <Button
                             variant="outlined"
@@ -500,142 +494,3 @@ class StudentDashBoard extends Component {
 }
 
 export default StudentDashBoard;
-
-// state = {
-//   student:{
-//     name:"Tom Cruze",
-//     address:"idjbsuvygfastrcxztrstrctvcc",
-//     ownername:"MIT",
-//     imgsrc:null,
-//     documents:[{docname:"aadhar",uploader:"Govt of India",datestamp:"26/10/2018",uploaderaddress:"sduvyctcsarcysv"},
-//     {docname:"aadhar11",uploader:"Govt of India",datestamp:"26/10/2018",uploaderaddress:"sduvyctcsarcysv"},
-//     {docname:"aadhar12",uploader:"Govt of India",datestamp:"26/10/2018",uploaderaddress:"sduvyctcsarcysv"}
-//   ],
-//     notifications:[{institute:"microsoft",docname:"driving"},
-//     {institute:"microsoft1",docname:"driving1"},
-//     {institute:"microsoft2",docname:"driving2"}
-//   ]
-//   }
-// }
-// {/* <Grid
-// item
-// md={5}
-// style={{
-//   padding: "15px"
-// }}
-// >
-// <Card style={{ margin: "15px" }}>
-//   <Grid container>
-//     <Grid item md={1}>
-//       <Avatar
-//         style={{ margin: "15px", backgroundColor: "#3F51B5" }}
-//       >
-//         <FolderIcon />
-//       </Avatar>
-//     </Grid>
-//     <Grid item md={10}>
-//       <Typography
-//         variant="h4"
-//         style={{ padding: "10px", color: "#3F51B5" }}
-//       >
-//         My Documents
-//         <Typography
-//           variant="caption"
-//           style={{ marginLeft: "5px" }}
-//         >
-//           (Click on the Document name to view.)
-//         </Typography>
-//       </Typography>
-//     </Grid>
-//   </Grid>
-
-//   <List>
-//     {/* {this.props.student.documents.map(documents => {
-//       return (
-//         <div>
-//           <ListItem button>
-//             <ListItemText>
-//               <Typography variant="title">
-//                 {documents.docname}
-//               </Typography>
-//             </ListItemText>
-//             <FullScreenDialog documents={documents} />
-//           </ListItem>
-//           <Divider />
-//         </div>
-//       );
-//     })} */}
-
-//     {/* pass props here by array mapping */}
-//     <ListItem>
-//       {/* <ListItemText>
-//         <Typography variant="title">Add New Document</Typography>
-//       </ListItemText> */}
-//       <Button
-//         variant="outlined"
-//         color="secondary"
-//         style={{ marginLeft: "200px" }}
-//         onClick={this.handleClickOpen}
-//       >
-//         Add New Document
-//       </Button>
-//       {/* nvinvvertdfbtdntdnttntg */}
-
-//       <Dialog
-//         disableBackdropClick
-//         disableEscapeKeyDown
-//         open={this.state.open}
-//         onClose={this.handleClose}
-//         aria-labelledby="form-dialog-title"
-//       >
-//         <DialogTitle id="form-dialog-title">
-//           <Typography style={{ color: "#1a237e" }} variant="h4">
-//             Add New Document
-//           </Typography>
-//         </DialogTitle>
-//         <DialogContent>
-//           <DialogContentText>
-//             Enter Document Name
-//           </DialogContentText>
-//           <TextField
-//             autoFocus
-//             margin="dense"
-//             label="Name"
-//             type="text"
-//             fullWidth
-//           />
-//           <br />
-//           <DialogContentText style={{ marginTop: "15px" }}>
-//             Upload Document
-//           </DialogContentText>
-//           <Grid container justify="center">
-//             <img
-//               src={`https://gateway.ipfs.io/ipfs/${
-//                 this.state.profilepic
-//               }`}
-//               alt="CNN"
-//               style={{
-//                 margin: "20px",
-//                 height: "250px",
-//                 width: "250px"
-//               }}
-//             />
-//           </Grid>
-//           <Button>Browse </Button>
-//           <Button>Upload </Button>
-//         </DialogContent>
-//         <DialogActions>
-//           <Button onClick={this.handleClose} color="primary">
-//             Cancel
-//           </Button>
-//           <Button onClick={this.handleClose} color="primary">
-//             Confirm
-//           </Button>
-//         </DialogActions>
-//       </Dialog>
-//       {/* rnjvnfjvn */}
-//     </ListItem>
-//     <Divider />
-//   </List>
-// </Card>
-// </Grid> */}

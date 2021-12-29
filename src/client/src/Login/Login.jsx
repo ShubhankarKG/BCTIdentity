@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Particles from "react-tsparticles";
-import { Grid, Typography, Avatar, Container, Paper } from "@material-ui/core";
+import { Grid, Typography, Avatar, Container, Paper,Card } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import Navbar from "../CommonComponents/Navbar";
 
 class Login extends Component {
   state = { stud: false, inst: false, we: false, s: false, i: false };
@@ -23,6 +24,19 @@ class Login extends Component {
 
   render() {
     return (
+      <div>
+
+      <Navbar/>
+      <Card elevation={5} style={{
+            // position: "absolute",
+            // top: "200px",
+            // left: "700px",
+            // width: "500px",
+            // height: "150px"
+            margin:"100px auto",
+            width:"70%",
+            padding:"2%"
+          }}>
       <Container maxWidth="lg">
         
           <Grid container justifyContent="center">
@@ -30,6 +44,7 @@ class Login extends Component {
               <div
               >
                 <Paper
+                  elevation={4}
                   style={{
                     backgroundColor: "white",
                   }}
@@ -51,7 +66,7 @@ class Login extends Component {
                   </Grid>
                   <Grid container justifyContent="center">
                     <Button
-                      style={{ margin: "25px" }}
+                      style={{ margin: "25px" ,backgroundColor:"black",color:"white"}}
                       variant="contained"
                       color="secondary"
                       onClick={() => {
@@ -61,7 +76,7 @@ class Login extends Component {
                       Login
                     </Button>
                     <Button
-                      style={{ margin: "25px" }}
+                      style={{ margin: "25px" ,backgroundColor:"black",color:"white"}}
                       variant="contained"
                       color="secondary"
                       onClick={() => {
@@ -79,6 +94,7 @@ class Login extends Component {
             <Grid item md={4} sm={12}>
               <div>
                 <Paper
+                elevation={4}
                   style={{
                     backgroundColor: "#e3f2fd"
                   }}
@@ -100,7 +116,7 @@ class Login extends Component {
                   </Grid>
                   <Grid container justifyContent="center">
                     <Button
-                      style={{ margin: "25px" }}
+                      style={{ margin: "25px" ,backgroundColor:"black",color:"white"}}
                       variant="contained"
                       color="secondary"
                       onClick={() => {
@@ -110,7 +126,7 @@ class Login extends Component {
                       Login
                     </Button>
                     <Button
-                      style={{ margin: "25px" }}
+                    style={{ margin: "25px" ,backgroundColor:"black",color:"white"}}
                       variant="contained"
                       color="secondary"
                       onClick={() => {
@@ -131,6 +147,8 @@ class Login extends Component {
         {this.state.s ? <Redirect to="/StudentDashBoard" /> : null}
         {this.state.i ? <Redirect to="/InstituteDashBoard" /> : null}
       </Container>
+      </Card>
+      </div>
     );
   }
 }

@@ -6,6 +6,8 @@ import fire from "../Fire";
 import { Redirect } from "react-router-dom";
 import { ButtonBase, Avatar, Card } from "@material-ui/core";
 
+import Navbar from "../CommonComponents/Navbar";
+
 var provider = new GoogleAuthProvider();
 class SignUpGoogle extends Component {
   state = { open: false, red: false };
@@ -54,15 +56,18 @@ class SignUpGoogle extends Component {
           color="secondary"
           style={{ width: "80px", marginTop: 20, height: "100px" }}
         /> */}
-
+        <Navbar/>
         <Card
+          elevation={5}
           className="shadow"
           style={{
-            position: "absolute",
-            top: "200px",
-            left: "700px",
-            width: "500px",
-            height: "150px"
+            // position: "absolute",
+            // top: "200px",
+            // left: "700px",
+            // width: "500px",
+            // height: "150px"
+            margin:"150px auto",
+            width:"30%"
           }}
         >
           <div style={{ padding: "10px" }}>

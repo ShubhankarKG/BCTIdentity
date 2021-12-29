@@ -12,6 +12,7 @@ import getWeb3 from "../utils/getWeb3";
 import { Redirect } from "react-router-dom";
 
 import { Link } from "react-router-dom";
+import Navbar from "../CommonComponents/Navbar";
 
 class MultiSigCreationStud extends Component {
   state = {
@@ -81,11 +82,13 @@ class MultiSigCreationStud extends Component {
 
   render() {
     return (
+      <div>
+      <Navbar/>
       <div style={{ paddingTop: "50px" }}>
         <Grid container>
           <Grid item md={3} />
           <Grid item md={6}>
-            <Card>
+            <Card elevation={5} style={{padding:"2%"}}>
               <h1 style={{ padding: "25px" }}>Create New MultiSig Wallet!</h1>
               <hr style={{}} />
               <Grid container>
@@ -132,23 +135,23 @@ class MultiSigCreationStud extends Component {
               />
               I have read and Agree to All the{" "}
               <a href="https://metamask.io/"> Terms And Conditions</a>.
-              <Grid container>
-                <Grid item md={5} />
-                <Grid item md={2}>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    style={{ position: "unset", marginBottom: "15px" }}
+              <Button
+                    style={{ marginLeft: "70%", marginTop: "5%" ,width:"20%",backgroundColor:"black",color:"white"}}
                     onClick={this.created.bind(this)}
                   >
                     Go!
                   </Button>
+              {/* <Grid container>
+                <Grid item md={5} />
+                <Grid item md={2}>
+                 
                 </Grid>
-              </Grid>
+              </Grid> */}
             </Card>
           </Grid>
         </Grid>
         {this.state.trig ? <Redirect to="/StudentDashBoard" /> : null}
+      </div>
       </div>
     );
   }

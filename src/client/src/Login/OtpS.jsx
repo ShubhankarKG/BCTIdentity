@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Typography, TextField, Card, Grid, Button } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
 
+import Navbar from "../CommonComponents/Navbar";
+
 class OtpS extends Component {
   state = { r: false, o: "", random: "" };
   submit = async () => {
@@ -64,30 +66,31 @@ class OtpS extends Component {
   render() {
     return (
       <div>
+        <Navbar/>
         <Grid container justify="center">
-          <Grid item md={3} style={{ margin: "5%" }}>
-            <Card style={{ padding: "25px", width: "500px" }}>
-              <Typography variant="h4" color="primary">
+          {/* <Grid item md={3} style={{ margin: "5%" }}> */}
+            <Card elevation = {5} style={{padding:"2%", width: "40%",margin:"100px auto" }}>
+              <Typography variant="h4" >
                 OTP Verification
               </Typography>
               <TextField
+                
                 onChange={this.setE}
                 id="standard-name"
                 label="OTP"
                 margin="normal"
-                style={{ width: "250px" }}
+                style={{ width: "100%" }}
               />
               <br />
               <Button
                 onClick={this.submit}
                 variant="outlined"
-                color="primary"
-                style={{ marginLeft: "25%", marginTop: "10%" }}
+                style={{ marginLeft: "75%", marginTop: "5%" ,width:"20%",backgroundColor:"black",color:"white"}}
               >
                 Go
               </Button>
             </Card>
-          </Grid>
+          {/* </Grid> */}
           {this.state.r ? <Redirect to="/createstud" /> : null}
         </Grid>
       </div>

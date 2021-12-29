@@ -104,6 +104,7 @@ class MyDocuments extends Component {
     const { accounts, contract } = this.props;
 
     var r = await contract.methods.getAadhar(accounts[0]).call();
+    console.log(r);
     if (r.length > 0) {
       this.setState({ hasAadhar: true });
     }
@@ -201,7 +202,7 @@ class MyDocuments extends Component {
                 ) : null}
                 {/* array map the above content  */}
                 <br />
-                <Grid container justify="center">
+                <Grid container justifyContent="center">
                   <Button
                     variant="outlined"
                     color="secondary"
@@ -212,7 +213,6 @@ class MyDocuments extends Component {
                   </Button>
 
                   <Dialog
-                    disableBackdropClick
                     disableEscapeKeyDown
                     open={this.state.open}
                     onClose={this.handleClose}

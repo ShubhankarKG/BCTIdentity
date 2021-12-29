@@ -7,7 +7,8 @@ import {
   Avatar,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
+  Container
 } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
@@ -22,6 +23,7 @@ import getWeb3 from "../utils/getWeb3";
 import ipfs from "../ipfs";
 import { Redirect } from "react-router-dom";
 import fire from "../Fire";
+import {getAuth} from "firebase/auth";
 
 class UpdateProf extends Component {
   state = {
@@ -112,35 +114,25 @@ class UpdateProf extends Component {
     });
   };
   componentDidMount = async () => {
-    console.log("idhsiod");
-    var e = fire.auth().currentUser.email;
-    this.setState({ email: e });
+    var e = getAuth().currentUser;
+    this.setState({...this.state, name: e.displayName, email: e.email, profileUrl: e.photoURL});
     console.log(e);
   };
 
   render() {
     return (
-      <div>
-        <Button
+      <Container maxWidth="sm">
+        {/* <Button
           variant="outlined"
           color="primary"
           onClick={this.ClickOpenGetProfile}
         >
           Sign Up!
-        </Button>
-        <Dialog
-          open={this.state.open}
-          onClose={this.handleClose}
-          aria-labelledby="form-dialog-title"
-          disableEscapeKeyDown
-        >
-          <DialogTitle id="form-dialog-title">
-            <Typography style={{ color: "#1a237e" }} variant="h4">
+        </Button> */}
+          <Typography style={{ color: "#1a237e" }} variant="h4">
               Create New Account
-            </Typography>
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>Enter your Name</DialogContentText>
+          </Typography>
+          <Typography>Enter your Name</Typography>
             <TextField
               autoFocus
               margin="dense"
@@ -153,9 +145,8 @@ class UpdateProf extends Component {
             />
             <br />
             <br />
-            <DialogContentText>Enter your Phone Number</DialogContentText>
+            <Typography>Enter your Phone Number</Typography>
             <TextField
-              autoFocus
               margin="dense"
               id="phoneno"
               label="phone"
@@ -165,12 +156,12 @@ class UpdateProf extends Component {
               onChange={this.setPhone.bind(this)}
             />
             <br />
-            <DialogContentText style={{ marginTop: "15px" }}>
+            <Typography style={{ marginTop: "15px" }}>
               Upload a picture
-            </DialogContentText>
-            <Grid container justify="center">
+            </Typography>
+            <Grid container justifyContent="center">
               <img
-                src={`https://gateway.ipfs.io/ipfs/${this.state.profilepic}`}
+                src={this.state.profileUrl}
                 alt="Your Profile Pic Here"
                 style={{ margin: "20px", height: "250px", width: "250px" }}
               />
@@ -178,20 +169,11 @@ class UpdateProf extends Component {
             <Button disabled={this.disable()}>
               Browse <input onChange={this.captureFile} type="file" />{" "}
             </Button>
-            {/* <Button>Upload </Button> */}
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose.bind(this)} color="primary">
-              Cancel
-            </Button>
             <Button onClick={this.updateProfile.bind(this)} color="primary">
               Create
             </Button>
-          </DialogActions>
-        </Dialog>
-
         {this.state.open ? null : <Redirect to="/CreateInstMultisig" />}
-      </div>
+      </Container>
     );
   }
 }

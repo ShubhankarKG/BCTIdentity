@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import SimpleStorageContract from "./contracts/SimpleStorage.json";
 
 // import DabContract from "./contracts/Dab.json";
@@ -24,285 +24,176 @@ import UpdateProf from "./Student/UpdateProfile2.jsx";
 import SignUpGoogle from "./Auth/SignUpG.jsx";
 import SignUpGoogleI from "./Auth/SignUpI";
 import NotFound from "./404/NotFound";
+import Home from "./Home/Home";
 
-/*
-const particleOpt = {
-  background: {
-    color: {
-      value: "#0d47a1",
-    },
-  },
-  fpsLimit: 60,
-  interactivity: {
-    events: {
-      onClick: {
-        enable: true,
-        mode: "push",
-      },
-      onHover: {
-        enable: true,
-        mode: "repulse",
-      },
-      resize: true,
-    },
-    modes: {
-      bubble: {
-        distance: 400,
-        duration: 2,
-        opacity: 0.8,
-        size: 40,
-      },
-      push: {
-        quantity: 4,
-      },
-      repulse: {
-        distance: 200,
-        duration: 0.4,
-      },
-    },
-  },
-  particles: {
-    color: {
-      value: "#ffffff",
-    },
-    links: {
-      color: "#ffffff",
-      distance: 150,
-      enable: true,
-      opacity: 0.5,
-      width: 1,
-    },
-    collisions: {
-      enable: true,
-    },
-    move: {
-      direction: "none",
-      enable: true,
-      outMode: "bounce",
-      random: false,
-      speed: 3,
-      straight: false,
-    },
-    number: {
-      density: {
-        enable: true,
-        area: 800,
-      },
-      value: 80,
-    },
-    opacity: {
-      value: 0.5,
-    },
-    shape: {
-      type: "circle",
-    },
-    size: {
-      random: true,
-      value: 5,
-    },
-  },
-  detectRetina: true,
-};
+const App = () => {
+  const [storageValue, setStorageValue] = useState(0);
+  const [web3, setWeb3] = useState(null);
+  const [accounts, setAccounts] = useState(null);
+  const [contract, setContract] = useState(null);
+  const [student, setStudent] = useState({
+    pendinguploads: ["ssc", "hsc"],
+  }); 
 
-const particlesInit = (main) => {
-  console.log(main);
+  useEffect(() => {
+    const init = async () => {
+      try {
+        // Get network provider and web3 instance.
+        const web3 = await getWeb3();
 
-  // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
-};
+        // Use web3 to get the user's accounts.
+        const accounts = await web3.eth.getAccounts();
 
-const particlesLoaded = (container) => {
-  console.log(container);
-};
-*/
+        // Get the contract instance.
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork = SimpleStorageContract.networks[networkId];
+        const instance = new web3.eth.Contract(
+          SimpleStorageContract.abi,
+          deployedNetwork && deployedNetwork.address,
+        );
 
-// import ChangeOwnershipbyStud from "./Student/ChangeOwnershipbyStud";
-class App extends Component {
-  state = {
-    storageValue: 0,
-    web3: null,
-    accounts: null,
-    contract: null,
-    student: { pendinguploads: ["ssc", "hsc"] }
-  };
-  OnK = () => {};
+        // Set web3, accounts, and contract to the state, and then proceed with an
+        // example of interacting with the contract's methods.
+        setWeb3(web3);
+        setAccounts(accounts);
+        setContract(instance);
+      } catch (error) {
+        // Catch any errors for any of the above operations.
+        alert(
+          `Failed to load web3, accounts, or contract. Check console for details.`,
+        );
+        console.error(error);
+      }
+    };
 
-  componentDidMount = async () => {
-    try {
-      const dbRef = ref(getDatabase());
-      set(child(dbRef, "jjA"), "A");
-      this.OnK();
-      // Get network provider and web3 instance.
-      const web3 = await getWeb3();
+    init();
+  }, []);
 
-      // Use web3 to get the user's accounts.
-      const accounts = await web3.eth.getAccounts();
-
-      // Get the contract instance.
-      const networkId = await web3.eth.net.getId();
-      const deployedNetwork = SimpleStorageContract.networks[networkId];
-      const instance = new web3.eth.Contract(
-        SimpleStorageContract.abi,
-        deployedNetwork && deployedNetwork.address
-      );
-
-      // Set web3, accounts, and contract to the state, and then proceed with an
-      // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: instance }, this.runExample);
-    } catch (error) {
-      // Catch any errors for any of the above operations.
-      alert(
-        `Failed to load web3, accounts, or contract. Check console for details.`
-      );
-      console.error(error);
-    }
-  };
-
-  runExample = async () => {
-    const web3 = await getWeb3();
-  };
-
-  render() {
-    if (!this.state.web3) {
-      return <div>Loading Web3, accounts, and contract...</div>;
-    }
-    return (
-      <div className="App">
-        <BrowserRouter>
-          <div>
-            {" "}
-            <Switch>
-              <Route
-                exact
-                path="/login"
-                component={() => (
-                  <Login
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />{" "}
-              <Route
-                path="/CreateStudMultisig"
-                component={() => (
-                  <MultiSigCreationStud
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />
-              <Route
-                path="/GoogleLoginS"
-                component={() => (
-                  <SignUpGoogle
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />
-              <Route
-                path="/GoogleLoginI"
-                component={() => (
-                  <SignUpGoogleI
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />
-              <Route
-                path="/CreateInstMultisig"
-                component={() => (
-                  <MultiSigCreationInst
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />
-              {/* <Route
-                path="/upload"
-                component={() => (
-                  <Upload
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />{" "} */}
-              <Route
-                path="/MyProfileStud"
-                component={() => (
-                  <MyProfile
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />{" "}
-              <Route
-                path="/MyProfileInst"
-                component={() => (
-                  <MyInstitute
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />
-              <Route
-                path="/createstud"
-                component={() => (
-                  <UpdateProfile
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />
-              <Route
-                path="/createinst"
-                component={() => (
-                  <UpdateProf
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />
-              <Route
-                path="/StudentDashBoard"
-                component={() => (
-                  <StudentDashBoard
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />
-              <Route
-                path="/InstituteDashBoard"
-                component={() => (
-                  <InstituteDashBoard
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />
-              <Route
-                path="/dd"
-                component={() => (
-                  <Dash
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />
-              
-              {/* <Route component={() => <NotFound />} /> */}
-            </Switch>{" "}
-          </div>
-        </BrowserRouter>
-        {/* <Particles
-          id="tsparticles"
-          init={particlesInit}
-          loaded={particlesLoaded}
-          options={particleOpt}
-        /> */}
-      </div>
-    );
+  if (!web3) {
+    return <div>Loading Web3, accounts, and contract...</div>;
   }
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <div>
+          {" "}
+          <Switch>
+            <Route
+              exact
+              path="/login"
+              component={() => (
+                <Login
+                  accounts={accounts}
+                  contract={contract}
+                />
+              )}
+            />{" "}
+            <Route
+              path="/CreateStudMultisig"
+              component={() => (
+                <MultiSigCreationStud
+                  accounts={accounts}
+                  contract={contract}
+                />
+              )}
+            />
+            <Route
+              path="/GoogleLoginS"
+              component={() => (
+                <SignUpGoogle
+                  accounts={accounts}
+                  contract={contract}
+                />
+              )}
+            />
+            <Route
+              path="/GoogleLoginI"
+              component={() => (
+                <SignUpGoogleI
+                  accounts={accounts}
+                  contract={contract}
+                />
+              )}
+            />
+            <Route
+              path="/CreateInstMultisig"
+              component={() => (
+                <MultiSigCreationInst
+                  accounts={accounts}
+                  contract={contract}
+                />
+              )}
+            />
+            <Route
+              path="/MyProfileStud"
+              component={() => (
+                <MyProfile
+                  accounts={accounts}
+                  contract={contract}
+                />
+              )}
+            />{" "}
+            <Route
+              path="/MyProfileInst"
+              component={() => (
+                <MyInstitute
+                  accounts={accounts}
+                  contract={contract}
+                />
+              )}
+            />
+            <Route
+              path="/createstud"
+              component={() => (
+                <UpdateProfile
+                  accounts={accounts}
+                  contract={contract}
+                />
+              )}
+            />
+            <Route
+              path="/createinst"
+              component={() => (
+                <UpdateProf
+                  accounts={accounts}
+                  contract={contract}
+                />
+              )}
+            />
+            <Route
+              path="/StudentDashBoard"
+              component={() => (
+                <StudentDashBoard
+                  accounts={accounts}
+                  contract={contract}
+                />
+              )}
+            />
+            <Route
+              path="/InstituteDashBoard"
+              component={() => (
+                <InstituteDashBoard
+                  accounts={accounts}
+                  contract={contract}
+                />
+              )}
+            />
+            <Route
+              path="/dd"
+              component={() => (
+                <Dash
+                  accounts={accounts}
+                  contract={contract}
+                />
+              )}
+            />
+            <Route exact path="/" component={Home} />
+            <Route component={() => <NotFound />} />
+          </Switch>{" "}
+        </div>
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;

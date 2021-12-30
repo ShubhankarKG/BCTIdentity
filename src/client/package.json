@@ -12,6 +12,7 @@
     "husky": "^7.0.4",
     "ipfs-api": "^26.1.2",
     "lint-staged": "^12.1.4",
+    "node-sass": "4",
     "prettier": "^2.5.1",
     "react": "16.11.0",
     "react-dom": "16.11.0",

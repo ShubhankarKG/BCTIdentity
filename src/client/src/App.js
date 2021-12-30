@@ -4,43 +4,27 @@ import SimpleStorageContract from "./contracts/SimpleStorage.json";
 // import DabContract from "./contracts/Dab.json";
 import {child, getDatabase, ref, set} from "firebase/database";
 import getWeb3 from "./utils/getWeb3";
-import MultiSig from "./Student/MultiSig.jsx";
-import Upload from "./Student/Upload.jsx";
 
 import {
   BrowserRouter as Router,
   Route,
-  Link,
   Switch,
   BrowserRouter
 } from "react-router-dom";
-import NewRequest from "./Institute/NewRequest.jsx";
-import MyRequest from "./Student/MyRequest.jsx";
-import Routes from "./Routes/Routes.jsx";
-import InstRoutes from "./Routes/InstRoutes";
-import MyRequestInst from "./Institute/MyRequestInst.jsx";
 import MyProfile from "./Student/MyProfile.jsx";
 import MyInstitute from "./Institute/MyInstitute.jsx";
 import MultiSigCreationInst from "./Institute/MultiSigCreationInst.jsx";
 import MultiSigCreationStud from "./Student/MultiSigCreationStud";
 import UpdateProfile from "./Student/UpdateProfile.jsx";
 import StudentDashBoard from "./Student/StudentDashBoard.jsx";
-import ChangeInstitute from "./Student/ChangeInstitute.jsx";
-import Inst from "./Institute/InstChangeApprovalbyInst";
-import ApproveUpload from "./Institute/ApproveUpload.jsx";
-import InstChangeApprovalbyInst from "./Institute/InstChangeApprovalbyInst";
-import ChangeOwnershipApprovalbyInst from "./Institute/ChangeOwnershipApprovalbyInst";
 import InstituteDashBoard from "./Institute/InsituteDashBoard.jsx";
 import Dash from "./Institute/Dash.jsx";
 import Login from "./Login/Login.jsx";
 import UpdateProf from "./Student/UpdateProfile2.jsx";
-import fire from "./Fire";
 import SignUpGoogle from "./Auth/SignUpG.jsx";
 import SignUpGoogleI from "./Auth/SignUpI";
-import OtpI from "./Login/OtpI.jsx";
-import OtpS from "./Login/OtpS.jsx";
-import Particles from "react-tsparticles";
 
+/*
 const particleOpt = {
   background: {
     color: {
@@ -128,6 +112,7 @@ const particlesInit = (main) => {
 const particlesLoaded = (container) => {
   console.log(container);
 };
+*/
 
 // import ChangeOwnershipbyStud from "./Student/ChangeOwnershipbyStud";
 class App extends Component {
@@ -204,15 +189,6 @@ class App extends Component {
             {" "}
             <Switch>
               <Route
-                path="/login"
-                component={() => (
-                  <Login
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />{" "}
-              <Route
                 path="/CreateStudMultisig"
                 component={() => (
                   <MultiSigCreationStud
@@ -234,24 +210,6 @@ class App extends Component {
                 path="/GoogleLoginI"
                 component={() => (
                   <SignUpGoogleI
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />
-              <Route
-                path="/OtpI"
-                component={() => (
-                  <OtpI
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />
-              <Route
-                path="/OtpS"
-                component={() => (
-                  <OtpS
                     accounts={this.state.accounts}
                     contract={this.state.contract}
                   />
@@ -338,54 +296,16 @@ class App extends Component {
                   />
                 )}
               />
-              {/* <Route
-                path="/chnageinst"
-                component={() => (
-                  <ChangeInstitute
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />
               <Route
-                path="/instchangeapp"
+                path="/"
                 component={() => (
-                  <InstChangeApprovalbyInst
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  /> }
-              )}{" "}
-              {/* <Route
-                path="/new"
-                component={() => (
-                  <NewRequest
+                  <Login
                     accounts={this.state.accounts}
                     contract={this.state.contract}
                   />
                 )}
               />{" "}
-              <Route
-                path="/my"
-                component={() => (
-                  <MyRequest
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />{" "}
-              <Route
-                path="/myi"
-                component={() => (
-                  <MyRequestInst
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />{" "}
-              */}{" "}
             </Switch>{" "}
-            {/* <Routes />
-            <InstRoutes /> */}
           </div>
         </BrowserRouter>
         {/* <Particles

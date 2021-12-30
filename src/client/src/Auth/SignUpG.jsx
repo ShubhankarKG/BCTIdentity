@@ -83,7 +83,7 @@ class SignUpGoogle extends Component {
               <h4>Sign in with Google !</h4>
             </ButtonBase>
             
-            {this.state.loggin ? <Redirect to="/OtpS" /> : null}
+            {this.state.loggin ? <Redirect to="/createstud" /> : null}
           </div>
         </Card>
       </div>

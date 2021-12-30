@@ -4,9 +4,9 @@ import Button from "@material-ui/core/Button";
 import {GoogleAuthProvider} from "firebase/auth";
 import fire from "../Fire";
 import { Redirect } from "react-router-dom";
-import { ButtonBase, Avatar, Card } from "@material-ui/core";
+import { ButtonBase, Avatar, Card,Typography } from "@material-ui/core";
 import {getAuth, signInWithPopup} from "firebase/auth";
-
+import Navbar from "../CommonComponents/Navbar";
 var provider = new GoogleAuthProvider();
 class SignUpGoogle extends Component {
   state = { open: false, red: false };
@@ -49,17 +49,23 @@ class SignUpGoogle extends Component {
   render() {
     return (
       <div>
+       <Navbar/>
         <Card
+          elevation={5}
           className="shadow"
           style={{
-            position: "absolute",
-            top: "200px",
-            left: "700px",
-            width: "500px",
-            height: "150px"
+            // position: "absolute",
+            // top: "200px",
+            // left: "700px",
+            // width: "500px",
+            // height: "150px"
+            margin:"150px auto",
+            width:"30%",
+            padding:"2%"
           }}
         >
           <div style={{ padding: "10px" }}>
+          <Typography variant="h4"  style={{marginBottom:"20px"}}>Authorize Google Account</Typography>
             <ButtonBase onClick={this.c.bind(this, this)}>
               <Avatar>
                 <img
@@ -69,7 +75,7 @@ class SignUpGoogle extends Component {
               </Avatar>
               <h4>Sign in with Google !</h4>
             </ButtonBase>
-            {this.state.loggin ? <Redirect to="/OtpI" /> : null}
+            {this.state.loggin ? <Redirect to="/createinst" /> : null}
           </div>
         </Card>
       </div>

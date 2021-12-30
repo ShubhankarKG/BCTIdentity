@@ -137,7 +137,7 @@ class MyDocuments extends Component {
               <Grid container>
                 <Grid item md={1}>
                   <Avatar
-                    style={{ margin: "15px", backgroundColor: "#3F51B5" }}
+                    style={{ margin: "15px", backgroundColor: "#2f2f2f" }}
                   >
                     <FolderIcon />
                   </Avatar>
@@ -148,7 +148,7 @@ class MyDocuments extends Component {
                     style={{
                       padding: "10px",
                       marginLeft: "15px",
-                      color: "#3F51B5"
+                      color: "#2f2f2f"
                     }}
                   >
                     My Documents
@@ -219,7 +219,7 @@ class MyDocuments extends Component {
                     aria-labelledby="form-dialog-title"
                   >
                     <DialogTitle id="form-dialog-title">
-                      <Typography style={{ color: "#1a237e" }} variant="h4">
+                      <Typography style={{ color: "#2f2f2f" }} variant="h4">
                         Add New Document
                       </Typography>
                     </DialogTitle>

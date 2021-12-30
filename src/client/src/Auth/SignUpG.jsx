@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import {browserSessionPersistence, getAuth, GoogleAuthProvider, setPersistence, signInWithPopup} from "firebase/auth";
 import fire from "../Fire";
 import { Redirect } from "react-router-dom";
-import { ButtonBase, Avatar, Card } from "@material-ui/core";
+import { ButtonBase, Avatar, Card, Typography } from "@material-ui/core";
 
 import Navbar from "../CommonComponents/Navbar";
 
@@ -67,11 +67,12 @@ class SignUpGoogle extends Component {
             // width: "500px",
             // height: "150px"
             margin:"150px auto",
-            width:"30%"
+            width:"30%",
+            padding:"2%"
           }}
         >
           <div style={{ padding: "10px" }}>
-            
+            <Typography variant="h4" style={{marginBottom:"20px"}}>Authorize Google Account</Typography>
             <ButtonBase onClick={this.c.bind(this, this)}>
               <Avatar>
                 <img
@@ -82,7 +83,7 @@ class SignUpGoogle extends Component {
               <h4>Sign in with Google !</h4>
             </ButtonBase>
             
-            {this.state.loggin ? <Redirect to="/OtpS" /> : null}
+            {this.state.loggin ? <Redirect to="/createstud" /> : null}
           </div>
         </Card>
       </div>

@@ -80,7 +80,6 @@ class Login extends Component {
                       variant="contained"
                       color="secondary"
                       onClick={() => {
-                        console.log("Getting clicked");
                         this.setState({ stud: true });
                       }}
                       >
@@ -142,8 +141,6 @@ class Login extends Component {
           </Grid>
         {this.state.stud ? <Redirect to="/createstud" /> : null}
         {this.state.inst ? <Redirect to="/createinst" /> : null}
-        {this.state.stud ? <Redirect to="/GoogleLoginS" /> : null}
-        {this.state.inst ? <Redirect to="/GoogleLoginI" /> : null}
         {this.state.s ? <Redirect to="/StudentDashBoard" /> : null}
         {this.state.i ? <Redirect to="/InstituteDashBoard" /> : null}
       </Container>

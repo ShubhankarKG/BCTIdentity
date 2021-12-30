@@ -6,6 +6,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url(./Home/components/Banner/bct.jpg);
+  box-shadow:inset 0 0 0 2000px rgba(255, 255, 255, 0.7);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
 }
 
 code {

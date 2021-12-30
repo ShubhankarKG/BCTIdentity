@@ -23,6 +23,7 @@ import Login from "./Login/Login.jsx";
 import UpdateProf from "./Student/UpdateProfile2.jsx";
 import SignUpGoogle from "./Auth/SignUpG.jsx";
 import SignUpGoogleI from "./Auth/SignUpI";
+import NotFound from "./404/NotFound";
 
 /*
 const particleOpt = {
@@ -158,24 +159,6 @@ class App extends Component {
 
   runExample = async () => {
     const web3 = await getWeb3();
-
-    // Use web3 to get the user's accounts.
-    const y = await web3.eth;
-
-    // // Stores a given value, 5 by default.
-    // await contract.methods.set(120).send({ from: accounts[0] });
-
-    // // // Get the value from the contract to prove it worked.
-
-    // // Update state with the result.
-
-    // await contract.methods
-    //   .createNewMultiSigbyUser(accounts[0])
-    //   .send({ from: accounts[0] });
-
-    // await contract.methods.uploadAadhar("PURE").send({ from: accounts[0] });
-
-    // var res = await contract.methods.getAadhar().call();
   };
 
   render() {
@@ -188,6 +171,16 @@ class App extends Component {
           <div>
             {" "}
             <Switch>
+              <Route
+                exact
+                path="/login"
+                component={() => (
+                  <Login
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />{" "}
               <Route
                 path="/CreateStudMultisig"
                 component={() => (
@@ -296,15 +289,8 @@ class App extends Component {
                   />
                 )}
               />
-              <Route
-                path="/"
-                component={() => (
-                  <Login
-                    accounts={this.state.accounts}
-                    contract={this.state.contract}
-                  />
-                )}
-              />{" "}
+              
+              {/* <Route component={() => <NotFound />} /> */}
             </Switch>{" "}
           </div>
         </BrowserRouter>

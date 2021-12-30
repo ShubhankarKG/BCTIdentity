@@ -93,7 +93,7 @@ class MyInstitute extends React.Component {
   state = {
     anchorEl: null,
     ret: false,
-    hj: []
+    hj: [{}]
   };
   ret = () => {
     this.setState({ ret: true });
@@ -102,16 +102,14 @@ class MyInstitute extends React.Component {
     const { accounts, contract } = this.props;
 
     const re = await contract.methods.getInstitutesWallet(accounts[0]).call();
-    var h = [];
+    const h = [];
 
-    re.map(async re => {
-      var assa = await contract.methods.getChangeOwnerList(re).call();
-      console.log("AA", re);
-
-      var getDet = await contract.methods.getProfile(re).call();
-      h.push({ a: re, b: assa[0], name: getDet[0], pic: getDet[1] });
-    });
-
+    for (let i = 0; i < re.length; i++) {
+      const assa = await contract.methods.getChangeOwnerList(re[i]).call();
+      const getDet = await contract.methods.getProfile(re[i]).call();
+      h.push({ a: re[i], b: assa[0], name: getDet[0], pic: getDet[1] });
+    }
+    console.log(h);
     this.setState({ hj: h });
   };
   componentDidMount = async () => {
@@ -121,7 +119,6 @@ class MyInstitute extends React.Component {
     const { classes } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
-
     return (
       <div>
         <AppBar position="static">
@@ -157,9 +154,9 @@ class MyInstitute extends React.Component {
                   <Avatar style={{ width: "85px", height: "85px" }} src="" />
                 </Grid>
                 <Grid item md={6}>
-                  <Typography variant="h3">RCOEM</Typography>
+                  <Typography variant="h3">{this.state.hj[0].name}</Typography>
                   <Typography variant="overline" style={{ fontSize: "15px" }}>
-                    ADDRESS : 88RG5R4VFB5VEGE6255
+                    ADDRESS : {this.state.hj[0].a}
                   </Typography>
                   {/* <Typography variant="h6">Linked Accounts</Typography> */}
                 </Grid>

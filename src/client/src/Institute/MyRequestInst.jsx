@@ -9,7 +9,7 @@ class MyRequestInst extends Component {
   };
 
   check = async () => {
-    const { contract, accounts } = this.props;
+    const { contract } = this.props;
 
     var a = await contract.methods.Retrive(this.state.address).call();
 

@@ -52,29 +52,11 @@ import IconButton from "@material-ui/core/IconButton";
 import ArrowBackSharp from "@material-ui/icons/ArrowBackSharp";
 import SettingsPower from "@material-ui/icons/SettingsPower";
 import { Redirect } from "react-router-dom";
-import green from "@material-ui/core/colors/green";
-import LinkedAccount from "./LinkedAccounts";
-import {
-  Route,
-  Link,
-  Switch,
-  BrowserRouter,
-  Wrapper,
-  PageWrap
-} from "react-router-dom";
 import {
   Card,
   Grid,
   Avatar,
-  Button,
-  List,
-  ListItem,
-  ListItemText,
-  Divider
 } from "@material-ui/core";
-import MailIcon from "@material-ui/icons/Mail";
-import Lock from "@material-ui/icons/Lock";
-import History from "@material-ui/icons/History";
 
 const styles = {
   root: {

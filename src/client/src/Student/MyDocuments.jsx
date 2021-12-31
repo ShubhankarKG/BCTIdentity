@@ -2,24 +2,18 @@ import React, { Component } from "react";
 import { Grid, Typography, Avatar, Card, Button } from "@material-ui/core";
 import FolderIcon from "@material-ui/icons/Folder";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import ExpPanel from "../CommonComponents/ExpPanel";
 import green from "@material-ui/core/colors/green";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MailIcon from "@material-ui/icons/Mail";
-import AlertDialog from "../CommonComponents/AlertDialog";
 import ipfs from "../ipfs";
-import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import SimpleStorageContract from "../contracts/SimpleStorage.json";
-import FullScreenDialog from "../CommonComponents/FullScreenDialog";
 
 class MyDocuments extends Component {
   constructor(props) {

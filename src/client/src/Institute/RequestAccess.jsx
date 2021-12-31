@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Button,
   Grid,
@@ -33,7 +33,7 @@ export default class SearchReq extends React.Component {
     this.setState({ open: false });
   };
   getP = async () => {
-    const { accounts, contract } = this.props;
+    const { contract } = this.props;
     const response1 = await contract.methods.getProfile(this.state.stud).call();
     this.handleClickOpen();
     this.setState({ name: response1[0] });

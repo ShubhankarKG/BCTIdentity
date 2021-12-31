@@ -7,21 +7,13 @@ import {
   Button,
   ButtonBase
 } from "@material-ui/core";
-import FolderIcon from "@material-ui/icons/Folder";
-import AssignmentIcon from "@material-ui/icons/Assignment";
 import green from "@material-ui/core/colors/green";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MailIcon from "@material-ui/icons/Mail";
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  TextField,
   List,
   ListItem,
   ListItemText,

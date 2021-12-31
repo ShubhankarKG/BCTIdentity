@@ -6,38 +6,19 @@ import {
   Avatar,
   Button,
   ListItemAvatar,
-  Drawer
 } from "@material-ui/core";
 import {
   Route,
   Link,
   Switch,
   BrowserRouter,
-  Wrapper,
-  PageWrap
 } from "react-router-dom";
-
-import ListDividers from "../CommonComponents/ListDivider";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
-// import FullScreenDialog from "../CommonComponents/FulScreenDialog";
-import TopNav from "./TopNav";
+
 import FolderIcon from "@material-ui/icons/Folder";
-import MailIcon from "@material-ui/icons/Mail";
-import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import MyDocuments from "./MyDocuments";
-import RoutesDashBoard from "../Routes/RoutesDashBoard";
-import MyRequestInst from "../Institute/MyRequestInst";
 import PendingApproval from "./PendingApproval";
 import MyRequest from "./MyRequest";
 import ChangeInst from "./ChangeInst";

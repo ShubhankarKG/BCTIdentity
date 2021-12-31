@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
-import { withStyles } from "@material-ui/core/styles";
-import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -10,8 +7,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import SimpleStorageContract from "../contracts/SimpleStorage.json";
 import getWeb3 from "../utils/getWeb3";
 import { Redirect } from "react-router-dom";
-
-import { Link } from "react-router-dom";
 
 class MultiSigCreationInst extends Component {
   state = {

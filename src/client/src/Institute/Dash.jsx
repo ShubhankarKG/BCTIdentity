@@ -8,9 +8,6 @@ import {
   ListItemAvatar,
   Drawer
 } from "@material-ui/core";
-import ListDividers from "../CommonComponents/ListDivider";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -20,13 +17,6 @@ import TopNav from "../Student/TopNav";
 import FolderIcon from "@material-ui/icons/Folder";
 import MailIcon from "@material-ui/icons/Mail";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import DrawerRHS from "../CommonComponents/DrawerRHS";
 
 class Dash extends Component {

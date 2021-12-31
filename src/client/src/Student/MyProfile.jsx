@@ -1,8 +1,4 @@
-import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import ButtonBase from "@material-ui/core/ButtonBase";
-import SimpleStorageContract from "../contracts/SimpleStorage.json";
-import getWeb3 from "../utils/getWeb3";
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -10,7 +6,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowBackSharp from "@material-ui/icons/ArrowBackSharp";
-import SettingsPower from "@material-ui/icons/SettingsPower";
 import { Redirect } from "react-router-dom";
 
 import {
@@ -18,14 +13,10 @@ import {
   Grid,
   Avatar,
   List,
-  ListItem,
-  ListItemText,
-  Divider,
   Button
 } from "@material-ui/core";
 import MailIcon from "@material-ui/icons/Mail";
 import Lock from "@material-ui/icons/Lock";
-import History from "@material-ui/icons/History";
 
 const styles = {
   root: {

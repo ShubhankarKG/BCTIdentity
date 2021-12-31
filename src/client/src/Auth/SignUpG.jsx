@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import {browserSessionPersistence, getAuth, GoogleAuthProvider, setPersistence, signInWithPopup} from "firebase/auth";
-import fire from "../Fire";
+import { getAuth, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import { Redirect } from "react-router-dom";
 import { ButtonBase, Avatar, Card, Typography } from "@material-ui/core";
 

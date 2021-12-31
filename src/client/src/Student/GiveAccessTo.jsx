@@ -17,7 +17,7 @@ class GiveAccessTo extends Component {
     flag: false
   };
   getnewInst = async () => {
-    const { accounts, contract } = this.props;
+    const { contract } = this.props;
     const response1 = await contract.methods
       .getProfile(this.state.newinstadd)
       .call();

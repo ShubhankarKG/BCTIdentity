@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "@material-ui/core";
-import { Grid, Typography, Avatar, Card, Button } from "@material-ui/core";
+import { Grid, Typography, Avatar, Button } from "@material-ui/core";
 import MailIcon from "@material-ui/icons/Mail";
 import green from "@material-ui/core/colors/green";
 

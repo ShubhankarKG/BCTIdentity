@@ -1,28 +1,22 @@
-import React, { Component, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Grid,
   Card,
   Typography,
   Avatar,
   Button,
-  ListItemAvatar,
-  Drawer
+  ListItemAvatar
 } from "@material-ui/core";
 import {
   Route,
   Link,
   Switch,
-  BrowserRouter,
-  Wrapper,
-  PageWrap
+  BrowserRouter
 } from "react-router-dom";
 // import ListDividers from "../CommonComponents/ListDividers";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
 // import FullScreenDialog from "../CommonComponents/FullScreenDialog";
 import FolderIcon from "@material-ui/icons/Folder";
 import AssignmentIcon from "@material-ui/icons/Assignment";
@@ -40,8 +34,6 @@ const InstituteDashBoard = ({ accounts, contract }) => {
   const [name, setName] = useState("");
   const [profilepic, setProfilepic] = useState("");
   const [aadhar, setAadhar] = useState("");
-  const [open, setOpen] = useState(false);
-
   const mounted = useRef(true);
 
   useEffect(() => {

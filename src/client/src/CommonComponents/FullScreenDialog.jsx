@@ -42,7 +42,7 @@ class FullScreenDialog extends React.Component {
     this.setState({ open: false });
   };
   getDoc = async () => {
-    const { accounts, contract } = this.props;
+    const { contract } = this.props;
     var r = await contract.methods.getAadhar().call();
     console.log(r);
     // if (r.length > 0) {

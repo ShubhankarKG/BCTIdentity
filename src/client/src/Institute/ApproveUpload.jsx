@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Grid, Typography, Card, Button } from "@material-ui/core";
+import { Grid, Typography, Card, Button, Container } from "@material-ui/core";
 
 const ApproveUpload = ({ accounts, contract }) => {
   const mounted = useRef(true);
@@ -19,7 +19,7 @@ const ApproveUpload = ({ accounts, contract }) => {
           let uploadList = await contract.methods.getUploadReqList(studentWallet).call();
           const profile = await contract.methods.getProfile(studentWallet).call();
 
-          uploadList = uploadList.map((studentWallet) => {
+          uploadList = uploadList.filter(x => x !== "0x0000000000000000000000000000000000000000").map((studentWallet) => {
             return {
               instituteWallet: accounts[0],
               studentWallet,
@@ -55,61 +55,68 @@ const ApproveUpload = ({ accounts, contract }) => {
 
   return (
     <div syle={{ marginTop: "1000px" }}>
-      {approvalRequests.map((request, id) => {
-        return (
-          <div key={request.studentWallet + " " + id.toString()}>
-            <Grid container style={{ marginTop: "60px" }}>
-              <Grid item md={3} />
-              <Grid item md={6}>
-                <Card style={{ padding: "15px", width: "700px" }}>
-                  <Typography variant="h4" color="primary">
-                    Document Approval
-                  </Typography>
-                  <hr />
-                  <Typography variant="headline">
-                    <span>
-                      Request from: {request.name}
-                      <br />
-                      <em style={{ color: "#d50000" }}>
-                        {request.studentWallet.substring(0, 10)}
-                      </em>
-                    </span>
-                  </Typography>
-                  <br />
-                  <Grid container>
-                    <Grid item md={3} />
-                    <Button variant="outlined" color="secondary">
-                      Deny
-                    </Button>
-                    <Grid item md={1} />
-                    <Button
-                      variant="outlined"
-                      onClick={() => getDoc(request.studentWallet)}
-                      style={{ color: "#388e3c" }}
-                    >
-                      View
-                    </Button>
-
-                    <Grid item md={1} />
-                    <Button
-                      variant="outlined"
-                      onClick={() => approve(request.studentWallet)}
-                      style={{ color: "#388e3c" }}
-                    >
-                      Allow
-                    </Button>
-                  </Grid>
-                  <br />
-                  <Typography variant="caption" style={{ textAlign: "center" }}>
-                    (You can change your Account Prefernces by going int0 the
-                    Account settings Page.)
-                  </Typography>
-                </Card>
+      {
+        approvalRequests.length > 0 ? approvalRequests.map((request, id) => {
+          return (
+            <div key={request.studentWallet + " " + id.toString()}>
+              <Grid container style={{ marginTop: "60px" }}>
+                <Grid item md={3} />
+                <Grid item md={6}>
+                  <Card style={{ padding: "15px", width: "700px" }}>
+                    <Typography variant="h4" color="primary">
+                      Document Approval
+                    </Typography>
+                    <hr />
+                    <Typography variant="body1">
+                      <span>
+                        Request from: {request.name}
+                        <br />
+                        <em style={{ color: "#d50000" }}>
+                          {request.studentWallet.substring(0, 10)}
+                        </em>
+                      </span>
+                    </Typography>
+                    <br />
+                    <Grid container>
+                      <Grid item md={3} />
+                      <Button variant="outlined" color="secondary">
+                        Deny
+                      </Button>
+                      <Grid item md={1} />
+                      <Button
+                        variant="outlined"
+                        onClick={() => getDoc(request.studentWallet)}
+                        style={{ color: "#388e3c" }}
+                      >
+                        View
+                      </Button>
+  
+                      <Grid item md={1} />
+                      <Button
+                        variant="outlined"
+                        onClick={() => approve(request.studentWallet)}
+                        style={{ color: "#388e3c" }}
+                      >
+                        Allow
+                      </Button>
+                    </Grid>
+                    <br />
+                    <Typography variant="caption" style={{ textAlign: "center" }}>
+                      (You can change your Account Prefernces by going int0 the
+                      Account settings Page.)
+                    </Typography>
+                  </Card>
+                </Grid>
               </Grid>
-            </Grid>
-          </div>
-        );
-      })}
+            </div>
+          );
+        }) : 
+        <Container maxWidth="sm" style={{margin: "0 250px"}}>
+          <Typography variant="h4" color="primary">
+            No Approval Requests
+          </Typography>
+        </Container>
+      }
     </div>
   );
 };

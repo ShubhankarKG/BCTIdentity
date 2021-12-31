@@ -22,15 +22,14 @@ const UpdateProfile = ({ accounts, contract, student }) => {
     console.log(response[0] + "updated");
     setOpen(false);
   }, [name, profilepic, accounts, phoneno, email, contract]);
-
-  const clickOpenGetProfile = useCallback(async () => {
-    const response = await contract.methods.getProfile(accounts[0]).call();
-    this.setName(response[0]);
-    this.setProfilepic(response[1]);
-    console.log(contract);
-    setOpen(true);
-  }, [accounts, contract]);
-
+  
+  const addToIpfs = useCallback(async (a) => {
+    await ipfs.add(a, (err, ipfsHash) => {
+      console.log(err);
+      setProfilepic(ipfsHash[0].hash);
+    });
+  }, []);
+  
   const captureFile = useCallback((event) => {
     event.preventDefault();
     const file = event.target.files[0];
@@ -42,12 +41,6 @@ const UpdateProfile = ({ accounts, contract, student }) => {
     };
   }, [addToIpfs]);
 
-  const addToIpfs = useCallback(async (a) => {
-    await ipfs.add(a, (err, ipfsHash) => {
-      console.log(err);
-      setProfilepic(ipfsHash[0].hash);
-    });
-  }, []);
 
   return (
     <Container maxWidth="sm">

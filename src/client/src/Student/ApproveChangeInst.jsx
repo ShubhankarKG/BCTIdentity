@@ -16,7 +16,7 @@ class ApproveChnageInst extends Component {
   };
   checkreq = async () => {
     try {
-      const { accounts, contract } = this.props;
+      const { contract } = this.props;
       var r = await contract.methods
         .getChangeOwnerList(this.props.accounts[0])
         .call();

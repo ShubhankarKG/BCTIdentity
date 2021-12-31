@@ -68,9 +68,7 @@ class GiveAccessTo extends Component {
                 margin="normal"
                 style={{ width: "250px" }}
                 onChange={e => {
-                  {
-                    this.setState({ newinstadd: e.target.value });
-                  }
+                  this.setState({ newinstadd: e.target.value });
                 }}
               />{" "}
               <br />

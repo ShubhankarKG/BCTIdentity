@@ -33,36 +33,18 @@ class SignUpGoogle extends Component {
       this.setState({loggin: true, user, token});
     })
     .catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.email;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
+      console.log(error);
     });
   };
 
   render() {
     return (
       <div>
-        {/* <Button
-          onClick={this.c.bind(this, this)}
-          variant="contained"
-          color="secondary"
-          style={{ width: "80px", marginTop: 20, height: "100px" }}
-        /> */}
         <Navbar/>
         <Card
           elevation={5}
           className="shadow"
           style={{
-            // position: "absolute",
-            // top: "200px",
-            // left: "700px",
-            // width: "500px",
-            // height: "150px"
             margin:"150px auto",
             width:"30%",
             padding:"2%"
@@ -75,6 +57,7 @@ class SignUpGoogle extends Component {
                 <img
                   src="https://blog.hubspot.com/hubfs/image8-2.jpg"
                   style={{ height: "50px" }}
+                  alt="Profile Pic"
                 />
               </Avatar>
               <h4>Sign in with Google !</h4>

@@ -55,9 +55,7 @@ class DrawerRHS extends React.Component {
   };
 
   setName = (e) => {
-    {
-      this.setState({ name: e.target.value });
-    }
+    this.setState({ name: e.target.value });
   };
   updateProfile = async () => {
     const { accounts, contract } = this.props;
@@ -70,9 +68,7 @@ class DrawerRHS extends React.Component {
 
     const response = await contract.methods.getProfile(accounts[0]).call();
     console.log(response[0] + "updated");
-    {
-      this.handleClose();
-    }
+    this.handleClose();
   };
   ClickOpenGetProfile = async () => {
     const { accounts, contract } = this.props;
@@ -80,9 +76,7 @@ class DrawerRHS extends React.Component {
     this.setState({ name: response[0] });
     this.setState({ profilepic: response[1] });
     console.log(contract);
-    {
-      this.handleClickOpen();
-    }
+    this.handleClickOpen();
   };
 
   captureFile = (event) => {

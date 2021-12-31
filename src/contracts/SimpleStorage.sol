@@ -156,7 +156,7 @@ contract SimpleStorage {
         }
     }
 
-    function approveUploadbyInstitute(address ad, address student) public {
+    function approveUploadbyInstitute(address ad, address student) public returns (bool) {
         wallets[student].uploadreq[ad].approve.inst = true;
         if (
             wallets[student].uploadreq[ad].approve.stud &&
@@ -166,9 +166,12 @@ contract SimpleStorage {
                 .uploadreq[ad]
                 .aadharhash;
 
-            delete wallets[ad].listofuploadreq[
-                wallets[ad].listofuploadreq.length - 1
+            delete wallets[student].listofuploadreq[
+                wallets[student].listofuploadreq.length - 1
             ];
+            return true;
+        } else {
+            return false;
         }
     }
 

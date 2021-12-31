@@ -26,7 +26,7 @@ class LinkedAccount extends Component {
     };
   }
   getDoc = async a => {
-    const { accounts, contract } = this.props;
+    const { contract } = this.props;
     var r = await contract.methods.getAadhar(a).call();
     console.log(r);
     if (r.length > 0) {
@@ -103,9 +103,7 @@ class LinkedAccount extends Component {
       .getUploadReqList(this.state.currentState.a)
       .call();
     console.log(uplist);
-    {
-      this.handleClose();
-    }
+    this.handleClose();
   };
 
   hj = async a => {
@@ -327,9 +325,7 @@ class LinkedAccount extends Component {
                     margin="normal"
                     style={{ width: "250px" }}
                     onChange={e => {
-                      {
-                        this.setState({ newinstadd: e.target.value });
-                      }
+                      this.setState({ newinstadd: e.target.value });
                     }}
                   />{" "}
                 </DialogContent>

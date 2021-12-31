@@ -1,15 +1,13 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SimpleStorageContract from "./contracts/SimpleStorage.json";
 
 // import DabContract from "./contracts/Dab.json";
-import {child, getDatabase, ref, set} from "firebase/database";
 import getWeb3 from "./utils/getWeb3";
 
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Route,
   Switch,
-  BrowserRouter
 } from "react-router-dom";
 import MyProfile from "./Student/MyProfile.jsx";
 import MyInstitute from "./Institute/MyInstitute.jsx";
@@ -26,14 +24,10 @@ import NotFound from "./404/NotFound";
 import Home from "./Home/Home";
 
 const App = () => {
-  const [storageValue, setStorageValue] = useState(0);
   const [web3, setWeb3] = useState(null);
   const [accounts, setAccounts] = useState(null);
   const [contract, setContract] = useState(null);
-  const [student, setStudent] = useState({
-    pendinguploads: ["ssc", "hsc"],
-  }); 
-
+  
   useEffect(() => {
     const init = async () => {
       try {

@@ -5,8 +5,7 @@ import {
   Typography,
   Avatar,
   Button,
-  ListItemAvatar,
-  Drawer
+  ListItemAvatar
 } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -20,9 +19,6 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import DrawerRHS from "../CommonComponents/DrawerRHS";
 
 class Dash extends Component {
-  constructor(props) {
-    super(props);
-  }
   state = {
     open: false
   };

@@ -17,7 +17,7 @@ class ChangeInst extends Component {
     flag: false
   };
   getnewInst = async () => {
-    const { accounts, contract } = this.props;
+    const { contract } = this.props;
     const response1 = await contract.methods
       .getProfile(this.state.newinstadd)
       .call();
@@ -68,9 +68,7 @@ class ChangeInst extends Component {
                 margin="normal"
                 style={{ width: "250px" }}
                 onChange={e => {
-                  {
-                    this.setState({ newinstadd: e.target.value });
-                  }
+                  this.setState({ newinstadd: e.target.value });
                 }}
               />{" "}
               <br />
@@ -154,13 +152,3 @@ class ChangeInst extends Component {
 }
 
 export default ChangeInst;
-
-{
-  /* <ChangeInstConfirm
-                  accounts={this.props.accounts}
-                  contract={this.props.contract}
-                  name={this.state.name}
-                  profilepic={this.state.profilepic}
-                  instadd={this.state.newinstadd}
-                /> */
-}

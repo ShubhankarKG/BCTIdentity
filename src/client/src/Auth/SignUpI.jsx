@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import {GoogleAuthProvider} from "firebase/auth";
-import fire from "../Fire";
 import { Redirect } from "react-router-dom";
 import { ButtonBase, Avatar, Card,Typography } from "@material-ui/core";
 import {getAuth, signInWithPopup} from "firebase/auth";
@@ -35,14 +32,7 @@ class SignUpGoogle extends Component {
       this.setState({loggin: true, user, token});
     })
     .catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.email;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
+      console.error(error);
     });
   };
 
@@ -71,6 +61,7 @@ class SignUpGoogle extends Component {
                 <img
                   src="https://blog.hubspot.com/hubfs/image8-2.jpg"
                   style={{ height: "50px" }}
+                  alt="Profile Pic"
                 />
               </Avatar>
               <h4>Sign in with Google !</h4>

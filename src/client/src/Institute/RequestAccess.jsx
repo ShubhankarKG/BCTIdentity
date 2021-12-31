@@ -76,9 +76,7 @@ export default class SearchReq extends React.Component {
                 margin="normal"
                 style={{ width: "250px" }}
                 onChange={e => {
-                  {
-                    this.setState({ stud: e.target.value });
-                  }
+                  this.setState({ stud: e.target.value });
                 }}
               />{" "}
               <br />

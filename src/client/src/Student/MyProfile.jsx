@@ -47,8 +47,8 @@ class MyProfile extends React.Component {
   };
   sa = async () => {
     const { accounts, contract } = this.props;
-    const response = await contract.methods.getOwners(accounts[0]).call();
-
+    const response = await contract.methods.getOwners(accounts[0]);
+    console.log(response);
     this.setState({ owner1: response[0] });
     this.setState({ owner2: response[1] });
     console.log("owner:Institute:" + response[1]);
@@ -95,8 +95,6 @@ class MyProfile extends React.Component {
   };
   render() {
     const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
-    const open = Boolean(anchorEl);
 
     return (
       <div>

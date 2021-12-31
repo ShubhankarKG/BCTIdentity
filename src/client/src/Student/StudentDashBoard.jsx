@@ -31,9 +31,6 @@ import PastHistory from "./PastHistory";
 import Navbar from "../CommonComponents/Navbar";
 
 class StudentDashBoard extends Component {
-  constructor(props) {
-    super(props);
-  }
   state = {
     open: false,
     profilepic: "",
@@ -166,18 +163,18 @@ class StudentDashBoard extends Component {
 
                         <Grid container justifyContent="center">
                           <br />
-                          <Button
-                            variant="outlined"
-                            color="secondary"
-                            style={{  marginTop: "25px" ,backgroundColor:"black",color:"white"}}
+                          <Link
+                            style={{ textDecoration: "none" ,color:"white" }}
+                            to="/MyProfileStud"
                           >
-                            <a
-                              style={{ textDecoration: "none" ,color:"white" }}
-                              href="/MyProfileStud"
+                            <Button
+                              variant="outlined"
+                              color="secondary"
+                              style={{  marginTop: "25px" ,backgroundColor:"black",color:"white"}}
                             >
-                              View Profile
-                            </a>
-                          </Button>
+                                View Profile
+                            </Button>
+                          </Link>
                         </Grid>
                       </Grid>
                     </Grid>

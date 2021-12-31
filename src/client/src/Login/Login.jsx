@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import Particles from "react-tsparticles";
 import { Grid, Typography, Avatar, Container, Paper,Card } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Navbar from "../CommonComponents/Navbar";
@@ -28,11 +27,6 @@ class Login extends Component {
 
       <Navbar/>
       <Card elevation={5} style={{
-            // position: "absolute",
-            // top: "200px",
-            // left: "700px",
-            // width: "500px",
-            // height: "150px"
             margin:"100px auto",
             width:"70%",
             padding:"2%"
@@ -66,9 +60,10 @@ class Login extends Component {
                   </Grid>
                   <Grid container justifyContent="center">
                     <Button
-                      style={{ margin: "25px" ,backgroundColor:"black",color:"white"}}
+                      style={{ margin: "25px", color:"white"}}
                       variant="contained"
                       color="secondary"
+                      disabled={!this.state.we}
                       onClick={() => {
                         this.setState({ s: true });
                       }}
@@ -76,7 +71,7 @@ class Login extends Component {
                       Login
                     </Button>
                     <Button
-                      style={{ margin: "25px" ,backgroundColor:"black",color:"white"}}
+                      style={{ margin: "25px", color:"white"}}
                       variant="contained"
                       color="secondary"
                       onClick={() => {
@@ -115,9 +110,10 @@ class Login extends Component {
                   </Grid>
                   <Grid container justifyContent="center">
                     <Button
-                      style={{ margin: "25px" ,backgroundColor:"black",color:"white"}}
+                      style={{ margin: "25px", color:"white"}}
                       variant="contained"
                       color="secondary"
+                      disabled={!this.state.we}
                       onClick={() => {
                         this.setState({ i: true });
                       }}
@@ -125,7 +121,7 @@ class Login extends Component {
                       Login
                     </Button>
                     <Button
-                    style={{ margin: "25px" ,backgroundColor:"black",color:"white"}}
+                    style={{ margin: "25px", color:"white"}}
                       variant="contained"
                       color="secondary"
                       onClick={() => {

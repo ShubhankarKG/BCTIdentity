@@ -15,12 +15,11 @@ import MyProfile from "./Student/MyProfile.jsx";
 import MyInstitute from "./Institute/MyInstitute.jsx";
 import MultiSigCreationInst from "./Institute/MultiSigCreationInst.jsx";
 import MultiSigCreationStud from "./Student/MultiSigCreationStud";
-import UpdateProfile from "./Student/UpdateProfile.jsx";
 import StudentDashBoard from "./Student/StudentDashBoard.jsx";
 import InstituteDashBoard from "./Institute/InsituteDashBoard.jsx";
 import Dash from "./Institute/Dash.jsx";
 import Login from "./Login/Login.jsx";
-import UpdateProf from "./Student/UpdateProfile2.jsx";
+import UpdateProfile from "./Student/UpdateProfile.jsx";
 import SignUpGoogle from "./Auth/SignUpG.jsx";
 import SignUpGoogleI from "./Auth/SignUpI";
 import NotFound from "./404/NotFound";
@@ -148,15 +147,17 @@ const App = () => {
                 <UpdateProfile
                   accounts={accounts}
                   contract={contract}
+                  student={true}
                 />
               )}
             />
             <Route
               path="/createinst"
               component={() => (
-                <UpdateProf
+                <UpdateProfile
                   accounts={accounts}
                   contract={contract}
+                  student={false}
                 />
               )}
             />

@@ -7,9 +7,12 @@ const ApproveUpload = ({ accounts, contract }) => {
 
   useEffect(() => {
     (async () => {
-      const studentWalletsLinkedWithInst = await contract.methods
+      if (contract && accounts) {
+        let studentWalletsLinkedWithInst = await contract.methods
         .getInstitutesWallet(accounts[0])
         .call();
+
+        studentWalletsLinkedWithInst = [...new Set(studentWalletsLinkedWithInst)];
 
         let list = [];
         await Promise.all(studentWalletsLinkedWithInst.map(async studentWallet => {
@@ -29,10 +32,11 @@ const ApproveUpload = ({ accounts, contract }) => {
         }));
 
         if (mounted.current) setApprovalRequests(list);
+      }
       })();
 
     return () => { mounted.current = false }
-  }, []);
+  }, [contract, accounts]);
 
   const getDoc = useCallback(async (add) => {
     var r = await contract.methods.getUploadReqPic(add, add).call();
@@ -41,13 +45,13 @@ const ApproveUpload = ({ accounts, contract }) => {
     } else {
       window.alert("NULL");
     }
-  }, []);
+  }, [contract]);
 
   const approve = useCallback(async (add) => {
     await contract.methods
       .approveUploadbyInstitute(accounts[0], add)
       .send({ from: accounts[0] });
-  }, []);
+  }, [contract, accounts]);
 
   return (
     <div syle={{ marginTop: "1000px" }}>
@@ -64,7 +68,7 @@ const ApproveUpload = ({ accounts, contract }) => {
                   <hr />
                   <Typography variant="headline">
                     <span>
-                      Request from :{request.name}
+                      Request from: {request.name}
                       <br />
                       <em style={{ color: "#d50000" }}>
                         {request.studentWallet.substring(0, 10)}

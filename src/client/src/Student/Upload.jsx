@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import SimpleStorageContract from "../contracts/SimpleStorage.json";
-import getWeb3 from "../utils/getWeb3";
 import "../App.css";
 import ipfs from "../ipfs";
-import { Typography, Link } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import FolderIcon from "@material-ui/icons/Folder";
 
 import {
   Card,
-  CardContent,
   Grid,
   Button,
   Avatar,

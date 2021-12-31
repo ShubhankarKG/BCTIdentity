@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useRef, useState } from "react";
 import {
   Grid,
   Card,
@@ -44,197 +44,166 @@ import Access from "./Access";
 import OtpAccess from "./OtpAccess";
 import Navbar from "../CommonComponents/Navbar";
 
-class InstituteDashBoard extends Component {
-  constructor(props) {
-    super(props);
-  }
-  state = {
-    open: false,
-    profilepic: "",
-    name: "",
-    owner1: "",
-    owner2: "",
-    aadhar: "",
-    s: "0x8bb6d82f6ec5ea7a651f96f7b3353afb7caa8a47"
-  };
-  profile = async () => {
-    const { accounts, contract } = this.props;
-    const response = await contract.methods.getOwners(accounts[0]).call();
+const InstituteDashBoard = ({ accounts, contract }) => {
+  const [owner1, setOwner1] = useState("");
+  const [owner2, setOwner2] = useState("");
+  const [name, setName] = useState("");
+  const [profilepic, setProfilepic] = useState("");
+  const [aadhar, setAadhar] = useState("");
+  const [open, setOpen] = useState(false);
 
-    this.setState({ owner1: response[0] });
-    this.setState({ owner2: response[1] });
-    // console.log("owner:Institute:" + response[1]);
-    // console.log("owner:Student:" + response[0]);
-    const response1 = await contract.methods.getProfile(accounts[0]).call();
-    this.setState({ name: response1[0] });
-    this.setState({ profilepic: response1[1] });
-    const response3 = await contract.methods.getAadhar(accounts[0]).call();
-    this.setState({ aadhar: response3 });
-    console.log(response3);
-    // const response2 = await contract.methods
-    //   .getUploadReqList(accounts[0])
-    //   .call();
+  const mounted = useRef(true);
 
-    // this.setState({ lis: response2 });
+  useEffect(() => {
+    (async () => {
+      if (contract && accounts) {
+        const response = await contract.methods.getOwners(accounts[0]).call();
+        const response1 = await contract.methods.getProfile(accounts[0]).call();
+        const response2 = await contract.methods.getAadhar(accounts[0]).call();
 
-    // const response3 = await contract.methods.getAadhar().call();
+        if (mounted.current) {
+          setOwner1(response[0]);
+          setOwner2(response[1]);
+          setName(response1[0]);
+          setProfilepic(response1[1]);
+          setAadhar(response2);
+        }
+      }
+    })();
 
-    // this.setState({ aadhar: response3 });
+    return () => {
+      mounted.current = false;
+    };
+  }, [accounts, contract]);
 
-    // console.log("aa", response3);
-  };
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
-  showDocs() {
+  const showDocs = () => {
     return <div>logic</div>;
-  }
-  st = async () => {
-    const { accounts, contract } = this.props;
-    const response = await contract.methods
-      .getInstitutesWallet(accounts[0])
-      .call();
-    console.log("s" + response);
   };
-  up = async () => {
-    const { accounts, contract } = this.props;
-    const response = await contract.methods
-      .getInstitutesUploadList(this.state.s)
-      .call();
-    console.log("a" + response);
-  };
-  componentDidMount = async () => {
-    await this.profile();
-    await this.st();
-    this.up();
-  };
-  render() {
-    return (
-      <BrowserRouter>
+
+  return (
+    <BrowserRouter>
+      <div>
         <div>
-          <div>
-            <Grid container>
-              <Grid item md={12}>
-                <Navbar/>
-              </Grid>
-              {/* <Grid item md={12} style={{ padding: "40px" }}>
+          <Grid container>
+            <Grid item md={12}>
+              <Navbar />
+            </Grid>
+            {/* <Grid item md={12} style={{ padding: "40px" }}>
                 {" "}
               </Grid> */}
-              <Grid
-                item
-                md={2}
-                style={{
-                  height: "100vh",
-                  zIndex: "1"
-                }}
-              >
-                <Card style={{ width: "300px", height: "1000px" }}>
-                  <Grid item md={12}>
-                    <Grid container>
-                      <Typography
-                        variant="h4"
-                        style={{ padding: "20px", color: "#242424" }}
-                      >
-                        Institute Profile
-                        <br />
-                      </Typography>
+            <Grid
+              item
+              md={2}
+              style={{
+                height: "100vh",
+                zIndex: "1"
+              }}
+            >
+              <Card style={{ width: "300px", height: "1000px" }}>
+                <Grid item md={12}>
+                  <Grid container>
+                    <Typography
+                      variant="h4"
+                      style={{ padding: "20px", color: "#242424" }}
+                    >
+                      Institute Profile
                       <br />
-                      <Grid container>
-                        <Grid item md={1} />
-                        <Grid item md={12}>
-                          <Avatar
-                            style={{
-                              width: 80,
-                              height: 80,
-                              marginLeft: "33.33%"
-                            }}
-                            src={`https://gateway.ipfs.io/ipfs/${
-                              this.state.profilepic
-                            }`}
-                          />
+                    </Typography>
+                    <br />
+                    <Grid container>
+                      <Grid item md={1} />
+                      <Grid item md={12}>
+                        <Avatar
+                          style={{
+                            width: 80,
+                            height: 80,
+                            marginLeft: "33.33%"
+                          }}
+                          src={`https://gateway.ipfs.io/ipfs/${profilepic}`}
+                        />
+                        <br />
+                      </Grid>
+                      <Grid item md={2} />
+                      <Grid item md={8}>
+                        <Typography
+                          variant="h5"
+                          style={{ textAlign: "center" }}
+                        >
+                          {name}
                           <br />
-                        </Grid>
-                        <Grid item md={2} />
-                        <Grid item md={8}>
-                          <Typography
-                            variant="h5"
-                            style={{ textAlign: "center" }}
-                          >
-                            {this.state.name}
-                            <br />
-                          </Typography>
-                          <Typography
-                            variant="subtitle2"
-                            style={{ textAlign: "center" }}
-                          >
-                            My Address : <br />
-                            {this.props.accounts[0].substring(0, 8) + ".."}
-                          </Typography>
-                          {/* <Typography
+                        </Typography>
+                        <Typography
+                          variant="subtitle2"
+                          style={{ textAlign: "center" }}
+                        >
+                          My Address : <br />
+                          {accounts
+                            ? accounts[0].substring(0, 8) + "..."
+                            : "MetaMask not initialized yet..."}
+                        </Typography>
+                        {/* <Typography
                           variant="subtitle2"
                           style={{ textAlign: "center" }}
                         >
                           Current Intitute/Organization :
                           {this.state.owner2.substring(0, 8) + ".."}
                         </Typography> */}
-                        </Grid>
-                        <Grid container justify="center">
-                          <br />
-                          <Button
-                            variant="outlined"
-                            color="secondary"
-                            style={{  marginTop: "25px" ,backgroundColor:"black",color:"white"}}
-              
-                          >
-                            <a
-                              href="/MyProfileInst"
-                              style={{ textDecoration: "none",color:"white" }}
-                            >
-                              View Profile
-                            </a>
-                          </Button>
-                        </Grid>
-                        <Grid
-                          container
-                          justify="center"
-                          style={{ margin: "5%" }}
+                      </Grid>
+                      <Grid container justifyContent="center">
+                        <br />
+                        <Button
+                          variant="outlined"
+                          color="secondary"
+                          style={{
+                            marginTop: "25px",
+                            backgroundColor: "black",
+                            color: "white"
+                          }}
                         >
-                          {/* <DrawerRHS
+                          <a
+                            href="/MyProfileInst"
+                            style={{ textDecoration: "none", color: "white" }}
+                          >
+                            View Profile
+                          </a>
+                        </Button>
+                      </Grid>
+                      <Grid
+                        container
+                        justifyContent="center"
+                        style={{ margin: "5%" }}
+                      >
+                        {/* <DrawerRHS
                             accounts={this.props.accounts}
                             contract={this.props.contract}
                           /> */}
-                        </Grid>
                       </Grid>
                     </Grid>
-                    <Grid container />
-                    {/* <hr /> */}
-                    <List style={{ textAlign: "center" }}>
-                      <ListItem
-                        button
-                        onClick={this.showDocs.bind(this)}
-                        style={{ width: "300px", color: "#242424" }}
-                      >
-                        <ListItemAvatar>
-                          <FolderIcon />
-                        </ListItemAvatar>
-                        <ListItemText>
-                          <Typography variant="h6">
-                            <Link
-                              to="/InstituteDashBoard/k"
-                              style={{ textDecoration: "none", color: "black" }}
-                            >
-                              Linked Accounts
-                            </Link>
-                          </Typography>
-                        </ListItemText>
-                      </ListItem>
+                  </Grid>
+                  <Grid container />
+                  {/* <hr /> */}
+                  <List style={{ textAlign: "center" }}>
+                    <ListItem
+                      button
+                      onClick={showDocs}
+                      style={{ width: "300px", color: "#242424" }}
+                    >
+                      <ListItemAvatar>
+                        <FolderIcon />
+                      </ListItemAvatar>
+                      <ListItemText>
+                        <Typography variant="h6">
+                          <Link
+                            to="/InstituteDashBoard/k"
+                            style={{ textDecoration: "none", color: "black" }}
+                          >
+                            Linked Accounts
+                          </Link>
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
 
-                      {/* <ListItem
+                    {/* <ListItem
                         button
                         onClick={this.showDocs.bind(this)}
                         style={{ width: "300px", color: "#3F51B5" }}
@@ -246,7 +215,7 @@ class InstituteDashBoard extends Component {
                           <Typography variant="h6">Upload Documents</Typography>
                         </ListItemText>
                       </ListItem> */}
-                      {/* <ListItem
+                    {/* <ListItem
                         button
                         style={{ width: "300px", color: "#3F51B5" }}
                       >
@@ -257,64 +226,64 @@ class InstituteDashBoard extends Component {
                           <Typography variant="h6">My Requests</Typography>
                         </ListItemText>
                       </ListItem> */}
-                      <ListItem
-                        button
-                        onClick={this.showDocs.bind(this)}
-                        style={{ width: "300px", color: "#242424" }}
-                      >
-                        <ListItemAvatar>
-                          <FolderIcon />
-                        </ListItemAvatar>
-                        <ListItemText>
-                          <Typography variant="h6" style={{color:"#242424"}}>
-                            <Link
-                              to="/InstituteDashBoard/acc"
-                              style={{ textDecoration: "none", color: "black" }}
-                            >
-                              Access Rights
-                            </Link>
+                    <ListItem
+                      button
+                      onClick={showDocs}
+                      style={{ width: "300px", color: "#242424" }}
+                    >
+                      <ListItemAvatar>
+                        <FolderIcon />
+                      </ListItemAvatar>
+                      <ListItemText>
+                        <Typography variant="h6" style={{ color: "#242424" }}>
+                          <Link
+                            to="/InstituteDashBoard/acc"
+                            style={{ textDecoration: "none", color: "black" }}
+                          >
+                            Access Rights
+                          </Link>
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+
+                    <ListItem
+                      button
+                      style={{ width: "300px", color: "#242424" }}
+                    >
+                      <ListItemAvatar>
+                        <AssignmentIcon />
+                      </ListItemAvatar>
+                      <ListItemText>
+                        <Link
+                          to="/InstituteDashBoard/UploadApp"
+                          style={{ textDecoration: "none" }}
+                        >
+                          <Typography variant="h6" style={{ color: "#242424" }}>
+                            Pending Approvals
                           </Typography>
-                        </ListItemText>
-                      </ListItem>
+                        </Link>
+                      </ListItemText>
+                    </ListItem>
+                    <ListItem
+                      button
+                      style={{ width: "300px", color: "#242424" }}
+                    >
+                      <ListItemAvatar>
+                        <AssignmentIcon />
+                      </ListItemAvatar>
+                      <ListItemText>
+                        <Link
+                          to="/InstituteDashBoard/ChangeOwnershipApprovalbyInst"
+                          style={{ textDecoration: "none" }}
+                        >
+                          <Typography variant="h6" style={{ color: "#2f2f2f" }}>
+                            Change Institute Approvals
+                          </Typography>
+                        </Link>
+                      </ListItemText>
+                    </ListItem>
 
-                      <ListItem
-                        button
-                        style={{ width: "300px", color: "#242424" }}
-                      >
-                        <ListItemAvatar>
-                          <AssignmentIcon />
-                        </ListItemAvatar>
-                        <ListItemText>
-                          <Link
-                            to="/InstituteDashBoard/UploadApp"
-                            style={{ textDecoration: "none" }}
-                          >
-                            <Typography variant="h6" style={{color:"#242424"}}>
-                              Pending Approvals
-                            </Typography>
-                          </Link>
-                        </ListItemText>
-                      </ListItem>
-                      <ListItem
-                        button
-                        style={{ width: "300px", color: "#242424" }}
-                      >
-                        <ListItemAvatar>
-                          <AssignmentIcon />
-                        </ListItemAvatar>
-                        <ListItemText>
-                          <Link
-                            to="/InstituteDashBoard/ChangeOwnershipApprovalbyInst"
-                            style={{ textDecoration: "none" }}
-                          >
-                            <Typography variant="h6" style={{color:"#2f2f2f"}}>
-                              Change Institute Approvals
-                            </Typography>
-                          </Link>
-                        </ListItemText>
-                      </ListItem>
-
-                      {/* <ListItem
+                    {/* <ListItem
                         button
                         style={{ width: "300px", color: "#3F51B5" }}
                       >
@@ -330,7 +299,7 @@ class InstituteDashBoard extends Component {
                           </Link>
                         </ListItemText>
                       </ListItem> */}
-                      {/* <ListItem
+                    {/* <ListItem
                         button
                         style={{ width: "300px", color: "#3F51B5" }}
                       >
@@ -347,7 +316,7 @@ class InstituteDashBoard extends Component {
                         </ListItemText>
                       </ListItem> */}
 
-                      {/* <ListItem
+                    {/* <ListItem
                         button
                         onClick={this.showDocs.bind(this)}
                         style={{ width: "300px", color: "#3F51B5" }}
@@ -366,91 +335,75 @@ class InstituteDashBoard extends Component {
                           </Typography>
                         </ListItemText>
                       </ListItem> */}
-                    </List>
-                  </Grid>
-                </Card>
-              </Grid>
-
-              <Grid
-                item
-                md={5}
-                style={{
-                  padding: "15px"
-                }}
-              >
-                <Switch>
-                  <Route
-                    path="/InstituteDashBoard/ChangeOwnershipApprovalbyInst"
-                    component={() => (
-                      <ChangeOwnershipApprovalbyInst
-                        accounts={this.props.accounts}
-                        contract={this.props.contract}
-                      />
-                    )}
-                  />
-
-                  <Route
-                    path="/InstituteDashBoard/OtpAccess"
-                    component={() => (
-                      <OtpAccess
-                        accounts={this.props.accounts}
-                        contract={this.props.contract}
-                      />
-                    )}
-                  />
-
-                  <Route
-                    path="/InstituteDashBoard/k"
-                    component={() => (
-                      <LinkedAccount
-                        accounts={this.props.accounts}
-                        contract={this.props.contract}
-                      />
-                    )}
-                  />
-                  <Route
-                    path="/InstituteDashBoard/acc"
-                    component={() => (
-                      <Access
-                        accounts={this.props.accounts}
-                        contract={this.props.contract}
-                      />
-                    )}
-                  />
-                  <Route
-                    path="/InstituteDashBoard/UploadApp"
-                    component={() => (
-                      <ApproveUpload
-                        accounts={this.props.accounts}
-                        contract={this.props.contract}
-                      />
-                    )}
-                  />
-
-                  <Route
-                    path="/InstituteDashBoard/ReqAccess"
-                    component={() => (
-                      <RequestAccess
-                        accounts={this.props.accounts}
-                        contract={this.props.contract}
-                      />
-                    )}
-                  />
-                </Switch>
-              </Grid>
-              <Grid
-                item
-                md={3}
-                style={{
-                  padding: "15px"
-                }}
-              />
+                  </List>
+                </Grid>
+              </Card>
             </Grid>
-          </div>
+
+            <Grid
+              item
+              md={5}
+              style={{
+                padding: "15px"
+              }}
+            >
+              <Switch>
+                <Route
+                  path="/InstituteDashBoard/ChangeOwnershipApprovalbyInst"
+                  component={() => (
+                    <ChangeOwnershipApprovalbyInst
+                      accounts={accounts}
+                      contract={contract}
+                    />
+                  )}
+                />
+
+                <Route
+                  path="/InstituteDashBoard/OtpAccess"
+                  component={() => (
+                    <OtpAccess accounts={accounts} contract={contract} />
+                  )}
+                />
+
+                <Route
+                  path="/InstituteDashBoard/k"
+                  component={() => (
+                    <LinkedAccount accounts={accounts} contract={contract} />
+                  )}
+                />
+                <Route
+                  path="/InstituteDashBoard/acc"
+                  component={() => (
+                    <Access accounts={accounts} contract={contract} />
+                  )}
+                />
+                <Route
+                  path="/InstituteDashBoard/UploadApp"
+                  component={() => (
+                    <ApproveUpload accounts={accounts} contract={contract} />
+                  )}
+                />
+
+                <Route
+                  path="/InstituteDashBoard/ReqAccess"
+                  component={() => (
+                    <RequestAccess accounts={accounts} contract={contract} />
+                  )}
+                />
+              </Switch>
+            </Grid>
+            <Grid
+              item
+              md={3}
+              style={{
+                padding: "15px"
+              }}
+            />
+          </Grid>
         </div>
-      </BrowserRouter>
-    );
-  }
-}
+      </div>
+    </BrowserRouter>
+  );
+};
 
 export default InstituteDashBoard;

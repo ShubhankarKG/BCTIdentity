@@ -34061,12 +34061,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x8bbFb0838898094449EA07f26e77c1636e4f7311",
-      "transactionHash": "0xdc47055960e4efe2fb3d92a7398af1324d446d377821838881a8273113855b7e"
+      "address": "0xD418992E54f8751F0CAFAF6a1EaF002CA0C589A2",
+      "transactionHash": "0x4354a1ba441a51f1aada53b450d3e8d9743b336d03476c01757bd79db286f552"
     }
   },
   "schemaVersion": "3.4.4",
-  "updatedAt": "2021-12-31T14:05:08.303Z",
+  "updatedAt": "2022-01-01T10:34:31.165Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

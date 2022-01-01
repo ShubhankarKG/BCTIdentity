@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useRef, useState } from "react";
 import { Grid, Typography, Avatar, Card, Button } from "@material-ui/core";
 import green from "@material-ui/core/colors/green";
 import {
@@ -15,131 +15,128 @@ import {
 } from "@material-ui/core";
 
 import ipfs from "../ipfs";
-class LinkedAccount extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hj: [],
-      currentState: { a: "", b: "", name: "", pic: "" },
-      newinstadd: "",
-      hasAadhar: ""
+
+const LinkedAccount = ({accounts, contract}) => {
+  const [linkedAccounts, setLinkedAccounts] = useState([{}]);
+  const [currentState, setCurrentState] = useState({
+    a: "",
+    b: "",
+    name: "",
+    pic: ""
+  });
+  const [newinstadd, setNewinstadd] = useState("");
+  const [hasAadhar, setHasAadhar] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
+  const [profilepic, setProfilepic] = useState("");
+  const [loading, setLoading] = useState(true);
+  const mounted = useRef(true);
+
+  const verify = async () => {
+    const allLinkedAccounts = await contract.methods.getInstitutesWallet(accounts[0]).call();
+    const result = [];
+
+    await Promise.all([...new Set(allLinkedAccounts)].map(async studentAccount => {
+      const assa = await contract.methods.getChangeOwnerList(studentAccount).call();
+      const getDet = await contract.methods.getProfile(studentAccount).call();
+      result.push({ a: studentAccount, b: assa[0], name: getDet[0], pic: getDet[1] });
+    }));
+
+    const result2 = await contract.methods.getAadhar(accounts[0]).call();
+    
+    if (mounted.current) {
+      setLinkedAccounts(result)
+      if (result2.length > 0) {
+        setHasAadhar(true);
+      }
+      setLoading(false);
     };
-  }
-  getDoc = async a => {
-    const { contract } = this.props;
-    var r = await contract.methods.getAadhar(a).call();
-    console.log(r);
-    if (r.length > 0) {
-      window.open(`https://gateway.ipfs.io/ipfs/${r}`);
+  };
+
+  useEffect(() => {
+    verify();
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+
+  const getDoc = async (address) => {
+    var ipfsHash = await contract.methods.getAadhar(address).call();
+    if (ipfsHash.length > 0) {
+      window.open(`https://gateway.ipfs.io/ipfs/${ipfsHash}`);
     } else {
       window.alert("NULL");
     }
   };
-  componentDidMount = async () => {
-    const { accounts, contract } = this.props;
-    await this.verify();
-    var r = await contract.methods.getAadhar(accounts[0]).call();
-    if (r.length > 0) {
-      this.setState({ hasAadhar: true });
-    }
+  
+  const handleClose = () => {
+    setOpen(false);
   };
-  verify = async () => {
-    const { accounts, contract } = this.props;
+  
+  const handleClose1 = () => {
+    handleClose();
+    setOpen1(false);
+  };
 
-    const re = await contract.methods.getInstitutesWallet(accounts[0]).call();
-    var h = [];
-
-    re.map(async re => {
-      var assa = await contract.methods.getChangeOwnerList(re).call();
-      console.log("AA", re);
-
-      var getDet = await contract.methods.getProfile(re).call();
-      h.push({ a: re, b: assa[0], name: getDet[0], pic: getDet[1] });
+  const uploadToIpfs = async (file) => {
+    await ipfs.add(file, (err, ipfsHash) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      setProfilepic(ipfsHash[0].hash);
     });
-
-    this.setState({ hj: h });
   };
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-  handleClickOpen1 = () => {
-    this.handleClose();
-    this.setState({ open1: true });
-  };
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-  handleClose1 = () => {
-    this.handleClose();
-    this.setState({ open1: false });
-  };
-
-  captureFile = event => {
+  const captureFile = event => {
     event.preventDefault();
     const file = event.target.files[0];
-    console.log(event.target.files);
     const reader = new window.FileReader();
     reader.readAsArrayBuffer(file);
     reader.onloadend = () => {
-      // this.setState({ buffer: Buffer(reader.result) });
-      //   console.log("buffjmnnnnnnnnnnnnnnnnnner", Buffer(reader.result));
-
-      this.hj(Buffer(reader.result));
+      uploadToIpfs(Buffer(reader.result));
     };
   };
 
-  onCreate = async () => {
-    const { accounts, contract } = this.props;
-
-    await contract.methods
+  const onCreate = async () => {
+    try {
+      await contract.methods
       .createUploadRequestbyInstitute(
-        this.state.currentState.a,
+        currentState.a,
         true,
-        this.state.profilepic
+        profilepic
       )
       .send({ from: accounts[0] });
-    var uplist = await contract.methods
-      .getUploadReqList(this.state.currentState.a)
-      .call();
-    console.log(uplist);
-    this.handleClose();
+      await contract.methods
+        .getUploadReqList(currentState.a)
+        .call();
+      handleClose();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  hj = async a => {
-    await ipfs.add(a, (err, ipfsHash) => {
-      console.log(err, ipfsHash);
+  const changeinst = async () => {
+    try {
+      await contract.methods
+        .changeOwnerInstfromInst(currentState.a, newinstadd)
+        .send({ from: accounts[0] });
+      await contract.methods
+        .getChangeOwnerList(currentState.a)
+        .call();
 
-      this.setState({ profilepic: ipfsHash[0].hash });
-    });
-  };
-  changeinst = async () => {
-    const { accounts, contract } = this.props;
-    await contract.methods
-      .changeOwnerInstfromInst(this.state.currentState.a, this.state.newinstadd)
-      .send({ from: accounts[0] });
-    var r = await contract.methods
-      .getChangeOwnerList(this.state.currentState.a)
-      .call();
-    console.log(r);
-    // await contract.methods
-    //   .approveChangeOwnerINSTReqbyStud(this.state.currentState.a)
-    //   .send({ from: accounts[0] });
-
-    const response = await contract.methods
-      .getOwners(this.state.currentState.a)
-      .call();
-    console.log("owner:Institute:" + response[1]);
-    console.log("owner:Student:" + response[0]);
+      await contract.methods
+        .getOwners(currentState.a)
+        .call();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  render() {
-    return (
-      <div
+  return (
+    <div
         style={{
-          backgroundColor: "white",
-          height: "1000px",
-          marginTop: "90px"
+          margin: "40px 100px"
         }}
       >
         <Typography variant="h4" style={{ padding: "20px", color: "#3F51B5" }}>
@@ -147,16 +144,15 @@ class LinkedAccount extends Component {
           <br />
         </Typography>
 
-        {this.state.hj.map(hj => {
+        {!loading && linkedAccounts.map((account, index) => {
           return (
-            <div>
+            <div key={index}>
               <div>
                 <Grid container>
-                  <Grid item md={1} />
                   <Grid
                     item
                     md={8}
-                    style={{ width: "400px", paddingTop: "50px" }}
+                    style={{ width: "400px", paddingTop: "20px" }}
                   >
                     <Card style={{ width: "900px" }}>
                       <Grid container style={{ padding: "20px" }}>
@@ -169,17 +165,16 @@ class LinkedAccount extends Component {
                                 width: "75px",
                                 height: "75px"
                               }}
-                              // src={hj.pic}
-                              src={`https://gateway.ipfs.io/ipfs/${hj.pic}`}
+                              src={`https://gateway.ipfs.io/ipfs/${account.pic}`}
                             />
                           </Grid>
 
                           <Grid item md={4}>
-                            <Typography variant="headline">
-                              {hj.name}
+                            <Typography variant="body1">
+                              {account.name}
                             </Typography>
                             <Typography variant="overline">
-                              ADDRESS : {hj.a.substring(0, 10)}
+                              ADDRESS : {account.a.substring(0, 10)}
                             </Typography>
 
                             <br />
@@ -189,10 +184,8 @@ class LinkedAccount extends Component {
                             <br />
                             <Button
                               onClick={() => {
-                                this.setState({
-                                  open: !this.state.open,
-                                  currentState: hj
-                                });
+                                setOpen(!open);
+                                setCurrentState(account);
                               }}
                               variant="outlined"
                             >
@@ -204,10 +197,9 @@ class LinkedAccount extends Component {
                             <br />
                             <Button
                               onClick={() => {
-                                this.setState({
-                                  open1: !this.state.open1,
-                                  currentState: hj
-                                });
+                                handleClose();
+                                setOpen1(!open1);
+                                setCurrentState(account);
                               }}
                               style={{ width: "200px" }}
                               variant="outlined"
@@ -223,8 +215,8 @@ class LinkedAccount extends Component {
               </div>
 
               <Dialog
-                open={this.state.open}
-                onClose={this.handleClose}
+                open={open}
+                onClose={handleClose}
                 aria-labelledby="form-dialog-title"
               >
                 <div style={{ marginLeft: "30px", marginRight: "30px" }}>
@@ -237,19 +229,16 @@ class LinkedAccount extends Component {
                     <DialogContentText style={{ color: "black" }}>
                       <Typography variant="h5">
                         {" "}
-                        Name : {this.state.currentState.name}
+                        Name : {currentState.name}
                       </Typography>
                       <Typography variant="overline">
-                        ADDRESS : {this.state.currentState.a}
+                        ADDRESS : {currentState.a}
                       </Typography>
                     </DialogContentText>
                     <br />
-                    {/* <DialogContentText style={{ marginTop: "15px" }}>
-              Create New Upload
-            </DialogContentText> */}
-                    <Grid container justify="center">
+                    <Grid container justifyContent="center">
                       <img
-                        src={`https://gateway.ipfs.io/ipfs/${hj.pic}`}
+                        src={`https://gateway.ipfs.io/ipfs/${account.pic}`}
                         alt="CNN"
                         style={{
                           margin: "20px",
@@ -268,14 +257,11 @@ class LinkedAccount extends Component {
                       <ListItem button>
                         <ListItemText>B.Tech Degree</ListItemText>
                         <Button>
-                          <input onChange={this.captureFile} type="file" />
+                          <input onChange={captureFile} type="file" />
                         </Button>
 
                         <Button
-                          onClick={this.getDoc.bind(
-                            this,
-                            this.state.currentState.a
-                          )}
+                          onClick={() => getDoc(currentState.a)}
                           variant="outlined"
                         >
                           view
@@ -285,19 +271,19 @@ class LinkedAccount extends Component {
                     </List>
                   </DialogContent>
                   <DialogActions>
-                    <Button onClick={this.handleClose} color="primary">
+                    <Button onClick={handleClose} color="primary">
                       Cancel
                     </Button>
 
-                    <Button onClick={this.onCreate} color="primary">
+                    <Button onClick={onCreate} color="primary">
                       Create New Upload Request
                     </Button>
                   </DialogActions>
                 </div>
               </Dialog>
               <Dialog
-                open={this.state.open1}
-                onClose={this.handleClose1}
+                open={open1}
+                onClose={handleClose1}
                 aria-labelledby="form-dialog-title"
               >
                 <DialogTitle id="form-dialog-title">
@@ -309,10 +295,10 @@ class LinkedAccount extends Component {
                   <DialogContentText style={{ color: "black" }}>
                     <Typography variant="h5">
                       {" "}
-                      Name : {this.state.currentState.name}
+                      Name : {currentState.name}
                     </Typography>
                     <Typography variant="overline">
-                      ADDRESS : {this.state.currentState.a}
+                      ADDRESS : {currentState.a}
                     </Typography>
                     <Typography variant="h6">
                       Enter Address of new Institute
@@ -325,15 +311,15 @@ class LinkedAccount extends Component {
                     margin="normal"
                     style={{ width: "250px" }}
                     onChange={e => {
-                      this.setState({ newinstadd: e.target.value });
+                      setNewinstadd(e.target.value);
                     }}
                   />{" "}
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={this.handleClose1} color="primary">
+                  <Button onClick={handleClose1} color="primary">
                     Cancel
                   </Button>
-                  <Button onClick={this.changeinst} color="primary">
+                  <Button onClick={changeinst} color="primary">
                     Confirm
                   </Button>
                 </DialogActions>
@@ -342,8 +328,7 @@ class LinkedAccount extends Component {
           );
         })}
       </div>
-    );
-  }
+  );
 }
 
 export default LinkedAccount;

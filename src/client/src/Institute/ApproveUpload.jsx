@@ -4,10 +4,10 @@ import { Grid, Typography, Card, Button, Container } from "@material-ui/core";
 const ApproveUpload = ({ accounts, contract }) => {
   const mounted = useRef(true);
   const [approvalRequests, setApprovalRequests] = useState([]);
+  const [counter, setCounter] = useState(0);
 
-  useEffect(() => {
-    (async () => {
-      if (contract && accounts) {
+  const getApprovalRequests = async () => {
+    if (contract && accounts) {
         let studentWalletsLinkedWithInst = await contract.methods
         .getInstitutesWallet(accounts[0])
         .call();
@@ -33,25 +33,33 @@ const ApproveUpload = ({ accounts, contract }) => {
 
         if (mounted.current) setApprovalRequests(list);
       }
-      })();
+  }
 
+  useEffect(() => {
+    getApprovalRequests();
     return () => { mounted.current = false }
-  }, [contract, accounts]);
+  }, [contract, accounts, counter]);
 
   const getDoc = useCallback(async (add) => {
-    var r = await contract.methods.getUploadReqPic(add, add).call();
+    var r = await contract.methods.getUploadReqPic(add, accounts[0]).call();
     if (r.length > 0) {
       window.open(`https://gateway.ipfs.io/ipfs/${r}`);
     } else {
       window.alert("NULL");
     }
-  }, [contract]);
+  }, [contract, accounts]);
 
   const approve = useCallback(async (add) => {
-    await contract.methods
+    try {
+      await contract.methods
       .approveUploadbyInstitute(accounts[0], add)
       .send({ from: accounts[0] });
-  }, [contract, accounts]);
+      setCounter(counter + 1);
+    } catch (error) {
+      console.error(error);
+    }
+    
+  }, [contract, accounts, counter]);
 
   return (
     <div syle={{ marginTop: "1000px" }}>

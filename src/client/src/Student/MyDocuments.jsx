@@ -1,11 +1,8 @@
 import React, { Component } from "react";
-import { Grid, Typography, Avatar, Card, Button } from "@material-ui/core";
+import { Grid, Typography, Avatar, Card, Button, Accordion, AccordionSummary, AccordionDetails } from "@material-ui/core";
 import FolderIcon from "@material-ui/icons/Folder";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import green from "@material-ui/core/colors/green";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ipfs from "../ipfs";
 import TextField from "@material-ui/core/TextField";
@@ -153,8 +150,8 @@ class MyDocuments extends Component {
                 </Grid>{" "}
                 {/* array map ExpPanel.jsx */}
                 {this.state.hasAadhar ? (
-                  <ExpansionPanel style={{ width: "800px" }}>
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                  <Accordion style={{ width: "800px" }}>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                       <Avatar
                         style={{
                           color: "#fff",
@@ -166,8 +163,8 @@ class MyDocuments extends Component {
                       <Typography style={{ margin: "10px" }}>
                         B.Tech Degree
                       </Typography>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
+                    </AccordionSummary>
+                    <AccordionDetails>
                       <Grid container>
                         <Grid item md={10}>
                           <Typography>
@@ -191,8 +188,8 @@ class MyDocuments extends Component {
                           </Button>
                         </Grid>
                       </Grid>
-                    </ExpansionPanelDetails>
-                  </ExpansionPanel>
+                    </AccordionDetails>
+                  </Accordion>
                 ) : null}
                 {/* array map the above content  */}
                 <br />
@@ -236,24 +233,6 @@ class MyDocuments extends Component {
                         <input onChange={this.captureFile} type="file" />{" "}
                       </Button>
                       <Button>Upload </Button>
-                    </DialogContent>
-                    <DialogContent>
-                      <DialogContentText style={{ marginTop: "15px" }}>
-                        Upload a picture
-                      </DialogContentText>
-                      <Grid container justify="center">
-                        <img
-                          src={`https://gateway.ipfs.io/ipfs/${
-                            this.state.aadhar
-                          }`}
-                          alt="Your Uploaded Docs Here"
-                          style={{
-                            margin: "20px",
-                            height: "250px",
-                            width: "250px"
-                          }}
-                        />
-                      </Grid>
                     </DialogContent>
                     <DialogActions>
                       <Button onClick={this.handleClose} color="primary">

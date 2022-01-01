@@ -41,10 +41,8 @@ class PendingApproval extends Component {
           <Grid item md={6}>
             <Card
               style={{
-                marginTop: "30px",
-                marginLeft: "50px",
-                marginRight: "50px",
-                width: "1150px"
+                margin: "30px 100px",
+                width: "60vw"
               }}
             >
               <Grid container>

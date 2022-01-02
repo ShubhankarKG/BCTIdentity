@@ -15,11 +15,8 @@ import MultiSigCreationInst from "./Institute/MultiSigCreationInst.jsx";
 import MultiSigCreationStud from "./Student/MultiSigCreationStud";
 import StudentDashBoard from "./Student/StudentDashBoard.jsx";
 import InstituteDashBoard from "./Institute/InsituteDashBoard.jsx";
-import Dash from "./Institute/Dash.jsx";
 import Login from "./Login/Login.jsx";
 import UpdateProfile from "./Student/UpdateProfile.jsx";
-import SignUpGoogle from "./Auth/SignUpG.jsx";
-import SignUpGoogleI from "./Auth/SignUpI";
 import NotFound from "./404/NotFound";
 import Home from "./Home/Home";
 
@@ -91,24 +88,6 @@ const App = () => {
               )}
             />
             <Route
-              path="/GoogleLoginS"
-              component={() => (
-                <SignUpGoogle
-                  accounts={accounts}
-                  contract={contract}
-                />
-              )}
-            />
-            <Route
-              path="/GoogleLoginI"
-              component={() => (
-                <SignUpGoogleI
-                  accounts={accounts}
-                  contract={contract}
-                />
-              )}
-            />
-            <Route
               path="/CreateInstMultisig"
               component={() => (
                 <MultiSigCreationInst
@@ -168,15 +147,6 @@ const App = () => {
               path="/InstituteDashBoard"
               component={() => (
                 <InstituteDashBoard
-                  accounts={accounts}
-                  contract={contract}
-                />
-              )}
-            />
-            <Route
-              path="/dd"
-              component={() => (
-                <Dash
                   accounts={accounts}
                   contract={contract}
                 />

@@ -17,7 +17,6 @@ truffle(development) > deploy
 ```bash
 $ cd src/client
 $ yarn
-$ # Place config.js file in ./src within client/
 $ yarn start
 ```
 

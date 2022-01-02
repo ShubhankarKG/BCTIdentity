@@ -8,10 +8,7 @@ import {
   ListItemAvatar
 } from "@material-ui/core";
 import {
-  Route,
   Link,
-  Switch,
-  BrowserRouter
 } from "react-router-dom";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -23,27 +20,19 @@ import LinkedAccount from "./LinkedAccounts";
 import Navbar from "../CommonComponents/Navbar";
 
 const InstituteDashBoard = ({ accounts, contract }) => {
-  const [owner1, setOwner1] = useState("");
-  const [owner2, setOwner2] = useState("");
   const [name, setName] = useState("");
   const [profilepic, setProfilepic] = useState("");
-  const [aadhar, setAadhar] = useState("");
   const [counter, setCounter] = useState(0);
   const mounted = useRef(true);
 
   useEffect(() => {
     (async () => {
       if (contract && accounts) {
-        const response = await contract.methods.getOwners(accounts[0]).call();
         const response1 = await contract.methods.getProfile(accounts[0]).call();
-        const response2 = await contract.methods.getAadhar(accounts[0]).call();
 
         if (mounted.current) {
-          setOwner1(response[0]);
-          setOwner2(response[1]);
           setName(response1[0]);
           setProfilepic(response1[1]);
-          setAadhar(response2);
         }
       }
     })();
@@ -52,10 +41,6 @@ const InstituteDashBoard = ({ accounts, contract }) => {
       mounted.current = false;
     };
   }, [accounts, contract]);
-
-  const showDocs = () => {
-    return <div>logic</div>;
-  };
 
   return (
     <Grid container>

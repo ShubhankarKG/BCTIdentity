@@ -3,6 +3,7 @@
 1. Open a new terminal and type
 ```bash
 $ cd src/
+$ rm -r client/src/contracts
 $ npx truffle develop
 truffle(development) > compile
 truffle(development) > migrate
@@ -20,4 +21,4 @@ $ # Place config.js file in ./src within client/
 $ yarn start
 ```
 
-Go to http://localhost:3000/GoogleLoginS to view the App.
+Go to http://localhost:3000/ to view the App.

@@ -115,14 +115,13 @@ class MyDocuments extends Component {
     return (
       <div>
         <Grid container>
-          <Grid item md={1} />
           <Grid item md={5}>
             <Card
               style={{
                 marginTop: "30px",
-                marginLeft: "50px",
+                marginLeft: "250px",
                 marginRight: "50px",
-                width: "800px"
+                width: "900px"
               }}
             >
               <Grid container>

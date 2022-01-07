@@ -136,11 +136,11 @@ const LinkedAccount = ({accounts, contract}) => {
   return (
     <div
         style={{
-          margin: "40px 100px"
+          margin: "40px auto"
         }}
       >
         <Typography variant="h4" style={{ padding: "20px", color: "#3F51B5" }}>
-          Linked Accounts
+          Students
           <br />
         </Typography>
 
@@ -174,12 +174,11 @@ const LinkedAccount = ({accounts, contract}) => {
                               {account.name}
                             </Typography>
                             <Typography variant="overline">
-                              ADDRESS : {account.a.substring(0, 10)}
+                              ADDRESS : {account.a}
                             </Typography>
 
                             <br />
                           </Grid>
-                          <Grid item md={1} />
                           <Grid item md={1}>
                             <br />
                             <Button
@@ -190,21 +189,6 @@ const LinkedAccount = ({accounts, contract}) => {
                               variant="outlined"
                             >
                               View
-                            </Button>
-                          </Grid>
-                          <Grid item md={1} />
-                          <Grid item md={1}>
-                            <br />
-                            <Button
-                              onClick={() => {
-                                handleClose();
-                                setOpen1(!open1);
-                                setCurrentState(account);
-                              }}
-                              style={{ width: "200px" }}
-                              variant="outlined"
-                            >
-                              Change Institute
                             </Button>
                           </Grid>
                         </Grid>

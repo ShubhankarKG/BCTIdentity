@@ -6,6 +6,9 @@ import {
   Avatar,
   Button,
   ListItemAvatar,
+  Box,
+  AppBar,
+  Toolbar,
 } from "@material-ui/core";
 import {
   Link,
@@ -19,8 +22,10 @@ import MyDocuments from "./MyDocuments";
 import ChangeInst from "./ChangeInst";
 import GiveAccessTo from "./GiveAccessTo";
 import Navbar from "../CommonComponents/Navbar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 
-const StudentDashBoard = ({accounts, contract}) => {
+const StudentDashBoard = ({ accounts, contract }) => {
   const [profilepic, setProfilepic] = useState("");
   const [name, setName] = useState("");
   const [owner1, setOwner1] = useState("");
@@ -49,153 +54,36 @@ const StudentDashBoard = ({accounts, contract}) => {
   }, [accounts, contract]);
 
   return (
-    <Grid container justifyContent="flex-start">
+    <Grid container justifyContent="center">
       <Grid item md={12}>
-        <Navbar/>
-      </Grid>
-      <Grid
-        item
-        md={2}
-        style={{
-          minHeight: "88vh",
-          zIndex: "1"
-        }}
-      >
-        <Card
-          style={{
-            width: "300px",
-            height: "100%",
-            paddingTop: "10px"
-          }}
-        >
-          <Grid item md={12}>
-            <Grid container>
-              <Typography
-                variant="h4"
-                style={{
-                  padding: "20px",
-                  color: "#242424",
-                  textAlign: "center"
-                }}
-              >
-                My Profile
-                <br />
-              </Typography>
-              <br />
-              <Grid container>
-                <Grid item md={1} />
-                <Grid item md={12}>
-                  <Avatar
-                    style={{
-                      width: 80,
-                      height: 80,
-                      marginLeft: "33.33%"
-                    }}
-                    src={profilepic ? `https://gateway.ipfs.io/ipfs/${
-                      profilepic
-                    }` : ""}
-                  />
-                  <br />
-                </Grid>
-                <Grid item md={2} />
-                <Grid item md={8}>
-                  <Typography
-                    variant="h5"
-                    style={{ textAlign: "center", color: "#242424", }}
-                  >
-                    {name}
-                    <br />
-                  </Typography>
-                  <Typography
-                    variant="subtitle2"
-                    style={{ textAlign: "center",color: "#242424" }}
-                  >
-                    My Address :<br />
-                    {owner1.substring(0, 8) + ".."}
-                  </Typography>
-                  <Typography
-                    variant="subtitle2"
-                    style={{ textAlign: "center" ,color: "#242424"}}
-                  >
-                    Current Intitute/Organization :{" "}
-                    {owner2.substring(0, 8) + ".."}
-                  </Typography>
-                </Grid>
-
-                <Grid container justifyContent="center">
-                  <br />
-                  <Link
-                    style={{ textDecoration: "none" ,color:"white" }}
-                    to="/MyProfileStud"
-                  >
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      style={{  marginTop: "25px" ,backgroundColor:"black",color:"white"}}
-                    >
-                        View Profile
-                    </Button>
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position="static" style={{ backgroundColor: '#242424' }}>
+            <Toolbar>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+                <div style={{ display: "flex" }}>
+                  <FontAwesomeIcon icon={faUserCheck} style={{ margin: "auto 0" }} />
+                  <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                      &nbsp;&nbsp;BCTIdentity
+                    </Typography>
                   </Link>
-                </Grid>
-              </Grid>
-            </Grid>
-            <br />
-            <Grid container />
-            <List style={{ textAlign: "center" }}>
-              <ListItem
-                button
-                style={{ width: "300px", color: "#242424" }}
-                onClick={() => setCounter(0)}
-              >
-                <ListItemAvatar>
-                  <FolderIcon />
-                </ListItemAvatar>
-                <ListItemText>
-                  <Typography variant="h6" style={{color:"#242424"}}>My Documents</Typography>
-                </ListItemText>
-              </ListItem>
-              <ListItem
-                button
-                onClick={() => setCounter(1)}
-                style={{ width: "300px", color: "#242424" }}
-              >
-                <ListItemAvatar>
-                  <FolderIcon />
-                </ListItemAvatar>
-                <ListItemText>
-                  <Typography variant="h6" style={{color:"#242424"}}>Give Access</Typography>
-                </ListItemText>
-              </ListItem>
-              <ListItem
-                button
-                onClick={() => setCounter(2)}
-                style={{ width: "300px", color: "#242424" }}
-              >
-                <ListItemAvatar>
-                  <FolderIcon />
-                </ListItemAvatar>
-                <ListItemText>
-                  <Typography variant="h6" style={{color:"#242424"}}>
-                      Change Institute
-                  </Typography>
-                </ListItemText>
-              </ListItem>
-            </List>
-          </Grid>
-        </Card>
+                </div>
+              </div>
+              <Link to="/MyProfileStud" style={{ textDecoration: "none", color: "white" }}>
+                <Avatar
+                  style={{
+                    width: 40,
+                    height: 40,
+                    marginLeft: "33.33%"
+                  }}
+                  src={`https://gateway.ipfs.io/ipfs/${profilepic}`}
+                />
+              </Link>
+            </Toolbar>
+          </AppBar>
+        </Box>
       </Grid>
-      <Grid
-        item
-        md={7}
-        style={{
-          paddingTop: "70px"
-        }}
-      >
-        {counter === 0 && <MyDocuments accounts={accounts} contract={contract}/>}
-        {counter === 1 && <GiveAccessTo accounts={accounts} contract={contract}/>}
-        {counter === 2 && <ChangeInst accounts={accounts} contract={contract}/>}
-        
-      </Grid>
+      <MyDocuments accounts={accounts} contract={contract} />
     </Grid>
   )
 }

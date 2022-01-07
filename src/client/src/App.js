@@ -19,12 +19,13 @@ import Login from "./Login/Login.jsx";
 import UpdateProfile from "./Student/UpdateProfile.jsx";
 import NotFound from "./404/NotFound";
 import Home from "./Home/Home";
+import InstituteLogin from "./Institute/InstituteLogin";
 
 const App = () => {
   const [web3, setWeb3] = useState(null);
   const [accounts, setAccounts] = useState(null);
   const [contract, setContract] = useState(null);
-  
+
   useEffect(() => {
     const init = async () => {
       try {
@@ -59,6 +60,12 @@ const App = () => {
     init();
   }, []);
 
+  useEffect(() => {
+    window.ethereum.on('accountsChanged', (accounts) => {
+      setAccounts(accounts);
+    });
+  })
+
   if (!web3) {
     return <div>Loading Web3, accounts, and contract...</div>;
   }
@@ -73,6 +80,16 @@ const App = () => {
               path="/login"
               component={() => (
                 <Login
+                  accounts={accounts}
+                  contract={contract}
+                />
+              )}
+            />{" "}
+            <Route
+              exact
+              path="/institute-login"
+              component={() => (
+                <InstituteLogin
                   accounts={accounts}
                   contract={contract}
                 />

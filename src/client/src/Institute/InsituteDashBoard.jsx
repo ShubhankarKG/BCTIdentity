@@ -5,7 +5,10 @@ import {
   Typography,
   Avatar,
   Button,
-  ListItemAvatar
+  ListItemAvatar,
+  Box,
+  AppBar,
+  Toolbar
 } from "@material-ui/core";
 import {
   Link,
@@ -18,6 +21,8 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import ApproveUpload from "./ApproveUpload";
 import LinkedAccount from "./LinkedAccounts";
 import Navbar from "../CommonComponents/Navbar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 
 const InstituteDashBoard = ({ accounts, contract }) => {
   const [name, setName] = useState("");
@@ -45,141 +50,56 @@ const InstituteDashBoard = ({ accounts, contract }) => {
   return (
     <Grid container>
       <Grid item md={12}>
-        <Navbar />
-      </Grid>
-      <Grid
-        item
-        md={2}
-        style={{
-          zIndex: "1"
-        }}
-      >
-        <Card style={{ width: "300px", height: "90vh" }}>
-          <Grid item md={12}>
-            <Grid container>
-              <Typography
-                variant="h4"
-                style={{ padding: "20px", color: "#242424" }}
-              >
-                Institute Profile
-                <br />
-              </Typography>
-              <br />
-              <Grid container>
-                <Grid item md={1} />
-                <Grid item md={12}>
-                  <Avatar
-                    style={{
-                      width: 80,
-                      height: 80,
-                      marginLeft: "33.33%"
-                    }}
-                    src={`https://gateway.ipfs.io/ipfs/${profilepic}`}
-                  />
-                  <br />
-                </Grid>
-                <Grid item md={2} />
-                <Grid item md={8}>
-                  <Typography
-                    variant="h5"
-                    style={{ textAlign: "center" }}
-                  >
-                    {name}
-                    <br />
-                  </Typography>
-                  <Typography
-                    variant="subtitle2"
-                    style={{ textAlign: "center" }}
-                  >
-                    My Address : <br />
-                    {accounts
-                      ? accounts[0].substring(0, 8) + "..."
-                      : "MetaMask not initialized yet..."}
-                  </Typography>
-                </Grid>
-                <Grid container justifyContent="center">
-                  <br />
-                  <Link to="/MyProfileInst" style={{ textDecoration: "none", color: "white" }}>
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      style={{
-                        marginTop: "25px",
-                        backgroundColor: "black",
-                        color: "white"
-                      }}
-                    >
-                      View Profile
-                    </Button>
-                  </Link>
-                </Grid>
-                <Grid
-                  container
-                  justifyContent="center"
-                  style={{ margin: "5%" }}
-                >
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid container />
-            {/* <hr /> */}
-            <List style={{ textAlign: "center" }}>
-              <ListItem
-                button
-                onClick={() => setCounter(0)}
-                style={{ width: "300px", color: "#242424" }}
-              >
-                <ListItemAvatar>
-                  <FolderIcon />
-                </ListItemAvatar>
-                <ListItemText>
-                  <Typography variant="h6">
-                    <Link
-                      to="/InstituteDashBoard/LinkedAccounts"
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      Linked Accounts
-                    </Link>
-                  </Typography>
-                </ListItemText>
-              </ListItem>
-              <ListItem
-                button
-                style={{ width: "300px", color: "#242424" }}
-                onClick={() => setCounter(1)}
-              >
-                <ListItemAvatar>
-                  <AssignmentIcon />
-                </ListItemAvatar>
-                <ListItemText>
-                  <Link
-                    to="/InstituteDashBoard/UploadApp"
-                    style={{ textDecoration: "none" }}
-                  >
-                    <Typography variant="h6" style={{ color: "#242424" }}>
-                      Pending Approvals
-                    </Typography>
-                  </Link>
-                </ListItemText>
-              </ListItem>
-            </List>
-          </Grid>
-        </Card>
-      </Grid>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static" style={{backgroundColor:'#242424'}}>
+          <Toolbar>
+          <FontAwesomeIcon icon={faUserCheck} />
 
-      <Grid
-        item
-        md={5}
-        style={{
-          padding: "15px"
-        }}
-      >
+            <Link to="/" style={{textDecoration: "none", color: "white"}}>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              &nbsp;&nbsp;BCTIdentity
+              </Typography>
+            </Link>
+            <div style={{paddingLeft: "60px"}} />
+            <div style={{display: "flex", justifyContent: "space-between", width: "100%", paddingTop: "5px"}}>
+              <div style={{display: "flex"}}>
+                <Typography style={{cursor: "pointer"}} variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={() => setCounter(0)}>
+              &nbsp;&nbsp;Students
+              </Typography>
+              <div style={{paddingLeft: "60px"}} />
+              <Typography variant="h6" style={{cursor: "pointer"}} component="div" sx={{ flexGrow: 1 }} onClick={() => setCounter(1)}>
+              &nbsp;&nbsp;Approvals
+              </Typography>
+              </div>
+              <Link to="/MyProfileInst" style={{ textDecoration: "none", color: "white" }}>
+              <Avatar
+                style={{
+                  width: 40,
+                  height: 40,
+                  marginLeft: "33.33%"
+                }}
+                src={`https://gateway.ipfs.io/ipfs/${profilepic}`}
+              />
+              </Link>
+            </div>
+            
+          </Toolbar>
+        </AppBar>
+      </Box>
+      </Grid>
+      <div style={{display: "flex", justifyContent: "center", width: "100%"}}>
+        <Typography
+          variant="h4"
+          style={{ color: "#242424", textAlign: "center" }}
+        >
+          Institute Profile
+        </Typography>
+      </div>
         {counter === 0 ? (
           <LinkedAccount accounts={accounts} contract={contract} />
         ) : (
           <ApproveUpload accounts={accounts} contract={contract} />
         )}
-      </Grid>
       <Grid
         item
         md={3}

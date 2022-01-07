@@ -49,153 +49,84 @@ const StudentDashBoard = ({accounts, contract}) => {
   }, [accounts, contract]);
 
   return (
-    <Grid container justifyContent="flex-start">
+    <Grid container justifyContent="centre">
       <Grid item md={12}>
         <Navbar/>
       </Grid>
-      <Grid
-        item
-        md={2}
-        style={{
-          minHeight: "88vh",
-          zIndex: "1"
-        }}
-      >
-        <Card
+      <Card style={{
+                marginTop: "30px",
+                marginLeft: "250px",
+                marginRight: "50px",
+                width: "900px"
+              }}>
+        <Typography
+          variant="h4"
           style={{
-            width: "300px",
-            height: "100%",
-            paddingTop: "10px"
+            padding: "20px",
+            color: "#242424",
+            textAlign: "center"
           }}
         >
-          <Grid item md={12}>
-            <Grid container>
-              <Typography
-                variant="h4"
-                style={{
-                  padding: "20px",
-                  color: "#242424",
-                  textAlign: "center"
-                }}
-              >
-                My Profile
-                <br />
-              </Typography>
-              <br />
-              <Grid container>
-                <Grid item md={1} />
-                <Grid item md={12}>
-                  <Avatar
-                    style={{
-                      width: 80,
-                      height: 80,
-                      marginLeft: "33.33%"
-                    }}
-                    src={profilepic ? `https://gateway.ipfs.io/ipfs/${
-                      profilepic
-                    }` : ""}
-                  />
-                  <br />
-                </Grid>
-                <Grid item md={2} />
-                <Grid item md={8}>
-                  <Typography
-                    variant="h5"
-                    style={{ textAlign: "center", color: "#242424", }}
-                  >
-                    {name}
-                    <br />
-                  </Typography>
-                  <Typography
-                    variant="subtitle2"
-                    style={{ textAlign: "center",color: "#242424" }}
-                  >
-                    My Address :<br />
-                    {owner1.substring(0, 8) + ".."}
-                  </Typography>
-                  <Typography
-                    variant="subtitle2"
-                    style={{ textAlign: "center" ,color: "#242424"}}
-                  >
-                    Current Intitute/Organization :{" "}
-                    {owner2.substring(0, 8) + ".."}
-                  </Typography>
-                </Grid>
-
-                <Grid container justifyContent="center">
-                  <br />
-                  <Link
-                    style={{ textDecoration: "none" ,color:"white" }}
-                    to="/MyProfileStud"
-                  >
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      style={{  marginTop: "25px" ,backgroundColor:"black",color:"white"}}
-                    >
-                        View Profile
-                    </Button>
-                  </Link>
-                </Grid>
-              </Grid>
-            </Grid>
+          My Profile
+          <br />
+        </Typography>
+        <br />
+        <Grid container>
+          <Grid item md={4}>
+            <Avatar
+              style={{
+                width: 80,
+                height: 80,
+                marginLeft: "33.33%"
+              }}
+              src={profilepic ? `https://gateway.ipfs.io/ipfs/${
+                profilepic
+              }` : ""}
+            />
             <br />
-            <Grid container />
-            <List style={{ textAlign: "center" }}>
-              <ListItem
-                button
-                style={{ width: "300px", color: "#242424" }}
-                onClick={() => setCounter(0)}
-              >
-                <ListItemAvatar>
-                  <FolderIcon />
-                </ListItemAvatar>
-                <ListItemText>
-                  <Typography variant="h6" style={{color:"#242424"}}>My Documents</Typography>
-                </ListItemText>
-              </ListItem>
-              <ListItem
-                button
-                onClick={() => setCounter(1)}
-                style={{ width: "300px", color: "#242424" }}
-              >
-                <ListItemAvatar>
-                  <FolderIcon />
-                </ListItemAvatar>
-                <ListItemText>
-                  <Typography variant="h6" style={{color:"#242424"}}>Give Access</Typography>
-                </ListItemText>
-              </ListItem>
-              <ListItem
-                button
-                onClick={() => setCounter(2)}
-                style={{ width: "300px", color: "#242424" }}
-              >
-                <ListItemAvatar>
-                  <FolderIcon />
-                </ListItemAvatar>
-                <ListItemText>
-                  <Typography variant="h6" style={{color:"#242424"}}>
-                      Change Institute
-                  </Typography>
-                </ListItemText>
-              </ListItem>
-            </List>
           </Grid>
-        </Card>
-      </Grid>
-      <Grid
-        item
-        md={7}
-        style={{
-          paddingTop: "70px"
-        }}
-      >
-        {counter === 0 && <MyDocuments accounts={accounts} contract={contract}/>}
-        {counter === 1 && <GiveAccessTo accounts={accounts} contract={contract}/>}
-        {counter === 2 && <ChangeInst accounts={accounts} contract={contract}/>}
-        
-      </Grid>
+          <Grid item md={8}>
+            <Typography
+              variant="h5"
+              style={{ color: "#242424", }}
+            >
+              {name}
+              <br />
+            </Typography>
+            <Typography
+              variant="subtitle2"
+              style={{ color: "#242424" }}
+            >
+              My Address :<br />
+              {owner1}
+            </Typography>
+            <Typography
+              variant="subtitle2"
+              style={{ color: "#242424"}}
+            >
+              Current Intitute/Organization :{" "}
+              {owner2}
+            </Typography>
+          </Grid>
+
+          <Grid container justifyContent="center" style={{padding: "10px"}}>
+            <br />
+            <Link
+              style={{ textDecoration: "none" ,color:"white" }}
+              to="/MyProfileStud"
+            >
+              <Button
+                variant="outlined"
+                color="secondary"
+                style={{  marginTop: "25px" ,backgroundColor:"black",color:"white"}}
+              >
+                  View Profile
+              </Button>
+            </Link>
+          </Grid>
+        </Grid>
+      </Card>
+        <MyDocuments accounts={accounts} contract={contract}/>
     </Grid>
   )
 }

@@ -1,11 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   Grid,
-  Card,
   Typography,
   Avatar,
-  Button,
-  ListItemAvatar,
   Box,
   AppBar,
   Toolbar,
@@ -13,15 +10,7 @@ import {
 import {
   Link,
 } from "react-router-dom";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-
-import FolderIcon from "@material-ui/icons/Folder";
 import MyDocuments from "./MyDocuments";
-import ChangeInst from "./ChangeInst";
-import GiveAccessTo from "./GiveAccessTo";
-import Navbar from "../CommonComponents/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 

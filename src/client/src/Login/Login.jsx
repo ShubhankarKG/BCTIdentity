@@ -6,7 +6,6 @@ import {
   Avatar,
   Container,
   Paper,
-  Card
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Navbar from "../CommonComponents/Navbar";
@@ -19,7 +18,7 @@ class Login extends Component {
       .doesWalletExists(accounts[0])
       .call();
     console.log(response);
-    if (response == true) {
+    if (response === true) {
       this.setState({ we: true });
     }
     console.log(this.state.we);

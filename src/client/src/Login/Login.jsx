@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { Grid, Typography, Avatar, Container, Paper, Card } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  Avatar,
+  Container,
+  Paper,
+} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Navbar from "../CommonComponents/Navbar";
 
@@ -12,7 +18,7 @@ class Login extends Component {
       .doesWalletExists(accounts[0])
       .call();
     console.log(response);
-    if (response == true) {
+    if (response === true) {
       this.setState({ we: true });
     }
     console.log(this.state.we);
@@ -24,74 +30,65 @@ class Login extends Component {
   render() {
     return (
       <div>
-
         <Navbar />
-        <Card elevation={5} style={{
-          margin: "100px auto",
-          width: "70%",
-          padding: "2%"
-        }}>
-          <Container maxWidth="lg">
-
-            <Grid container justifyContent="center">
-              <Grid item md={4} sm={12}>
-                <div
+        <Container maxWidth="lg" style={{ marginTop: 64 }}>
+          <Grid container justifyContent="center">
+            <Grid item md={4} sm={8}>
+              <div>
+                <Paper
+                  elevation={4}
+                  style={{
+                    backgroundColor: "white"
+                  }}
                 >
-                  <Paper
-                    elevation={4}
-                    style={{
-                      backgroundColor: "white",
-                    }}
+                  <Typography
+                    variant="h4"
+                    style={{ textAlign: "center", padding: "25px" }}
                   >
-                    <Typography
-                      variant="h4"
-                      style={{ textAlign: "center", padding: "25px" }}
+                    Student
+                  </Typography>
+                  <Grid container justifyContent="center">
+                    <Avatar style={{ width: "200px", height: "200px" }}>
+                      <img
+                        src="https://npcdcs.tn.gov.in/ncdmobile_admin/img/signin.png"
+                        alt="student"
+                        style={{ width: "100%", height: "100%" }}
+                      />
+                    </Avatar>
+                  </Grid>
+                  <Grid container justifyContent="center">
+                    <Button
+                      style={{ margin: "25px", color: "white" }}
+                      variant="contained"
+                      color="secondary"
+                      disabled={!this.state.we}
+                      onClick={() => {
+                        this.setState({ s: true });
+                      }}
                     >
-                      Student
-                    </Typography>
-                    <Grid container justifyContent="center">
-                      <Avatar style={{ width: "200px", height: "200px" }}>
-                        <img
-                          src="https://npcdcs.tn.gov.in/ncdmobile_admin/img/signin.png"
-                          alt="student"
-                          style={{ width: "100%", height: "100%" }}
-                        />
-                      </Avatar>
-                    </Grid>
-                    <Grid container justifyContent="center">
-                      <Button
-                        style={{ margin: "25px", color: "white" }}
-                        variant="contained"
-                        color="secondary"
-                        disabled={!this.state.we}
-                        onClick={() => {
-                          this.setState({ s: true });
-                        }}
-                      >
-                        Login
-                      </Button>
-                      <Button
-                        style={{ margin: "25px", color: "white" }}
-                        disabled={this.state.we}
-                        variant="contained"
-                        color="secondary"
-                        onClick={() => {
-                          this.setState({ stud: true });
-                        }}
-                      >
-                        Sign Up
-                      </Button>{" "}
-                    </Grid>
-                  </Paper>
-                </div>
-              </Grid>
+                      Login
+                    </Button>
+                    <Button
+                      style={{ margin: "25px", color: "white" }}
+                      disabled={this.state.we}
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => {
+                        this.setState({ stud: true });
+                      }}
+                    >
+                      Sign Up
+                    </Button>{" "}
+                  </Grid>
+                </Paper>
+              </div>
             </Grid>
-            {this.state.stud ? <Redirect to="/createstud" /> : null}
-            {this.state.inst ? <Redirect to="/createinst" /> : null}
-            {this.state.s ? <Redirect to="/StudentDashBoard" /> : null}
-            {this.state.i ? <Redirect to="/InstituteDashBoard" /> : null}
-          </Container>
-        </Card>
+          </Grid>
+          {this.state.stud ? <Redirect to="/createstud" /> : null}
+          {this.state.inst ? <Redirect to="/createinst" /> : null}
+          {this.state.s ? <Redirect to="/StudentDashBoard" /> : null}
+          {this.state.i ? <Redirect to="/InstituteDashBoard" /> : null}
+        </Container>
       </div>
     );
   }

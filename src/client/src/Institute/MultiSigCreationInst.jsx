@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
+import Paper from "@material-ui/core/Paper";
+import Container from "@material-ui/core/Container";
 import Checkbox from "@material-ui/core/Checkbox";
 import SimpleStorageContract from "../contracts/SimpleStorage.json";
 import getWeb3 from "../utils/getWeb3";
 import { Redirect } from "react-router-dom";
+import { Divider, Typography } from "@material-ui/core";
+import Navbar from "../CommonComponents/Navbar";
 
 class MultiSigCreationInst extends Component {
   state = {
@@ -39,7 +42,7 @@ class MultiSigCreationInst extends Component {
     this.setState({ contr: !this.state.contr });
   };
 
-  handleChange = name => event => {
+  handleChange = (name) => (event) => {
     this.setState({ tnc: true });
   };
   set = () => {
@@ -78,50 +81,57 @@ class MultiSigCreationInst extends Component {
 
   render() {
     return (
-      <div style={{ paddingTop: "50px" }}>
+      <div style={{height: "100vh"}}>
+        <Navbar />
+        <Container maxWidth="md" style={{ marginTop: 64 }}>
         {this.state.contr ? <Redirect to="/institutedashboard" /> : null}
-        <Grid container>
-          <Grid item md={3} />
-          <Grid item md={6}>
-            <Card>
-              <h1 style={{ padding: "25px" }}>Create New MultiSig Wallet!</h1>
-              <hr style={{}} />
-              <Grid container>
-                <Grid item md={3} />
-                <Grid item md={4}>
-                  <h5 style={{ padding: "20px" }}>Enter Student Address:</h5>
-                </Grid>
-                <Grid item md={3}>
-                  <TextField
-                    required
-                    id="outlined-required"
-                    label="Required"
-                    //   defaultValue="Hello World"
-                    margin="normal"
-                    variant="outlined"
-                    onChange={e => {
-                      this.setState({ InstAdd: e.target.value });
-                      console.log(e.target.value);
-                    }}
-                  />
-                </Grid>
-              </Grid>
-              <Grid container>
-                <Grid item md={3} />
-                <Grid item md={4}>
-                  <h5 style={{ padding: "25px" }}>Your Address:</h5>
-                </Grid>
-                <Grid item md={3}>
-                  <TextField
-                    disabled
-                    id="outlined-disabled"
-                    label="Your Address"
-                    defaultValue={this.props.accounts[0]}
-                    margin="normal"
-                    variant="outlined"
-                  />
-                </Grid>
-              </Grid>
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          style={{ height: "100%" }}
+        >
+          <Paper style={{ padding: 32 }}>
+            <Typography variant="h4">Create New MultiSig Wallet!</Typography>
+            <Divider />
+            <Grid
+              container
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <Typography>Enter Student Address:</Typography>
+              <TextField
+                required
+                id="outlined-required"
+                label="Required"
+                //   defaultValue="Hello World"
+                margin="normal"
+                variant="outlined"
+                onChange={(e) => {
+                  this.setState({ InstAdd: e.target.value });
+                  console.log(e.target.value);
+                }}
+              />
+            </Grid>
+            <Grid
+              container
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <Typography>Your Address:</Typography>
+              <TextField
+                disabled
+                id="outlined-disabled"
+                label="Your Address"
+                defaultValue={this.props.accounts[0]}
+                margin="normal"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid>
               <Checkbox
                 checked={this.state.checkedB}
                 onChange={this.handleChange("checkedB")}
@@ -130,33 +140,33 @@ class MultiSigCreationInst extends Component {
               />
               I have read and Agree to All the{" "}
               <a href="https://metamask.io/"> Terms And Conditions</a>.
-              <Grid container>
-                <Grid item md={5} />
-                <Grid item md={2}>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    style={{ position: "unset", marginBottom: "15px" }}
-                    onClick={this.created.bind(this)}
-                  >
-                    Go!
-                  </Button>
-                  <hr /> <h2>OR </h2>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    style={{ position: "unset", marginBottom: "15px" }}
-                    onClick={this.set}
-                  >
-                    Go To Dashboard{" "}
-                  </Button>
-                  <hr />
-                </Grid>
-              </Grid>
-            </Card>
-          </Grid>
+            </Grid>
+            <Grid container direction="row" justifyContent="center">
+              <Button
+                variant="outlined"
+                color="primary"
+                style={{ position: "unset", marginBottom: "15px" }}
+                onClick={this.created.bind(this)}
+              >
+                Go!
+              </Button>
+            </Grid>
+            <Divider />
+            <Grid container direction="column" alignItems="center" justifyContent="space-around">
+              <Typography style={{marginTop: 6}}>OR</Typography>
+              <Button
+                variant="outlined"
+                color="primary"
+                style={{ position: "unset", marginBottom: "15px", marginTop: 6 }}
+                onClick={this.set}
+              >
+                Go To Dashboard{" "}
+              </Button>
+            </Grid>
+          </Paper>
         </Grid>
         {this.state.go ? <Redirect to="/InstituteDashBoard" /> : null}
+      </Container>
       </div>
     );
   }

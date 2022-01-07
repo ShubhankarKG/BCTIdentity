@@ -16,7 +16,18 @@ const Banner = () => {
           color="secondary"
           size="large"
         >
-          LOGIN
+          Student
+        </Button>
+        </Link>
+
+  
+        <Link to="/institute-login" style={{paddingLeft: "30px"}}>
+          <Button
+          variant="contained"
+          color="secondary"
+          size="large"
+        >
+          Institute
         </Button>
         </Link>
         

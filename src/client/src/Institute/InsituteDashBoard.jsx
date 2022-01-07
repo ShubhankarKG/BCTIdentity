@@ -5,7 +5,10 @@ import {
   Typography,
   Avatar,
   Button,
-  ListItemAvatar
+  ListItemAvatar,
+  Box,
+  AppBar,
+  Toolbar
 } from "@material-ui/core";
 import {
   Link,
@@ -18,6 +21,8 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import ApproveUpload from "./ApproveUpload";
 import LinkedAccount from "./LinkedAccounts";
 import Navbar from "../CommonComponents/Navbar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 
 const InstituteDashBoard = ({ accounts, contract }) => {
   const [name, setName] = useState("");
@@ -45,7 +50,26 @@ const InstituteDashBoard = ({ accounts, contract }) => {
   return (
     <Grid container>
       <Grid item md={12}>
-        <Navbar />
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static" style={{backgroundColor:'#242424'}}>
+          <Toolbar>
+          <FontAwesomeIcon icon={faUserCheck} />
+            <Link to="/" style={{textDecoration: "none", color: "white"}}>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              &nbsp;&nbsp;BCTIdentity
+              </Typography>
+            </Link>
+            <div style={{paddingLeft: "60px"}} />
+            <Typography style={{cursor: "pointer"}} variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={() => setCounter(0)}>
+              &nbsp;&nbsp;Students
+              </Typography>
+              <div style={{paddingLeft: "60px"}} />
+              <Typography variant="h6" style={{cursor: "pointer"}} component="div" sx={{ flexGrow: 1 }} onClick={() => setCounter(1)}>
+              &nbsp;&nbsp;Approvals
+              </Typography>
+          </Toolbar>
+        </AppBar>
+      </Box>
       </Grid>
       <Grid
         item
@@ -121,48 +145,6 @@ const InstituteDashBoard = ({ accounts, contract }) => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid container />
-            {/* <hr /> */}
-            <List style={{ textAlign: "center" }}>
-              <ListItem
-                button
-                onClick={() => setCounter(0)}
-                style={{ width: "300px", color: "#242424" }}
-              >
-                <ListItemAvatar>
-                  <FolderIcon />
-                </ListItemAvatar>
-                <ListItemText>
-                  <Typography variant="h6">
-                    <Link
-                      to="/InstituteDashBoard/LinkedAccounts"
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      Linked Accounts
-                    </Link>
-                  </Typography>
-                </ListItemText>
-              </ListItem>
-              <ListItem
-                button
-                style={{ width: "300px", color: "#242424" }}
-                onClick={() => setCounter(1)}
-              >
-                <ListItemAvatar>
-                  <AssignmentIcon />
-                </ListItemAvatar>
-                <ListItemText>
-                  <Link
-                    to="/InstituteDashBoard/UploadApp"
-                    style={{ textDecoration: "none" }}
-                  >
-                    <Typography variant="h6" style={{ color: "#242424" }}>
-                      Pending Approvals
-                    </Typography>
-                  </Link>
-                </ListItemText>
-              </ListItem>
-            </List>
           </Grid>
         </Card>
       </Grid>

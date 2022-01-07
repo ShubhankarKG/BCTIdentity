@@ -62,7 +62,14 @@ const ApproveUpload = ({ accounts, contract }) => {
   }, [contract, accounts, counter]);
 
   return (
-    <div syle={{ marginTop: "1000px" }}>
+    
+    <div style={{
+      margin: "40px 100px"
+    }}>
+      <Typography variant="h4" style={{ padding: "20px", color: "#3F51B5" }}>
+          Approvals
+          <br />
+        </Typography>
       {
         approvalRequests.length > 0 ? approvalRequests.map((request, id) => {
           return (

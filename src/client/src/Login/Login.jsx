@@ -72,6 +72,7 @@ class Login extends Component {
                       </Button>
                       <Button
                         style={{ margin: "25px", color: "white" }}
+                        disabled={this.state.we}
                         variant="contained"
                         color="secondary"
                         onClick={() => {

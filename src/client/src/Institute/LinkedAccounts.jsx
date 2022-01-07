@@ -136,7 +136,7 @@ const LinkedAccount = ({accounts, contract}) => {
   return (
     <div
         style={{
-          margin: "40px 100px"
+          margin: "40px auto"
         }}
       >
         <Typography variant="h4" style={{ padding: "20px", color: "#3F51B5" }}>

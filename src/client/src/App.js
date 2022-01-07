@@ -25,7 +25,7 @@ const App = () => {
   const [web3, setWeb3] = useState(null);
   const [accounts, setAccounts] = useState(null);
   const [contract, setContract] = useState(null);
-  
+
   useEffect(() => {
     const init = async () => {
       try {

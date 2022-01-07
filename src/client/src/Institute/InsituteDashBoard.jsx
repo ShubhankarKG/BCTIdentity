@@ -54,114 +54,52 @@ const InstituteDashBoard = ({ accounts, contract }) => {
         <AppBar position="static" style={{backgroundColor:'#242424'}}>
           <Toolbar>
           <FontAwesomeIcon icon={faUserCheck} />
+
             <Link to="/" style={{textDecoration: "none", color: "white"}}>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               &nbsp;&nbsp;BCTIdentity
               </Typography>
             </Link>
             <div style={{paddingLeft: "60px"}} />
-            <Typography style={{cursor: "pointer"}} variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={() => setCounter(0)}>
+            <div style={{display: "flex", justifyContent: "space-between", width: "100%", paddingTop: "5px"}}>
+              <div style={{display: "flex"}}>
+                <Typography style={{cursor: "pointer"}} variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={() => setCounter(0)}>
               &nbsp;&nbsp;Students
               </Typography>
               <div style={{paddingLeft: "60px"}} />
               <Typography variant="h6" style={{cursor: "pointer"}} component="div" sx={{ flexGrow: 1 }} onClick={() => setCounter(1)}>
               &nbsp;&nbsp;Approvals
               </Typography>
+              </div>
+              <Link to="/MyProfileInst" style={{ textDecoration: "none", color: "white" }}>
+              <Avatar
+                style={{
+                  width: 40,
+                  height: 40,
+                  marginLeft: "33.33%"
+                }}
+                src={`https://gateway.ipfs.io/ipfs/${profilepic}`}
+              />
+              </Link>
+            </div>
+            
           </Toolbar>
         </AppBar>
       </Box>
       </Grid>
-      <Grid
-        item
-        md={2}
-        style={{
-          zIndex: "1"
-        }}
-      >
-        <Card style={{ width: "300px", height: "90vh" }}>
-          <Grid item md={12}>
-            <Grid container>
-              <Typography
-                variant="h4"
-                style={{ padding: "20px", color: "#242424" }}
-              >
-                Institute Profile
-                <br />
-              </Typography>
-              <br />
-              <Grid container>
-                <Grid item md={1} />
-                <Grid item md={12}>
-                  <Avatar
-                    style={{
-                      width: 80,
-                      height: 80,
-                      marginLeft: "33.33%"
-                    }}
-                    src={`https://gateway.ipfs.io/ipfs/${profilepic}`}
-                  />
-                  <br />
-                </Grid>
-                <Grid item md={2} />
-                <Grid item md={8}>
-                  <Typography
-                    variant="h5"
-                    style={{ textAlign: "center" }}
-                  >
-                    {name}
-                    <br />
-                  </Typography>
-                  <Typography
-                    variant="subtitle2"
-                    style={{ textAlign: "center" }}
-                  >
-                    My Address : <br />
-                    {accounts
-                      ? accounts[0].substring(0, 8) + "..."
-                      : "MetaMask not initialized yet..."}
-                  </Typography>
-                </Grid>
-                <Grid container justifyContent="center">
-                  <br />
-                  <Link to="/MyProfileInst" style={{ textDecoration: "none", color: "white" }}>
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      style={{
-                        marginTop: "25px",
-                        backgroundColor: "black",
-                        color: "white"
-                      }}
-                    >
-                      View Profile
-                    </Button>
-                  </Link>
-                </Grid>
-                <Grid
-                  container
-                  justifyContent="center"
-                  style={{ margin: "5%" }}
-                >
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Card>
-      </Grid>
-
-      <Grid
-        item
-        md={5}
-        style={{
-          padding: "15px"
-        }}
-      >
+      <div style={{display: "flex", justifyContent: "center", width: "100%"}}>
+        <Typography
+          variant="h4"
+          style={{ color: "#242424", textAlign: "center" }}
+        >
+          Institute Profile
+        </Typography>
+      </div>
         {counter === 0 ? (
           <LinkedAccount accounts={accounts} contract={contract} />
         ) : (
           <ApproveUpload accounts={accounts} contract={contract} />
         )}
-      </Grid>
       <Grid
         item
         md={3}

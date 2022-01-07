@@ -19,17 +19,21 @@ const UpdateProfile = ({ accounts, contract, student }) => {
       .send({ from: accounts[0] });
 
     const response = await contract.methods.getProfile(accounts[0]).call();
-    console.log(response[0] + "updated");
+    if (student) {
+      localStorage.setItem(accounts[0], "student");
+    } else {
+      localStorage.setItem(accounts[0], "institute");
+    }
     setOpen(false);
   }, [name, profilepic, accounts, phoneno, email, contract]);
-  
+
   const addToIpfs = useCallback(async (a) => {
     await ipfs.add(a, (err, ipfsHash) => {
       console.log(err);
       setProfilepic(ipfsHash[0].hash);
     });
   }, []);
-  
+
   const captureFile = useCallback((event) => {
     event.preventDefault();
     const file = event.target.files[0];
@@ -101,7 +105,7 @@ const UpdateProfile = ({ accounts, contract, student }) => {
       <Button onClick={() => updateProfile()} color="primary">
         Create
       </Button>
-      {open ? null : (student === true ? <Redirect to="/CreateStudMultisig"/> : <Redirect to="/CreateInstMultisig" />)}
+      {open ? null : (student === true ? <Redirect to="/CreateStudMultisig" /> : <Redirect to="/CreateInstMultisig" />)}
     </Container>
   );
 };

@@ -30,7 +30,7 @@ const styles = {
   }
 };
 
-const MyProfile = ({classes, accounts, contract}) => {
+const MyProfile = ({ classes, accounts, contract }) => {
   const [owner2, setOwner2] = useState("");
   const [name, setName] = useState("");
   const [profilepic, setProfilepic] = useState("");
@@ -71,7 +71,7 @@ const MyProfile = ({classes, accounts, contract}) => {
 
   return (
     <div>
-      <AppBar position="static" style={{backgroundColor:"black"}}>
+      <AppBar position="static" style={{ backgroundColor: "black" }}>
         <Toolbar>
           <IconButton
             className={classes.menuButton}
@@ -88,8 +88,8 @@ const MyProfile = ({classes, accounts, contract}) => {
         </Toolbar>
       </AppBar>
       <Grid container>
-        <Grid item md={3} />
-        <Grid item md={6}>
+        <Grid item md={1} />
+        <Grid item md={10}>
           <Card
             className="shadow"
             style={{ marginTop: "20px", padding: "15px" }}
@@ -98,23 +98,21 @@ const MyProfile = ({classes, accounts, contract}) => {
               <Grid item md={2}>
                 <Avatar
                   style={{ width: "85px", height: "85px" }}
-                  src={!!profilepic ? `https://gateway.ipfs.io/ipfs/${profilepic}`: ""}
+                  src={!!profilepic ? `https://gateway.ipfs.io/ipfs/${profilepic}` : ""}
                 />
               </Grid>
               <Grid item md={7}>
-                <Typography variant="h3">{name}</Typography>
+                <Typography variant="h5">{name}</Typography>
                 <Typography variant="overline" style={{ fontSize: "15px" }}>
                   ADDRESS : {accounts[0]}
                 </Typography>
+                <br />
                 <Typography variant="overline" style={{ fontSize: "15px" }}>
                   Current co-owner :{instname}
                   <br /> {owner2}
                 </Typography>
               </Grid>
               <Grid item md={2} />
-              <Grid item md={1}>
-                <br />
-              </Grid>
             </Grid>
           </Card>
           <Card
@@ -130,7 +128,7 @@ const MyProfile = ({classes, accounts, contract}) => {
                 </Avatar>
               </Grid>
               <Grid item md={2}>
-                <Typography variant="h4" style={{ padding: "10px" }}>
+                <Typography variant="h5" style={{ padding: "10px" }}>
                   Documents
                 </Typography>
                 <List>
@@ -156,19 +154,17 @@ const MyProfile = ({classes, accounts, contract}) => {
                 </Avatar>
               </Grid>
               <Grid item md={2}>
-                <Typography variant="h4" style={{ padding: "10px" }}>
+                <Typography variant="h5" style={{ padding: "10px" }}>
                   Co-owner
                 </Typography>{" "}
-                <br />
               </Grid>
-              <Grid container>
+              <br />
+              <Grid item md={7}>
                 {" "}
-                <Grid item md={10}>
-                  <Typography variant="h5">{instname}</Typography>{" "}
-                  <Typography variant="overline">
-                    {owner2}
-                  </Typography>
-                </Grid>
+                <Typography variant="h5">{instname}</Typography>{" "}
+                <Typography variant="overline">
+                  {owner2}
+                </Typography>
               </Grid>
             </Grid>
           </Card>

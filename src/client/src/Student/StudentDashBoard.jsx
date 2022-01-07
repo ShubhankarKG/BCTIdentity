@@ -6,6 +6,9 @@ import {
   Avatar,
   Button,
   ListItemAvatar,
+  Box,
+  AppBar,
+  Toolbar,
 } from "@material-ui/core";
 import {
   Link,
@@ -19,8 +22,10 @@ import MyDocuments from "./MyDocuments";
 import ChangeInst from "./ChangeInst";
 import GiveAccessTo from "./GiveAccessTo";
 import Navbar from "../CommonComponents/Navbar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 
-const StudentDashBoard = ({accounts, contract}) => {
+const StudentDashBoard = ({ accounts, contract }) => {
   const [profilepic, setProfilepic] = useState("");
   const [name, setName] = useState("");
   const [owner1, setOwner1] = useState("");
@@ -49,84 +54,36 @@ const StudentDashBoard = ({accounts, contract}) => {
   }, [accounts, contract]);
 
   return (
-    <Grid container justifyContent="centre">
+    <Grid container justifyContent="center">
       <Grid item md={12}>
-        <Navbar/>
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position="static" style={{ backgroundColor: '#242424' }}>
+            <Toolbar>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
+                <div style={{ display: "flex" }}>
+                  <FontAwesomeIcon icon={faUserCheck} style={{ margin: "auto 0" }} />
+                  <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                      &nbsp;&nbsp;BCTIdentity
+                    </Typography>
+                  </Link>
+                </div>
+              </div>
+              <Link to="/MyProfileStud" style={{ textDecoration: "none", color: "white" }}>
+                <Avatar
+                  style={{
+                    width: 40,
+                    height: 40,
+                    marginLeft: "33.33%"
+                  }}
+                  src={`https://gateway.ipfs.io/ipfs/${profilepic}`}
+                />
+              </Link>
+            </Toolbar>
+          </AppBar>
+        </Box>
       </Grid>
-      <Card style={{
-                marginTop: "30px",
-                marginLeft: "250px",
-                marginRight: "50px",
-                width: "900px"
-              }}>
-        <Typography
-          variant="h4"
-          style={{
-            padding: "20px",
-            color: "#242424",
-            textAlign: "center"
-          }}
-        >
-          My Profile
-          <br />
-        </Typography>
-        <br />
-        <Grid container>
-          <Grid item md={4}>
-            <Avatar
-              style={{
-                width: 80,
-                height: 80,
-                marginLeft: "33.33%"
-              }}
-              src={profilepic ? `https://gateway.ipfs.io/ipfs/${
-                profilepic
-              }` : ""}
-            />
-            <br />
-          </Grid>
-          <Grid item md={8}>
-            <Typography
-              variant="h5"
-              style={{ color: "#242424", }}
-            >
-              {name}
-              <br />
-            </Typography>
-            <Typography
-              variant="subtitle2"
-              style={{ color: "#242424" }}
-            >
-              My Address :<br />
-              {owner1}
-            </Typography>
-            <Typography
-              variant="subtitle2"
-              style={{ color: "#242424"}}
-            >
-              Current Intitute/Organization :{" "}
-              {owner2}
-            </Typography>
-          </Grid>
-
-          <Grid container justifyContent="center" style={{padding: "10px"}}>
-            <br />
-            <Link
-              style={{ textDecoration: "none" ,color:"white" }}
-              to="/MyProfileStud"
-            >
-              <Button
-                variant="outlined"
-                color="secondary"
-                style={{  marginTop: "25px" ,backgroundColor:"black",color:"white"}}
-              >
-                  View Profile
-              </Button>
-            </Link>
-          </Grid>
-        </Grid>
-      </Card>
-        <MyDocuments accounts={accounts} contract={contract}/>
+      <MyDocuments accounts={accounts} contract={contract} />
     </Grid>
   )
 }

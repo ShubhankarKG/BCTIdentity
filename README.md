@@ -20,17 +20,6 @@
 
 See [SETUP.md](./docs/SETUP.md)
 
-## Authors
-
-- 👤 **Shubhankar Gupta**
-- 👤 **Harsimran Singh Virk**
-- 👤 **Abhishek Kekane**
-- 👤 **Mounil Shah**
-
-* Website: https://shubhankarkg.github.io
-* Twitter: [@ShubhankarKG](https://twitter.com/ShubhankarKG)
-* Github: [@ShubhankarKG](https://github.com/ShubhankarKG)
-
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/ShubhankarKG/BCTIdentity/issues). You can also take a look at the [contributing guide](./docs/CONTRIBUTING.md).

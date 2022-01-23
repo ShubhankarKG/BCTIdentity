@@ -1,22 +1,10 @@
-import Typography from "@material-ui/core/Typography";
-import React, { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
+import { AppBar, Avatar, Button, Card, Grid, IconButton, List, Toolbar, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import ArrowBackSharp from "@material-ui/icons/ArrowBackSharp";
+import { ArrowBackSharp, Lock, MailIcon } from "@material-ui/icons";
+import PropTypes from "prop-types";
+import React, { useEffect, useRef, useState } from "react";
 import { Redirect } from "react-router-dom";
 
-import {
-  Card,
-  Grid,
-  Avatar,
-  List,
-  Button
-} from "@material-ui/core";
-import MailIcon from "@material-ui/icons/Mail";
-import Lock from "@material-ui/icons/Lock";
 
 const styles = {
   root: {

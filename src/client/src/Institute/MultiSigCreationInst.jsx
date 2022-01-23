@@ -1,15 +1,9 @@
+import { Button, Checkbox, Container, Divider, Grid, Paper, TextField, Typography } from "@material-ui/core";
 import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
-import Container from "@material-ui/core/Container";
-import Checkbox from "@material-ui/core/Checkbox";
+import { Redirect } from "react-router-dom";
+import Navbar from "../CommonComponents/Navbar";
 import SimpleStorageContract from "../contracts/SimpleStorage.json";
 import getWeb3 from "../utils/getWeb3";
-import { Redirect } from "react-router-dom";
-import { Divider, Typography } from "@material-ui/core";
-import Navbar from "../CommonComponents/Navbar";
 
 class MultiSigCreationInst extends Component {
   state = {
@@ -77,96 +71,96 @@ class MultiSigCreationInst extends Component {
     }
   };
 
-  runExample = async () => {};
+  runExample = async () => { };
 
   render() {
     return (
-      <div style={{height: "100vh"}}>
+      <div style={{ height: "100vh" }}>
         <Navbar />
         <Container maxWidth="md" style={{ marginTop: 64 }}>
-        {this.state.contr ? <Redirect to="/institutedashboard" /> : null}
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          style={{ height: "100%" }}
-        >
-          <Paper style={{ padding: 32 }}>
-            <Typography variant="h4">Create New MultiSig Wallet!</Typography>
-            <Divider />
-            <Grid
-              container
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Typography>Enter Student Address:</Typography>
-              <TextField
-                required
-                id="outlined-required"
-                label="Required"
-                //   defaultValue="Hello World"
-                margin="normal"
-                variant="outlined"
-                onChange={(e) => {
-                  this.setState({ InstAdd: e.target.value });
-                  console.log(e.target.value);
-                }}
-              />
-            </Grid>
-            <Grid
-              container
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Typography>Your Address:</Typography>
-              <TextField
-                disabled
-                id="outlined-disabled"
-                label="Your Address"
-                defaultValue={this.props.accounts[0]}
-                margin="normal"
-                variant="outlined"
-              />
-            </Grid>
-            <Grid>
-              <Checkbox
-                checked={this.state.checkedB}
-                onChange={this.handleChange("checkedB")}
-                value="checkedB"
-                color="primary"
-              />
-              I have read and Agree to All the{" "}
-              <a href="https://metamask.io/"> Terms And Conditions</a>.
-            </Grid>
-            <Grid container direction="row" justifyContent="center">
-              <Button
-                variant="outlined"
-                color="primary"
-                style={{ position: "unset", marginBottom: "15px" }}
-                onClick={this.created.bind(this)}
+          {this.state.contr ? <Redirect to="/institutedashboard" /> : null}
+          <Grid
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            style={{ height: "100%" }}
+          >
+            <Paper style={{ padding: 32 }}>
+              <Typography variant="h4">Create New MultiSig Wallet!</Typography>
+              <Divider />
+              <Grid
+                container
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
               >
-                Go!
-              </Button>
-            </Grid>
-            <Divider />
-            <Grid container direction="column" alignItems="center" justifyContent="space-around">
-              <Typography style={{marginTop: 6}}>OR</Typography>
-              <Button
-                variant="outlined"
-                color="primary"
-                style={{ position: "unset", marginBottom: "15px", marginTop: 6 }}
-                onClick={this.set}
+                <Typography>Enter Student Address:</Typography>
+                <TextField
+                  required
+                  id="outlined-required"
+                  label="Required"
+                  //   defaultValue="Hello World"
+                  margin="normal"
+                  variant="outlined"
+                  onChange={(e) => {
+                    this.setState({ InstAdd: e.target.value });
+                    console.log(e.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid
+                container
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
               >
-                Go To Dashboard{" "}
-              </Button>
-            </Grid>
-          </Paper>
-        </Grid>
-        {this.state.go ? <Redirect to="/InstituteDashBoard" /> : null}
-      </Container>
+                <Typography>Your Address:</Typography>
+                <TextField
+                  disabled
+                  id="outlined-disabled"
+                  label="Your Address"
+                  defaultValue={this.props.accounts[0]}
+                  margin="normal"
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid>
+                <Checkbox
+                  checked={this.state.checkedB}
+                  onChange={this.handleChange("checkedB")}
+                  value="checkedB"
+                  color="primary"
+                />
+                I have read and Agree to All the{" "}
+                <a href="https://metamask.io/"> Terms And Conditions</a>.
+              </Grid>
+              <Grid container direction="row" justifyContent="center">
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  style={{ position: "unset", marginBottom: "15px" }}
+                  onClick={this.created.bind(this)}
+                >
+                  Go!
+                </Button>
+              </Grid>
+              <Divider />
+              <Grid container direction="column" alignItems="center" justifyContent="space-around">
+                <Typography style={{ marginTop: 6 }}>OR</Typography>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  style={{ position: "unset", marginBottom: "15px", marginTop: 6 }}
+                  onClick={this.set}
+                >
+                  Go To Dashboard{" "}
+                </Button>
+              </Grid>
+            </Paper>
+          </Grid>
+          {this.state.go ? <Redirect to="/InstituteDashBoard" /> : null}
+        </Container>
       </div>
     );
   }

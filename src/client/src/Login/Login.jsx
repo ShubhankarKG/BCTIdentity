@@ -1,13 +1,8 @@
+import {
+  Avatar, Button, Container, Grid, Paper, Typography
+} from "@material-ui/core";
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import {
-  Grid,
-  Typography,
-  Avatar,
-  Container,
-  Paper,
-} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import Navbar from "../CommonComponents/Navbar";
 
 class Login extends Component {

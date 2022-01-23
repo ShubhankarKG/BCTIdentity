@@ -87,8 +87,8 @@ contract SimpleStorage {
     mapping(address => address[]) iminwall;
     address public j;
 
-    function createNewMultiSigUser(address a) public returns (bool) {
-        wallets[msg.sender].owners.inst = a;
+    function createNewMultiSigUser(address institute_address) public returns (bool) {
+        wallets[msg.sender].owners.inst = institute_address;
         wallets[msg.sender].owners.stud = msg.sender;
         listofwall[msg.sender] = true;
         iminwall[a].push(msg.sender);
@@ -97,23 +97,23 @@ contract SimpleStorage {
 
     constructor() public {}
 
-    function createNewMultiSigInst(address a) public {
-        wallets[msg.sender].owners.stud = a;
+    function createNewMultiSigInst(address student_address) public {
+        wallets[msg.sender].owners.stud = student_address;
         wallets[msg.sender].owners.inst = msg.sender;
         listofwall[msg.sender] = true;
         iminwall[msg.sender].push(a);
     }
 
-    function doesWalletExists(address a) public view returns (bool) {
-        if (listofwall[a] == true) return true;
+    function doesWalletExists(address addr) public view returns (bool) {
+        if (listofwall[addr] == true) return true;
         else return false;
     }
 
-    function createUploadRequestbyUser(bool ad, string memory hash) public {
+    function createUploadRequestbyUser(bool has_aadhaar, string memory hash) public {
         address inst = wallets[msg.sender].owners.inst;
         wallets[msg.sender].uploadreq[inst].approve.stud = true;
         wallets[msg.sender].uploadreq[inst].approve.inst = false;
-        wallets[msg.sender].uploadreq[inst].aadhar = ad;
+        wallets[msg.sender].uploadreq[inst].aadhar = has_aadhaar;
         wallets[msg.sender].uploadreq[inst].aadharhash = hash;
         wallets[msg.sender].listofuploadreq.push(msg.sender);
         wallets[msg.sender].uploadreq[inst].timestamp = now;
@@ -139,21 +139,6 @@ contract SimpleStorage {
         returns (address[] memory)
     {
         return wallets[ad].listofuploadreq;
-    }
-
-    function approveUploadbyUser(address ad) public {
-        wallets[msg.sender].uploadreq[ad].approve.stud = true;
-        if (
-            wallets[msg.sender].uploadreq[ad].approve.stud &&
-            wallets[msg.sender].uploadreq[ad].approve.inst
-        ) {
-            wallets[msg.sender].doc.aadhar = wallets[msg.sender]
-                .uploadreq[ad]
-                .aadharhash;
-            delete wallets[msg.sender].listofuploadreq[
-                wallets[msg.sender].listofuploadreq.length - 1
-            ];
-        }
     }
 
     function approveUploadbyInstitute(address ad, address student) public returns (bool) {
@@ -189,14 +174,6 @@ contract SimpleStorage {
         returns (address[] memory)
     {
         return iminwall[ad];
-    }
-
-    function getInstitutesUploadList(address ad)
-        public
-        view
-        returns (address[] memory)
-    {
-        return wallets[ad].listofuploadreq;
     }
 
     function changeOwnerInstfromInst(address stud, address Inst) public {
@@ -247,180 +224,6 @@ contract SimpleStorage {
         return (wallets[a].profile.name, wallets[a].profile.propic);
     }
 
-    function approveChangeOwnerINSTReqbyStud(address ad) public {
-        wallets[msg.sender].changeowneri[ad].stud = true;
-        if (
-            wallets[msg.sender].changeowneri[ad].stud &&
-            wallets[msg.sender].changeowneri[ad].inst
-        ) {
-            wallets[msg.sender].owners.inst = wallets[msg.sender]
-                .changeowneri[ad]
-                .neinst;
-        }
-    }
-
-    function approveChangeOwnerINSTReqbyInst(address ad, address io) public {
-        wallets[io].changeowneri[ad].inst = true;
-        if (
-            wallets[io].changeowneri[ad].stud &&
-            wallets[io].changeowneri[ad].inst
-        ) {
-            wallets[io].owners.inst = wallets[io].changeowneri[ad].neinst;
-        }
-    }
-
-    function createNewPartialOwnerRequest(
-        address a,
-        bool adhar,
-        uint8 d
-    ) public {
-        wallets[a].partialowner[msg.sender].aadhar = adhar;
-        wallets[a].partialowner[msg.sender].day = d;
-        wallets[a].listofpartialowner.push(msg.sender);
-    }
-
-    function getPartialOwnerShipList(address a)
-        public
-        view
-        returns (address[] memory)
-    {
-        return wallets[a].listofpartialowner;
-    }
-
-    // function approvePartialOwnerReqfromStudent (address reqq) public {
-
-    // wallets[msg.sender].partialowner[reqq].approve.stud=true;
-
-    // if( wallets[msg.sender].partialowner[reqq].approve.stud==true&& wallets[msg.sender].partialowner[reqq].approve.inst==true)
-    //     {
-    //         wallets[msg.sender].owners.partialowner[msg.sender].aadhar=wallets[msg.sender].partialowner[reqq].aadhar;
-
-    //         wallets[msg.sender].owners.partialowner[msg.sender].expiry=now+ wallets[msg.sender].owners.partialowner[msg.sender].day * 1 minutes;
-    //         wallets[msg.sender].owners.listofpartialowner.push(reqq);
-
-    //     }
-
-    // }
-
-    // function approvePartialOwnerReqfromInst (address stud ,address reqq) public {
-
-    //     wallets[stud].partialowner[reqq].approve.inst=true;
-
-    //       wallets[stud].partialowner[reqq].approve.stud=true;
-
-    //          if( wallets[stud].partialowner[reqq].approve.stud==true&& wallets[stud].partialowner[reqq].approve.inst==true)
-    //       {
-
-    //     wallets[stud].owners.partialowner[reqq].aadhar=wallets[stud].partialowner[reqq].aadhar;
-
-    //   uint yuyu= wallets[stud].owners.partialowner[reqq].day ;
-
-    //     wallets[stud].owners.partialowner[reqq].expiry=now+ yuyu *1 minutes;
-    //     wallets[stud].owners.listofpartialowner.push(reqq);
-
-    //           }
-
-    // }
-
-    // function getAadharfromPartialOwner(address  a) public view returns (string memory){
-
-    // address [] memory va=wallets[a].owners.listofpartialowner;
-    // bool flag =false;
-    // for(uint i=0;i<va.length;i++){
-    // if(msg.sender==va[i])
-    // {
-    //  flag=true;
-
-    // }
-
-    // }
-
-    // if(flag==true){
-
-    //     if(wallets[a].owners.partialowner[msg.sender].aadhar==true){
-
-    //         if(wallets[a].owners.partialowner[msg.sender].day<now)
-    //          {
-
-    //              return wallets[a].doc.aadhar;
-
-    //           }
-    //          else {
-    //              return "Date Expired";
-    //          }
-
-    //     }else {
-
-    //         return "error";
-    //     }
-
-    //     }else {
-    //         return  "a";
-    //     }
-
-    // }
-
-    function isIamPartialOwner(address a) public view returns (bool) {
-        address[] memory va = wallets[a].owners.listofpartialowner;
-        bool flag = false;
-        for (uint256 i = 0; i < va.length; i++) {
-            if (msg.sender == va[i]) {
-                flag = true;
-            }
-        }
-
-        return flag;
-    }
-
-    function getPartialOwnerSList(address a)
-        public
-        view
-        returns (address[] memory)
-    {
-        return wallets[a].owners.listofpartialowner;
-    }
-
-    function set() public {
-        wallets[msg.sender].doc.aadhar = "HHHHHHAAH";
-    }
-
-    function getPartialOwnerShipINFO(address stud, address paro)
-        public
-        view
-        returns (bool, uint256)
-    {
-        //it returns the expiry date and whether the It Has Request to aadhar or NOt
-        return (
-            wallets[stud].owners.partialowner[paro].aadhar,
-            wallets[stud].owners.partialowner[paro].expiry
-        );
-    }
-
-    function getUploadRequestTIMESTAMP(address stud, address reqq)
-        public
-        view
-        returns (uint256)
-    {
-        return wallets[stud].uploadreq[reqq].timestamp;
-    }
-
-    function getChangeOwnerRequestTIMESTAMP(address stud, address reqq)
-        public
-        view
-        returns (uint256)
-    {
-        return wallets[stud].changeowneri[reqq].timestamp;
-    }
-
-    function setAaadharNo(
-        address a,
-        uint8 qw,
-        string memory io
-    ) public {
-        wallets[a].doc.aadharno = qw;
-        wallets[a].doc.aadharnoHash = io;
-    }
-
     function createNEwAccess(address stud, address ad) public {
         wallets[stud].owners.listofpartialowner.push(ad);
 
@@ -429,19 +232,11 @@ contract SimpleStorage {
         wallets[ad].PastOwners.push(ad);
     }
 
-    function getIhaveaAccess(address a) public view returns (address[] memory) {
-        return wallets[a].ihaveaccess;
-    }
-
     function getUploadReqPic(address stud, address inst)
         public
         view
         returns (string memory)
     {
         return wallets[stud].uploadreq[inst].aadharhash;
-    }
-
-    function getPastOwner(address a) public view returns (address[] memory) {
-        return wallets[a].PastOwners;
     }
 }

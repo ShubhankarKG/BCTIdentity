@@ -1,19 +1,15 @@
+import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  AppBar, Avatar,
+  Box, Grid, Toolbar, Typography
+} from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  Grid,
-  Typography,
-  Avatar,
-  Box,
-  AppBar,
-  Toolbar
-} from "@material-ui/core";
-import {
-  Link,
+  Link
 } from "react-router-dom";
 import ApproveUpload from "./ApproveUpload";
 import LinkedAccount from "./LinkedAccounts";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 
 const InstituteDashBoard = ({ accounts, contract }) => {
   const [name, setName] = useState("");
@@ -41,44 +37,44 @@ const InstituteDashBoard = ({ accounts, contract }) => {
   return (
     <Grid container>
       <Grid item md={12}>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" style={{backgroundColor:'#242424'}}>
-          <Toolbar>
-          <FontAwesomeIcon icon={faUserCheck} />
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position="static" style={{ backgroundColor: '#242424' }}>
+            <Toolbar>
+              <FontAwesomeIcon icon={faUserCheck} />
 
-            <Link to="/" style={{textDecoration: "none", color: "white"}}>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              &nbsp;&nbsp;BCTIdentity
-              </Typography>
-            </Link>
-            <div style={{paddingLeft: "60px"}} />
-            <div style={{display: "flex", justifyContent: "space-between", width: "100%", paddingTop: "5px"}}>
-              <div style={{display: "flex"}}>
-                <Typography style={{cursor: "pointer"}} variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={() => setCounter(0)}>
-              &nbsp;&nbsp;Students
-              </Typography>
-              <div style={{paddingLeft: "60px"}} />
-              <Typography variant="h6" style={{cursor: "pointer"}} component="div" sx={{ flexGrow: 1 }} onClick={() => setCounter(1)}>
-              &nbsp;&nbsp;Approvals
-              </Typography>
-              </div>
-              <Link to="/MyProfileInst" style={{ textDecoration: "none", color: "white" }}>
-              <Avatar
-                style={{
-                  width: 40,
-                  height: 40,
-                  marginLeft: "33.33%"
-                }}
-                src={`https://gateway.ipfs.io/ipfs/${profilepic}`}
-              />
+              <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  &nbsp;&nbsp;BCTIdentity
+                </Typography>
               </Link>
-            </div>
-            
-          </Toolbar>
-        </AppBar>
-      </Box>
+              <div style={{ paddingLeft: "60px" }} />
+              <div style={{ display: "flex", justifyContent: "space-between", width: "100%", paddingTop: "5px" }}>
+                <div style={{ display: "flex" }}>
+                  <Typography style={{ cursor: "pointer" }} variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={() => setCounter(0)}>
+                    &nbsp;&nbsp;Students
+                  </Typography>
+                  <div style={{ paddingLeft: "60px" }} />
+                  <Typography variant="h6" style={{ cursor: "pointer" }} component="div" sx={{ flexGrow: 1 }} onClick={() => setCounter(1)}>
+                    &nbsp;&nbsp;Approvals
+                  </Typography>
+                </div>
+                <Link to="/MyProfileInst" style={{ textDecoration: "none", color: "white" }}>
+                  <Avatar
+                    style={{
+                      width: 40,
+                      height: 40,
+                      marginLeft: "33.33%"
+                    }}
+                    src={`https://gateway.ipfs.io/ipfs/${profilepic}`}
+                  />
+                </Link>
+              </div>
+
+            </Toolbar>
+          </AppBar>
+        </Box>
       </Grid>
-      <div style={{display: "flex", justifyContent: "center", width: "100%"}}>
+      <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
         <Typography
           variant="h4"
           style={{ color: "#242424", textAlign: "center" }}
@@ -86,11 +82,11 @@ const InstituteDashBoard = ({ accounts, contract }) => {
           Institute Profile
         </Typography>
       </div>
-        {counter === 0 ? (
-          <LinkedAccount accounts={accounts} contract={contract} />
-        ) : (
-          <ApproveUpload accounts={accounts} contract={contract} />
-        )}
+      {counter === 0 ? (
+        <LinkedAccount accounts={accounts} contract={contract} />
+      ) : (
+        <ApproveUpload accounts={accounts} contract={contract} />
+      )}
       <Grid
         item
         md={3}

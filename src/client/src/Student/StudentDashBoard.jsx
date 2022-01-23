@@ -1,18 +1,14 @@
+import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  AppBar, Avatar,
+  Box, Grid, Toolbar, Typography
+} from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  Grid,
-  Typography,
-  Avatar,
-  Box,
-  AppBar,
-  Toolbar,
-} from "@material-ui/core";
-import {
-  Link,
+  Link
 } from "react-router-dom";
 import MyDocuments from "./MyDocuments";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 
 const StudentDashBoard = ({ accounts, contract }) => {
   const [profilepic, setProfilepic] = useState("");

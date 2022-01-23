@@ -1,18 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import ArrowBackSharp from "@material-ui/icons/ArrowBackSharp";
-import SettingsPower from "@material-ui/icons/SettingsPower";
-import { Redirect } from "react-router-dom";
 import {
-  Card,
-  Grid,
-  Avatar,
+  AppBar, Avatar, Card,
+  Grid, IconButton, Toolbar, Typography
 } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { ArrowBackSharp, SettingsPower } from "@material-ui/icons";
+import PropTypes from "prop-types";
+import React, { useEffect, useRef, useState } from "react";
+import { Redirect } from "react-router-dom";
 
 const styles = {
   root: {
@@ -27,7 +21,7 @@ const styles = {
   }
 };
 
-const MyInstitute = ({classes, accounts, contract}) => {
+const MyInstitute = ({ classes, accounts, contract }) => {
   const [ret, setRet] = useState(false);
   const [institute, setInstitute] = useState({
     name: "",
@@ -48,7 +42,7 @@ const MyInstitute = ({classes, accounts, contract}) => {
       })
       setLoading(false);
     }
-  } 
+  }
 
   useEffect(() => {
     getDetails();
@@ -61,7 +55,7 @@ const MyInstitute = ({classes, accounts, contract}) => {
   return (
     <div>
       <AppBar position="static">
-        <Toolbar style={{backgroundColor:"#242424"}}>
+        <Toolbar style={{ backgroundColor: "#242424" }}>
           <IconButton
             className={classes.menuButton}
             color="inherit"
@@ -70,7 +64,7 @@ const MyInstitute = ({classes, accounts, contract}) => {
           >
             <ArrowBackSharp />
           </IconButton>
-          <Typography variant="h6"  className={classes.grow}>
+          <Typography variant="h6" className={classes.grow}>
             My Profile
           </Typography>
 

@@ -1,13 +1,9 @@
+import { Button, Checkbox, Container, Divider, Grid, Paper, TextField, Typography } from "@material-ui/core";
 import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import SimpleStorageContract from "../contracts/SimpleStorage.json";
-import getWeb3 from "../utils/getWeb3";
 import { Redirect } from "react-router-dom";
 import Navbar from "../CommonComponents/Navbar";
-import { Container, Divider, Paper, Typography } from "@material-ui/core";
+import SimpleStorageContract from "../contracts/SimpleStorage.json";
+import getWeb3 from "../utils/getWeb3";
 
 class MultiSigCreationStud extends Component {
   state = {
@@ -78,7 +74,7 @@ class MultiSigCreationStud extends Component {
     }
   };
 
-  runExample = async () => {};
+  runExample = async () => { };
 
   render() {
     return (
@@ -150,7 +146,7 @@ class MultiSigCreationStud extends Component {
                 <Button
                   variant="outlined"
                   color="primary"
-                  style={{ position: "unset"}}
+                  style={{ position: "unset" }}
                   onClick={this.created.bind(this)}
                 >
                   Go!

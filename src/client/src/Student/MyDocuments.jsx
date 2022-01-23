@@ -1,16 +1,13 @@
-import React, { Component } from "react";
-import { Grid, Typography, Avatar, Card, Button, Accordion, AccordionSummary, AccordionDetails } from "@material-ui/core";
-import FolderIcon from "@material-ui/icons/Folder";
-import AssignmentIcon from "@material-ui/icons/Assignment";
+import {
+  Accordion, AccordionDetails, AccordionSummary, Avatar,
+  Button, Card,
+  Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+  Grid, TextField, Typography
+} from "@material-ui/core";
 import green from "@material-ui/core/colors/green";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { AssignmentIcon, ExpandMoreIcon, FolderIcon } from "@material-ui/icons";
+import React, { Component } from "react";
 import ipfs from "../ipfs";
-import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 
 class MyDocuments extends Component {
   constructor(props) {

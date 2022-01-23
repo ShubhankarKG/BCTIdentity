@@ -1,9 +1,7 @@
+import { Button, Container, Grid, Paper, styled, TextField, Typography } from "@material-ui/core";
 import React, { useCallback, useState } from "react";
-import { Grid, Button, Container, Paper, styled } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import ipfs from "../ipfs";
 import { Redirect } from "react-router-dom";
+import ipfs from "../ipfs";
 
 const UpdateProfile = ({ accounts, contract, student }) => {
   const [name, setName] = useState("");

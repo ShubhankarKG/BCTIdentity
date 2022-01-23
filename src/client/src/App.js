@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from "react";
-import SimpleStorageContract from "./contracts/SimpleStorage.json";
-
-// import DabContract from "./contracts/Dab.json";
-import getWeb3 from "./utils/getWeb3";
-
 import {
   BrowserRouter,
   Route,
-  Switch,
+  Switch
 } from "react-router-dom";
-import MyProfile from "./Student/MyProfile.jsx";
-import MyInstitute from "./Institute/MyInstitute.jsx";
-import MultiSigCreationInst from "./Institute/MultiSigCreationInst.jsx";
-import MultiSigCreationStud from "./Student/MultiSigCreationStud";
-import StudentDashBoard from "./Student/StudentDashBoard.jsx";
-import InstituteDashBoard from "./Institute/InsituteDashBoard.jsx";
-import Login from "./Login/Login.jsx";
-import UpdateProfile from "./Student/UpdateProfile.jsx";
 import NotFound from "./404/NotFound";
+import SimpleStorageContract from "./contracts/SimpleStorage.json";
 import Home from "./Home/Home";
+import InstituteDashBoard from "./Institute/InsituteDashBoard.jsx";
 import InstituteLogin from "./Institute/InstituteLogin";
+import MultiSigCreationInst from "./Institute/MultiSigCreationInst.jsx";
+import MyInstitute from "./Institute/MyInstitute.jsx";
+import Login from "./Login/Login.jsx";
+import MultiSigCreationStud from "./Student/MultiSigCreationStud";
+import MyProfile from "./Student/MyProfile.jsx";
+import StudentDashBoard from "./Student/StudentDashBoard.jsx";
+import UpdateProfile from "./Student/UpdateProfile.jsx";
+import getWeb3 from "./utils/getWeb3";
+
+
 
 const App = () => {
   const [web3, setWeb3] = useState(null);

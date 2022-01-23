@@ -6,18 +6,22 @@ import { Redirect } from "react-router-dom";
 import Navbar from "../CommonComponents/Navbar";
 
 class Login extends Component {
-  state = { stud: false, inst: false, we: false, s: false, i: false };
+  state = {
+    redirectToSignupForm: false,
+    doesWalletExist: false,
+    redirectToDashboard: false
+  };
+
   exist = async () => {
     const { accounts, contract } = this.props;
     const response = await contract.methods
       .doesWalletExists(accounts[0])
       .call();
-    console.log(response);
     if (response === true) {
-      this.setState({ we: true });
+      this.setState({ doesWalletExist: true });
     }
-    console.log(this.state.we);
   };
+
   componentDidMount = async () => {
     await this.exist();
   };
@@ -56,20 +60,20 @@ class Login extends Component {
                       style={{ margin: "25px", color: "white" }}
                       variant="contained"
                       color="secondary"
-                      disabled={!this.state.we}
+                      disabled={!this.state.doesWalletExist}
                       onClick={() => {
-                        this.setState({ s: true });
+                        this.setState({ redirectToDashboard: true });
                       }}
                     >
                       Login
                     </Button>
                     <Button
                       style={{ margin: "25px", color: "white" }}
-                      disabled={this.state.we}
+                      disabled={this.state.doesWalletExist}
                       variant="contained"
                       color="secondary"
                       onClick={() => {
-                        this.setState({ stud: true });
+                        this.setState({ redirectToSignupForm: true });
                       }}
                     >
                       Sign Up
@@ -79,10 +83,8 @@ class Login extends Component {
               </div>
             </Grid>
           </Grid>
-          {this.state.stud ? <Redirect to="/createstud" /> : null}
-          {this.state.inst ? <Redirect to="/createinst" /> : null}
-          {this.state.s ? <Redirect to="/StudentDashBoard" /> : null}
-          {this.state.i ? <Redirect to="/InstituteDashBoard" /> : null}
+          {this.state.redirectToSignupForm ? <Redirect to="/createstud" /> : null}
+          {this.state.redirectToDashboard ? <Redirect to="/StudentDashBoard" /> : null}
         </Container>
       </div>
     );

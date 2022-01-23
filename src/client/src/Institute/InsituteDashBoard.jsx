@@ -12,7 +12,6 @@ import ApproveUpload from "./ApproveUpload";
 import LinkedAccount from "./LinkedAccounts";
 
 const InstituteDashBoard = ({ accounts, contract }) => {
-  const [name, setName] = useState("");
   const [profilepic, setProfilepic] = useState("");
   const [counter, setCounter] = useState(0);
   const mounted = useRef(true);
@@ -23,7 +22,6 @@ const InstituteDashBoard = ({ accounts, contract }) => {
         const response1 = await contract.methods.getProfile(accounts[0]).call();
 
         if (mounted.current) {
-          setName(response1[0]);
           setProfilepic(response1[1]);
         }
       }

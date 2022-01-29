@@ -15,14 +15,13 @@ const UpdateProfile = ({ accounts, contract, student }) => {
       .updateProf(name, profilepic, accounts[0], phoneno, email)
       .send({ from: accounts[0] });
 
-    const response = await contract.methods.getProfile(accounts[0]).call();
     if (student) {
       localStorage.setItem(accounts[0], "student");
     } else {
       localStorage.setItem(accounts[0], "institute");
     }
     setOpen(false);
-  }, [name, profilepic, accounts, phoneno, email, contract]);
+  }, [name, profilepic, accounts, phoneno, email, contract, student]);
 
   const addToIpfs = useCallback(async (a) => {
     await ipfs.add(a, (err, ipfsHash) => {

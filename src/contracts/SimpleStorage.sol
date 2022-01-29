@@ -91,7 +91,7 @@ contract SimpleStorage {
         wallets[msg.sender].owners.inst = institute_address;
         wallets[msg.sender].owners.stud = msg.sender;
         listofwall[msg.sender] = true;
-        iminwall[a].push(msg.sender);
+        iminwall[institute_address].push(msg.sender);
         return true;
     }
 
@@ -101,7 +101,7 @@ contract SimpleStorage {
         wallets[msg.sender].owners.stud = student_address;
         wallets[msg.sender].owners.inst = msg.sender;
         listofwall[msg.sender] = true;
-        iminwall[msg.sender].push(a);
+        iminwall[msg.sender].push(student_address);
     }
 
     function doesWalletExists(address addr) public view returns (bool) {

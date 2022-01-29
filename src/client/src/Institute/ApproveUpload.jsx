@@ -6,11 +6,12 @@ const ApproveUpload = ({ accounts, contract }) => {
   const [approvalRequests, setApprovalRequests] = useState([]);
   const [counter, setCounter] = useState(0);
 
-  const getApprovalRequests = async () => {
-    if (contract && accounts) {
+  useEffect(() => {
+    const getApprovalRequests = async () => {
+      if (contract && accounts) {
         let studentWalletsLinkedWithInst = await contract.methods
-        .getInstitutesWallet(accounts[0])
-        .call();
+          .getInstitutesWallet(accounts[0])
+          .call();
 
         studentWalletsLinkedWithInst = [...new Set(studentWalletsLinkedWithInst)];
 
@@ -33,9 +34,8 @@ const ApproveUpload = ({ accounts, contract }) => {
 
         if (mounted.current) setApprovalRequests(list);
       }
-  }
+    }
 
-  useEffect(() => {
     getApprovalRequests();
     return () => { mounted.current = false }
   }, [contract, accounts, counter]);
@@ -52,32 +52,32 @@ const ApproveUpload = ({ accounts, contract }) => {
   const approve = useCallback(async (add) => {
     try {
       await contract.methods
-      .approveUploadbyInstitute(accounts[0], add)
-      .send({ from: accounts[0] });
+        .approveUploadbyInstitute(accounts[0], add)
+        .send({ from: accounts[0] });
       setCounter(counter + 1);
     } catch (error) {
       console.error(error);
     }
-    
+
   }, [contract, accounts, counter]);
 
   return (
-    
+
     <div style={{
       margin: "40px auto"
     }}>
       <Typography variant="h4" style={{ padding: "20px", color: "#3F51B5" }}>
-          Approvals
-          <br />
-        </Typography>
+        Approvals
+        <br />
+      </Typography>
       {
         approvalRequests.length > 0 ? approvalRequests.map((request, id) => {
           return (
             <div key={request.studentWallet + " " + id.toString()}>
               <Grid container>
                 <Grid item
-                    md={8}
-                    style={{ width: "400px", paddingTop: "20px" }}>
+                  md={8}
+                  style={{ width: "400px", paddingTop: "20px" }}>
                   <Card style={{ padding: "15px", width: "700px" }}>
                     <Typography variant="h4" color="primary">
                       File Approval
@@ -106,7 +106,7 @@ const ApproveUpload = ({ accounts, contract }) => {
                       >
                         View
                       </Button>
-  
+
                       <Grid item md={1} />
                       <Button
                         variant="contained"
@@ -121,12 +121,12 @@ const ApproveUpload = ({ accounts, contract }) => {
               </Grid>
             </div>
           );
-        }) : 
-        <Container maxWidth="sm" style={{margin: "0 250px"}}>
-          <Typography variant="h4" color="primary">
-            No Approval Requests
-          </Typography>
-        </Container>
+        }) :
+          <Container maxWidth="sm" style={{ margin: "0 250px" }}>
+            <Typography variant="h4" color="primary">
+              No Approval Requests
+            </Typography>
+          </Container>
       }
     </div>
   );

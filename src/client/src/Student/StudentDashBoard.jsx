@@ -12,25 +12,17 @@ import MyDocuments from "./MyDocuments";
 
 const StudentDashBoard = ({ accounts, contract }) => {
   const [profilepic, setProfilepic] = useState("");
-  const [name, setName] = useState("");
-  const [owner1, setOwner1] = useState("");
-  const [owner2, setOwner2] = useState("");
-  const [counter, setCounter] = useState(0);
   const mounted = useRef(true);
 
-  const fetchProfile = async () => {
-    const response = await contract.methods.getOwners(accounts[0]).call();
-    const response1 = await contract.methods.getProfile(accounts[0]).call();
-
-    if (mounted.current) {
-      setOwner1(response[0]);
-      setOwner2(response[1]);
-      setName(response1[0]);
-      setProfilepic(response1[1]);
-    }
-  }
-
   useEffect(() => {
+    const fetchProfile = async () => {
+      const response1 = await contract.methods.getProfile(accounts[0]).call();
+
+      if (mounted.current) {
+        setProfilepic(response1[1]);
+      }
+    }
+
     fetchProfile();
 
     return () => {

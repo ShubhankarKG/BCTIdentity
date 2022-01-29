@@ -31,28 +31,28 @@ const LinkedAccount = ({ accounts, contract }) => {
   const [loading, setLoading] = useState(true);
   const mounted = useRef(true);
 
-  const verify = async () => {
-    const allLinkedAccounts = await contract.methods.getInstitutesWallet(accounts[0]).call();
-    const result = [];
-
-    await Promise.all([...new Set(allLinkedAccounts)].map(async studentAccount => {
-      const assa = await contract.methods.getChangeOwnerList(studentAccount).call();
-      const getDet = await contract.methods.getProfile(studentAccount).call();
-      result.push({ a: studentAccount, b: assa[0], name: getDet[0], pic: getDet[1] });
-    }));
-
-    if (mounted.current) {
-      setLinkedAccounts(result)
-      setLoading(false);
-    };
-  };
-
   useEffect(() => {
+    const verify = async () => {
+      const allLinkedAccounts = await contract.methods.getInstitutesWallet(accounts[0]).call();
+      const result = [];
+
+      await Promise.all([...new Set(allLinkedAccounts)].map(async studentAccount => {
+        const assa = await contract.methods.getChangeOwnerList(studentAccount).call();
+        const getDet = await contract.methods.getProfile(studentAccount).call();
+        result.push({ a: studentAccount, b: assa[0], name: getDet[0], pic: getDet[1] });
+      }));
+
+      if (mounted.current) {
+        setLinkedAccounts(result)
+        setLoading(false);
+      };
+    };
+
     verify();
     return () => {
       mounted.current = false;
     };
-  }, []);
+  }, [accounts, contract]);
 
   const getDoc = async (address) => {
     var ipfsHash = await contract.methods.getAadhar(address).call();

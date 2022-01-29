@@ -1,6 +1,8 @@
 @font-face {
   font-family: "Recharge Bold";
-  src: url("https://res.cloudinary.com/coc-vjti/raw/upload/v1613468201/recharge.bold_ck77rq.ttf") format("truetype"), local("Recharge Bold");
+  src: url("https://res.cloudinary.com/coc-vjti/raw/upload/v1613468201/recharge.bold_ck77rq.ttf")
+      format("truetype"),
+    local("Recharge Bold");
   font-display: swap;
 }
 section.homeBanner {
@@ -26,7 +28,8 @@ section.homeBanner .parallax {
   }
 }
 section.homeBanner .banner-center {
-  font-family: "Recharge Bold", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: "Recharge Bold", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: bold;
   color: white;
   font-size: 6vh;
@@ -37,7 +40,8 @@ section.homeBanner .banner-center {
 }
 section.homeBanner .banner-text {
   margin-top: 4vh;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: regular;
   font-size: 4vh;
   color: white;
@@ -78,7 +82,8 @@ section.eventBanner .parallax {
   }
 }
 section.eventBanner .banner-center {
-  font-family: "Recharge Bold", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: "Recharge Bold", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: bold;
   color: white;
   font-size: 6vh;
@@ -89,7 +94,8 @@ section.eventBanner .banner-center {
 }
 section.eventBanner .banner-text {
   margin-top: 4vh;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: regular;
   font-size: 4vh;
   color: white;
@@ -130,7 +136,8 @@ section.alumniBanner .parallax {
   }
 }
 section.alumniBanner .banner-center {
-  font-family: "Recharge Bold", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: "Recharge Bold", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: bold;
   color: white;
   font-size: 6vh;
@@ -141,7 +148,8 @@ section.alumniBanner .banner-center {
 }
 section.alumniBanner .banner-text {
   margin-top: 4vh;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: regular;
   font-size: 4vh;
   color: white;
@@ -182,7 +190,8 @@ section.aboutUsBanner .parallax {
   }
 }
 section.aboutUsBanner .banner-center {
-  font-family: "Recharge Bold", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: "Recharge Bold", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: bold;
   color: white;
   font-size: 6vh;
@@ -193,7 +202,8 @@ section.aboutUsBanner .banner-center {
 }
 section.aboutUsBanner .banner-text {
   margin-top: 4vh;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: regular;
   font-size: 4vh;
   color: white;
@@ -234,7 +244,8 @@ section.projectsBanner .parallax {
   }
 }
 section.projectsBanner .banner-center {
-  font-family: "Recharge Bold", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: "Recharge Bold", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: bold;
   color: white;
   font-size: 6vh;
@@ -245,7 +256,8 @@ section.projectsBanner .banner-center {
 }
 section.projectsBanner .banner-text {
   margin-top: 4vh;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: regular;
   font-size: 4vh;
   color: white;
@@ -286,7 +298,8 @@ section.magazinesBanner .parallax {
   }
 }
 section.magazinesBanner .banner-center {
-  font-family: "Recharge Bold", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: "Recharge Bold", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: bold;
   color: white;
   font-size: 6vh;
@@ -297,7 +310,8 @@ section.magazinesBanner .banner-center {
 }
 section.magazinesBanner .banner-text {
   margin-top: 4vh;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: regular;
   font-size: 4vh;
   color: white;
@@ -314,5 +328,3 @@ section.magazinesBanner .banner-text {
     font-size: 2.5vh;
   }
 }
-
-/*# sourceMappingURL=Banner.css.map */

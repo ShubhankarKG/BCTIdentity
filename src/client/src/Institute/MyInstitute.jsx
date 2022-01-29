@@ -31,20 +31,20 @@ const MyInstitute = ({ classes, accounts, contract }) => {
   const [loading, setLoading] = useState(true);
   const mounted = useRef(true);
 
-  const getDetails = async () => {
-    const getDet = await contract.methods.getProfile(accounts[0]).call();
-
-    if (mounted.current) {
-      setInstitute({
-        name: getDet[0],
-        pic: getDet[1],
-        address: accounts[0],
-      })
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
+    const getDetails = async () => {
+      const getDet = await contract.methods.getProfile(accounts[0]).call();
+
+      if (mounted.current) {
+        setInstitute({
+          name: getDet[0],
+          pic: getDet[1],
+          address: accounts[0],
+        })
+        setLoading(false);
+      }
+    }
+
     getDetails();
 
     return () => {

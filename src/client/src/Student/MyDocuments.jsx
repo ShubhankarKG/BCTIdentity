@@ -5,7 +5,7 @@ import {
   Grid, TextField, Typography
 } from "@material-ui/core";
 import green from "@material-ui/core/colors/green";
-import { AssignmentIcon, ExpandMoreIcon, FolderIcon } from "@material-ui/icons";
+import { Assignment, ExpandMore, Folder } from "@material-ui/icons";
 import React, { Component } from "react";
 import ipfs from "../ipfs";
 
@@ -92,20 +92,9 @@ class MyDocuments extends Component {
     const { accounts, contract } = this.props;
 
     var r = await contract.methods.getAadhar(accounts[0]).call();
-    console.log(r);
     if (r.length > 0) {
       this.setState({ hasAadhar: true });
     }
-    var t = await contract.methods
-      .getUploadReqList(this.props.accounts[0])
-      .call();
-    console.log(t);
-    // const response1 = await contract.methods.getProfile(t[t.length - 1]).call();
-    // console.log(t[t.length - 1]);
-    // this.setState({ lastuploaderadd: t[t.length - 1] });
-    // this.setState({ lastuploadername: response1[0] });
-    // this.setState({ lastuploaderpic: response1[1] });
-    // this.componentWillUpdateis.setState({});
   };
 
   render() {
@@ -126,7 +115,7 @@ class MyDocuments extends Component {
                   <Avatar
                     style={{ margin: "15px", backgroundColor: "#2f2f2f" }}
                   >
-                    <FolderIcon />
+                    <Folder />
                   </Avatar>
                 </Grid>
                 <Grid item md={10}>
@@ -147,14 +136,14 @@ class MyDocuments extends Component {
                 {/* array map ExpPanel.jsx */}
                 {this.state.hasAadhar ? (
                   <Accordion style={{ width: "800px" }}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <AccordionSummary expandIcon={<ExpandMore />}>
                       <Avatar
                         style={{
                           color: "#fff",
                           backgroundColor: green[500]
                         }}
                       >
-                        <AssignmentIcon />
+                        <Assignment />
                       </Avatar>
                       <Typography style={{ margin: "10px" }}>
                         B.Tech Degree
@@ -176,10 +165,6 @@ class MyDocuments extends Component {
                             style={{ color: "green", marginLeft: "0px" }}
                             onClick={this.getDoc.bind(this)}
                           >
-                            {/* <FullScreenDialog
-                            accounts={this.props.accounts}
-                            contract={this.props.contract}
-                          /> */}
                             View
                           </Button>
                         </Grid>

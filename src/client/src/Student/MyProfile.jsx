@@ -1,6 +1,6 @@
 import { AppBar, Avatar, Button, Card, Grid, IconButton, List, Toolbar, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import { ArrowBackSharp, Lock, MailIcon } from "@material-ui/icons";
+import { ArrowBackSharp, Lock, Mail } from "@material-ui/icons";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import { Redirect } from "react-router-dom";
@@ -27,19 +27,6 @@ const MyProfile = ({ classes, accounts, contract }) => {
 
   const mounted = useRef(true);
 
-  const fetchProfile = async () => {
-    const response = await contract.methods.getOwners(accounts[0]).call();
-    const response1 = await contract.methods.getProfile(accounts[0]).call();
-    const response2 = await contract.methods.getProfile(response[1]).call();
-
-    if (mounted.current) {
-      setOwner2(response[1]);
-      setName(response1[0]);
-      setProfilepic(response1[1]);
-      setInstname(response2[0]);
-    }
-  }
-
   const getDoc = async () => {
     const response = await contract.methods.getAadhar(accounts[0]).call();
     if (response.length > 0) {
@@ -50,6 +37,20 @@ const MyProfile = ({ classes, accounts, contract }) => {
   };
 
   useEffect(() => {
+
+    const fetchProfile = async () => {
+      const response = await contract.methods.getOwners(accounts[0]).call();
+      const response1 = await contract.methods.getProfile(accounts[0]).call();
+      const response2 = await contract.methods.getProfile(response[1]).call();
+
+      if (mounted.current) {
+        setOwner2(response[1]);
+        setName(response1[0]);
+        setProfilepic(response1[1]);
+        setInstname(response2[0]);
+      }
+    }
+
     fetchProfile();
 
     return () => {
@@ -112,7 +113,7 @@ const MyProfile = ({ classes, accounts, contract }) => {
                 <Avatar
                   style={{ backgroundColor: "#242424", padding: "10px" }}
                 >
-                  <MailIcon />
+                  <Mail />
                 </Avatar>
               </Grid>
               <Grid item md={2}>

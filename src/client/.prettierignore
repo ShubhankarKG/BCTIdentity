@@ -1,7 +1,0 @@
-build
-public
-coverage
-src/contracts
-node_modules
-.gitignore
-.prettierignore

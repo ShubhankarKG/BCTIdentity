@@ -1,9 +1,8 @@
-import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   AppBar, Avatar,
   Box, Grid, Toolbar, Typography
 } from "@material-ui/core";
+import AccountsBox from '@material-ui/icons/AccountBox';
 import React, { useEffect, useRef, useState } from "react";
 import {
   Link
@@ -38,7 +37,7 @@ const StudentDashBoard = ({ accounts, contract }) => {
             <Toolbar>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
                 <div style={{ display: "flex" }}>
-                  <FontAwesomeIcon icon={faUserCheck} style={{ margin: "auto 0" }} />
+                  <AccountsBox />
                   <Link to="/" style={{ textDecoration: "none", color: "white" }}>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                       &nbsp;&nbsp;BCTIdentity
